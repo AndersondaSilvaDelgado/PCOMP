@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.usinasantafe.pcomp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".TipoFuncaoActivity"></activity>
+        <activity android:name=".SenhaActivity" />
+        <activity android:name=".ProdutoActivity" />
+        <activity android:name=".OSActivity" />
+        <activity android:name=".MotoristaActivity" />
+        <activity android:name=".MotivoParadaActivity" />
+        <activity android:name=".MenuAtividadeActivity" />
+        <activity android:name=".ListaTurnoActivity" />
+        <activity android:name=".LeiraActivity" />
+        <activity android:name=".ConfiguracaoActivity" />
+        <activity android:name=".PrincipalActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
