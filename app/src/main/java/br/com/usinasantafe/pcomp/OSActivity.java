@@ -1,22 +1,25 @@
 package br.com.usinasantafe.pcomp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.to.tb.estaticas.OSTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaCompTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaProdTO;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.pcomp.util.ConexaoWeb;
+import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
 public class OSActivity extends ActivityGeneric {
 
     private PCOMPContext pcompContext;
+    private ProgressDialog progressBar;
+    private Handler customHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,51 +35,102 @@ public class OSActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if (!editTextPadrao.getText().toString().equals("")) {
+                if(!editTextPadrao.getText().toString().equals("")){
 
-                    OSTO osTO = new OSTO();
-                    List listOS = osTO.get("nroOS", Long.parseLong(editTextPadrao.getText().toString()));
+                    try{
 
-                    if (listOS.size() > 0) {
+                        Long nroOS = Long.parseLong(editTextPadrao.getText().toString());
 
-                        osTO = (OSTO) listOS.get(0);
+                        pcompContext.getConfigCTR().setOsConfig(nroOS);
 
-                        if (pcompContext.getTipoFuncao() == 1) {
-                            pcompContext.setVerOS(false);
-                        } else if (pcompContext.getTipoFuncao() == 2) {
-                            pcompContext.setVerOS(true);
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        OSBean osBean = new OSBean();
+
+                        if (osBean.hasElements()) {
+
+                            List osList = osBean.get("nroOS", nroOS);
+
+                            if (osList.size() > 0) {
+
+                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
+                                    pcompContext.getConfigCTR().setStatusConConfig(1L);
+                                }
+                                else{
+                                    pcompContext.getConfigCTR().setStatusConConfig(0L);
+                                }
+
+                                VerifDadosServ.getInstance().setVerTerm(true);
+
+                                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                                startActivity(it);
+                                finish();
+
+                            } else {
+
+                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
+
+                                    progressBar = new ProgressDialog(v.getContext());
+                                    progressBar.setCancelable(true);
+                                    progressBar.setMessage("PESQUISANDO OS...");
+                                    progressBar.show();
+
+                                    customHandler.postDelayed(updateTimerThread, 10000);
+
+                                    pcompContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
+                                            , OSActivity.this, ListaAtividadeActivity.class, progressBar);
+
+
+                                } else {
+
+                                    pcompContext.getConfigCTR().setStatusConConfig(0L);
+
+                                    Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                                    startActivity(it);
+                                    finish();
+
+                                }
+
+                            }
+
+                        } else {
+
+                            if (conexaoWeb.verificaConexao(OSActivity.this)) {
+
+                                progressBar = new ProgressDialog(v.getContext());
+                                progressBar.setCancelable(true);
+                                progressBar.setMessage("PESQUISANDO OS...");
+                                progressBar.show();
+
+                                customHandler.postDelayed(updateTimerThread, 10000);
+
+                                pcompContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
+                                        , OSActivity.this, ListaAtividadeActivity.class, progressBar);
+
+                            } else {
+
+                                pcompContext.getConfigCTR().setStatusConConfig(0L);
+
+                                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                                startActivity(it);
+                                finish();
+
+                            }
+
                         }
 
-                        ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-                        List listConfig = configuracaoTO.all();
-                        configuracaoTO = (ConfiguracaoTO) listConfig.get(0);
-                        configuracaoTO.setStatusApontConfig(1L);
-                        configuracaoTO.setOsConfig(osTO.getIdOS());
-                        configuracaoTO.update();
+                    }
+                    catch (NumberFormatException e){
 
-                        PesqBalancaCompTO pesqBalancaCompTO = new PesqBalancaCompTO();
-                        pesqBalancaCompTO.deleteAll();
-
-                        PesqBalancaProdTO pesqBalancaProdTO = new PesqBalancaProdTO();
-                        pesqBalancaProdTO.deleteAll();
-
-                        Intent it = new Intent(OSActivity.this, MenuAtividadeActivity.class);
-                        startActivity(it);
-                        finish();
-
-                    } else {
-
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder( OSActivity.this);
                         alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("O.S. INEXISTENTE NA BASE DE DADOS.");
-
+                        alerta.setMessage("VALOR DE OS INCORRETO! FAVOR VERIFICAR.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO Auto-generated method stub
-                                editTextPadrao.setText("");
+
                             }
                         });
+
                         alerta.show();
 
                     }
@@ -90,12 +144,8 @@ public class OSActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if (editTextPadrao.getText().toString().length() > 0) {
+                if(editTextPadrao.getText().toString().length() > 0){
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
-                } else {
-                    Intent it = new Intent(OSActivity.this, MenuAtividadeActivity.class);
-                    startActivity(it);
-                    finish();
                 }
             }
         });
@@ -103,6 +153,31 @@ public class OSActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
+        Intent it = new Intent(OSActivity.this, ListaTurnoActivity.class);
+        startActivity(it);
+        finish();
     }
+
+    private Runnable updateTimerThread = new Runnable() {
+
+        public void run() {
+
+            if(!VerifDadosServ.getInstance().isVerTerm()) {
+
+                VerifDadosServ.getInstance().cancelVer();
+
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+
+                pcompContext.getConfigCTR().setStatusConConfig(0L);
+                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                startActivity(it);
+                finish();
+
+            }
+
+        }
+    };
 
 }

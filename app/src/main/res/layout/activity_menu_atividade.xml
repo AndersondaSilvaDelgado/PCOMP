@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="3dp"
     android:orientation="vertical"
-    tools:context="br.com.usinasantafe.pcomp.MenuAtividadeActivity">
+    tools:context="br.com.usinasantafe.pcomp.MenuMotoMecActivity">
 
     <TextView
         android:id="@+id/textViewTituloMotorista"
@@ -35,27 +35,18 @@
     </ListView>
 
 
-    <LinearLayout
-        android:id="@+id/rightRelativeLayout2"
+    <Button
+        android:id="@+id/buttonParadaMotoMec"
+        style="@style/BotaoAvulso"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:text="@string/texto_motivo_parada" />
 
-        <Button
-            android:id="@+id/buttonParadaMotoMec"
-            style="@style/BotaoAvulso"
-            android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/texto_parada" />
-
-        <Button
-            android:id="@+id/buttonRetMotoMec"
-            style="@style/BotaoAvulso"
-            android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/texto_padrao_retornar" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/buttonRetMotoMec"
+        style="@style/BotaoAvulso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_padrao_retornar" />
 
 </LinearLayout>

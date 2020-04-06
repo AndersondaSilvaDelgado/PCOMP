@@ -1,54 +1,63 @@
 package br.com.usinasantafe.pcomp;
 
-import android.app.AlarmManager;
 import android.app.Application;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.util.Log;
 
-import java.util.Calendar;
-
-import br.com.usinasantafe.pcomp.bo.ManipDadosReceb;
-import br.com.usinasantafe.pcomp.to.tb.estaticas.TurnoTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ApontCarregTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ApontMotoMecTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfiguracaoTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.TurnoVarTO;
+import br.com.usinasantafe.pcomp.control.CheckListCTR;
+import br.com.usinasantafe.pcomp.control.ConfigCTR;
+import br.com.usinasantafe.pcomp.control.MotoMecCTR;
+import br.com.usinasantafe.pcomp.control.PneuCTR;
 
 /**
  * Created by anderson on 10/11/2016.
  */
 public class PCOMPContext extends Application {
 
-    private ApontCarregTO apontCarregTO;
-    private TurnoVarTO turnoVarTO;
-    private ApontMotoMecTO apontMotoMecTO;
+    private MotoMecCTR motoMecCTR;
+    private CheckListCTR checkListCTR;
+    private PneuCTR pneuCTR;
+    private ConfigCTR configCTR;
     private boolean verOS;
     private boolean verTelaLeira;
     private boolean verTimer;
-    private int tipoFuncao; //1 - CARREGAMENTO DE PRODUTO; 2 - CARREGAMENTO DE COMPOSTO;
+    private int tipoAplic; //1 - ECM; 2 - CARREGAMENTO DE INSUMO; 3 - CARREGAMENTO DE COMPOSTO;
+
+    public static String versaoAplic = "3.00";
+    private String verAtualCL;
+
+    private int posCheckList;
+
+    private int verPosTela;
+    // 1 - Inicio do Aplicativo;
+
+    private int contDataHora;
 
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
     }
 
-    public ApontCarregTO getApontCarregTO() {
-        if(apontCarregTO == null)
-            apontCarregTO = new ApontCarregTO();
-        return apontCarregTO;
+    public MotoMecCTR getMotoMecCTR(){
+        if (motoMecCTR == null)
+            motoMecCTR = new MotoMecCTR();
+        return motoMecCTR;
     }
 
-    public TurnoVarTO getTurnoVarTO() {
-        if(turnoVarTO == null)
-            turnoVarTO = new TurnoVarTO();
-        return turnoVarTO;
+    public CheckListCTR getCheckListCTR() {
+        if (checkListCTR == null)
+            checkListCTR = new CheckListCTR();
+        return checkListCTR;
     }
 
-    public ApontMotoMecTO getApontMotoMecTO() {
-        if(apontMotoMecTO == null)
-            apontMotoMecTO = new ApontMotoMecTO();
-        return apontMotoMecTO;
+    public PneuCTR getPneuCTR(){
+        if (pneuCTR == null)
+            pneuCTR = new PneuCTR();
+        return pneuCTR;
+    }
+
+    public ConfigCTR getConfigCTR(){
+        if (configCTR == null)
+            configCTR = new ConfigCTR();
+        return configCTR;
     }
 
     public boolean isVerOS() {
@@ -58,7 +67,6 @@ public class PCOMPContext extends Application {
     public void setVerOS(boolean verOS) {
         this.verOS = verOS;
     }
-
 
     public boolean isVerTelaLeira() {
         return verTelaLeira;
@@ -76,11 +84,43 @@ public class PCOMPContext extends Application {
         this.verTimer = verTimer;
     }
 
-    public int getTipoFuncao() {
-        return tipoFuncao;
+    public int getTipoAplic() {
+        return tipoAplic;
     }
 
-    public void setTipoFuncao(int tipoFuncao) {
-        this.tipoFuncao = tipoFuncao;
+    public void setTipoAplic(int tipoAplic) {
+        this.tipoAplic = tipoAplic;
+    }
+
+    public int getPosCheckList() {
+        return posCheckList;
+    }
+
+    public void setPosCheckList(int posCheckList) {
+        this.posCheckList = posCheckList;
+    }
+
+    public String getVerAtualCL() {
+        return verAtualCL;
+    }
+
+    public void setVerAtualCL(String verAtualCL) {
+        this.verAtualCL = verAtualCL;
+    }
+
+    public int getVerPosTela() {
+        return verPosTela;
+    }
+
+    public void setVerPosTela(int verPosTela) {
+        this.verPosTela = verPosTela;
+    }
+
+    public int getContDataHora() {
+        return contDataHora;
+    }
+
+    public void setContDataHora(int contDataHora) {
+        this.contDataHora = contDataHora;
     }
 }

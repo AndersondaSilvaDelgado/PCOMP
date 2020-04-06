@@ -14,7 +14,6 @@
  limitations under the License.
  -->
 <resources>
-    <!--<string name="app_name">PCOMP</string>-->
     <string name="app_picker_name">Applications</string>
     <string name="bookmark_picker_name">Bookmarks</string>
     <string name="button_add_calendar">Add to calendar</string>
@@ -179,4 +178,8 @@
     <string name="texto_titulo_leira">LEIRA</string>
     <string name="texto_titulo_produto">PRODUTO</string>
     <string name="texto_titulo_tipo_funcao">TIPO DE FUNÇÃO</string>
+    <string name="texto_titulo_equip">EQUIPAMENTO</string>
+    <string name="texto_cod_equip">323</string>
+    <string name="texto_descr_equip">CAMINHÃO</string>
+    <string name="texto_retornar">RETORNAR</string>
 </resources>

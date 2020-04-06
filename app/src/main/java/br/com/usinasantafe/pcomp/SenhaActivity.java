@@ -6,10 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.List;
-
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfiguracaoTO;
-
 public class SenhaActivity extends ActivityGeneric {
 
     private EditText editTextSenha;
@@ -33,21 +29,17 @@ public class SenhaActivity extends ActivityGeneric {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
+                if (!pcompContext.getConfigCTR().hasElements()) {
 
-                if (!configuracaoTO.hasElements()) {
-
-                    Intent it = new Intent(SenhaActivity.this, ConfiguracaoActivity.class);
+                    Intent it = new Intent(SenhaActivity.this, ConfigActivity.class);
                     startActivity(it);
                     finish();
 
                 } else {
 
-                    List<ConfiguracaoTO> lista = configuracaoTO.get("senhaConfig", editTextSenha.getText().toString());
+                    if (pcompContext.getConfigCTR().getConfigSenha(editTextSenha.getText().toString())) {
 
-                    if (lista.size() > 0) {
-
-                        Intent it = new Intent(SenhaActivity.this, ConfiguracaoActivity.class);
+                        Intent it = new Intent(SenhaActivity.this, ConfigActivity.class);
                         startActivity(it);
                         finish();
 
@@ -65,7 +57,7 @@ public class SenhaActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent it = new Intent(SenhaActivity.this, PrincipalActivity.class);
+                Intent it = new Intent(SenhaActivity.this, MenuInicialActivity.class);
                 startActivity(it);
                 finish();
             }

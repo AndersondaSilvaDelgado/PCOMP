@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.bo.ManipDadosEnvio;
+import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
 import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaCompTO;
 import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaProdTO;
 
@@ -26,7 +26,7 @@ public class LeiraActivity extends ActivityGeneric {
         TextView textViewLeira = (TextView) findViewById(R.id.textViewLeira);
         Button buttonRetMenuPesq = (Button) findViewById(R.id.buttonRetMenuPesq);
 
-        if(pcompContext.getTipoFuncao() == 1){
+        if(pcompContext.getTipoAplic() == 1){
 
             if(!pcompContext.isVerTelaLeira()){
                 ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
@@ -39,7 +39,7 @@ public class LeiraActivity extends ActivityGeneric {
             textViewLeira.setText(pesqBalancaProdTO.getLeira());
 
         }
-        else if(pcompContext.getTipoFuncao() == 2){
+        else if(pcompContext.getTipoAplic() == 2){
 
             PesqBalancaCompTO pesqBalancaCompTO = new PesqBalancaCompTO();
             List infPesq = pesqBalancaCompTO.all();
@@ -57,7 +57,7 @@ public class LeiraActivity extends ActivityGeneric {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent it = new Intent(LeiraActivity.this, MenuAtividadeActivity.class);
+                Intent it = new Intent(LeiraActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();
 

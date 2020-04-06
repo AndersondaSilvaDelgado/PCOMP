@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.bo.ManipDadosEnvio;
+import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
 import br.com.usinasantafe.pcomp.to.tb.estaticas.ProdutoTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfiguracaoTO;
+import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfigTO;
 
 public class ProdutoActivity extends ActivityGeneric {
 
@@ -40,17 +40,17 @@ public class ProdutoActivity extends ActivityGeneric {
 
                 if(!txResult.getText().equals("PRODUTO:")) {
 
-                    pcompContext.getApontCarregTO().setTipoApontCarreg(1L);
-                    pcompContext.getApontCarregTO().setProdApontCarreg(produtoTO.getIdProduto());
-                    ManipDadosEnvio.getInstance().salvaCarreg(pcompContext.getApontCarregTO(), pcompContext.getTurnoVarTO());
+                    pcompContext.getCarregTO().setTipoCarreg(1L);
+                    pcompContext.getCarregTO().setProdCarreg(produtoTO.getIdProduto());
+                    ManipDadosEnvio.getInstance().salvaCarreg(pcompContext.getCarregTO(), pcompContext.getTurnoVarTO());
 
-                    ConfiguracaoTO configuracaoTO = new ConfiguracaoTO();
-                    List listConfig = configuracaoTO.all();
-                    configuracaoTO = (ConfiguracaoTO) listConfig.get(0);
-                    configuracaoTO.setStatusApontConfig(2L);
-                    configuracaoTO.update();
+                    ConfigTO configTO = new ConfigTO();
+                    List listConfig = configTO.all();
+                    configTO = (ConfigTO) listConfig.get(0);
+                    configTO.setStatusApontConfig(2L);
+                    configTO.update();
 
-                    Intent it = new Intent(ProdutoActivity.this, MenuAtividadeActivity.class);
+                    Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();
 
@@ -65,7 +65,7 @@ public class ProdutoActivity extends ActivityGeneric {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent it = new Intent(ProdutoActivity.this, MenuAtividadeActivity.class);
+                Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();
 

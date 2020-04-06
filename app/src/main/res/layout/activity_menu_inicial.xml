@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_lista_turno"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,32 +8,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.usinasantafe.pcomp.ListaTurnoActivity">
-
+    tools:context="br.com.usinasantafe.pcomp.MenuInicialActivity">
 
     <TextView
-        android:id="@+id/textViewListaTurno"
+        android:id="@+id/textViewPrincipal"
         style="@style/TextViewTituloLista"
-        android:text="@string/texto_turno" />
+        android:text="@string/texto_menu_principal" />
 
     <ListView
-        android:id="@+id/turnoListView"
+        android:id="@+id/listaMenuInicial"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/buttonRetListaTurno"
-        style="@style/BotaoAvulso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/texto_retornar" />
-
-    <Button
-        android:id="@+id/buttonAtualTurno"
-        style="@style/BotaoAvulso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/texto_atualizar_bd" />
+    <TextView
+        android:id="@+id/textViewProcesso"
+        style="@style/TextViewItemList"
+        android:text="@string/texto_item_list" />
 
 </LinearLayout>

@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import br.com.usinasantafe.pcomp.bo.ManipDadosEnvio;
-import br.com.usinasantafe.pcomp.bo.Tempo;
+import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
+import br.com.usinasantafe.pcomp.model.dao.Tempo;
 import br.com.usinasantafe.pcomp.pst.DatabaseHelper;
 
 /**
