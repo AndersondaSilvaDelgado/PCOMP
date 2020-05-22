@@ -2,9 +2,12 @@ package br.com.usinasantafe.pcomp.model.dao;
 
 import java.util.List;
 
+import br.com.usinasantafe.pcomp.control.ConfigCTR;
+import br.com.usinasantafe.pcomp.control.MotoMecCTR;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.CabecCLBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.pcomp.util.Tempo;
 
 public class CabecCheckListDAO {
 

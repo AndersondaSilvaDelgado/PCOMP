@@ -12,11 +12,11 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.control.ConfigCTR;
-import br.com.usinasantafe.ecm.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.REquipAtivBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.REquipPneuBean;
-import br.com.usinasantafe.ecm.util.VerifDadosServ;
+import br.com.usinasantafe.pcomp.control.ConfigCTR;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.REquipAtivBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.REquipPneuBean;
+import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
 public class EquipDAO {
 

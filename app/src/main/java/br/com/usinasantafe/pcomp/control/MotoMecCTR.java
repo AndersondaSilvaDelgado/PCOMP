@@ -6,19 +6,17 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
-import br.com.usinasantafe.ecm.model.bean.estaticas.MotoMecBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
-import br.com.usinasantafe.ecm.model.dao.ApontMMDAO;
-import br.com.usinasantafe.ecm.model.dao.AtividadeDAO;
-import br.com.usinasantafe.ecm.model.dao.BoletimMMDAO;
-import br.com.usinasantafe.ecm.model.dao.CarretaDAO;
-import br.com.usinasantafe.ecm.model.dao.MotoMecDAO;
-import br.com.usinasantafe.ecm.model.dao.OSDAO;
-import br.com.usinasantafe.ecm.model.dao.PreCECDAO;
-import br.com.usinasantafe.ecm.util.AtualDadosServ;
-import br.com.usinasantafe.ecm.util.Tempo;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.ApontMMBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.BoletimMMBean;
+import br.com.usinasantafe.pcomp.model.dao.ApontMMDAO;
+import br.com.usinasantafe.pcomp.model.dao.AtividadeDAO;
+import br.com.usinasantafe.pcomp.model.dao.BoletimMMDAO;
+import br.com.usinasantafe.pcomp.model.dao.MotoMecDAO;
+import br.com.usinasantafe.pcomp.model.dao.OSDAO;
+import br.com.usinasantafe.pcomp.util.AtualDadosServ;
+import br.com.usinasantafe.pcomp.util.Tempo;
 
 public class MotoMecCTR {
 
@@ -59,7 +57,7 @@ public class MotoMecCTR {
     }
 
     public void setOSBol(Long os){
-            boletimMMBean.setOsBolMM(os);
+        boletimMMBean.setOsBolMM(os);
     }
 
     public void setAtivBol(Long ativ){
@@ -106,10 +104,6 @@ public class MotoMecCTR {
         return boletimMMBean.getMatricFuncBolMM();
     }
 
-    public String getDescrCarreta(){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        return carretaDAO.getDescrCarreta();
-    }
 
     public FuncBean getMatricNomeFunc(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
@@ -141,11 +135,6 @@ public class MotoMecCTR {
         return boletimMMBean.getLatitudeBolMM();
     }
 
-    public String getDataSaidaUlt(){
-        PreCECDAO preCECDAO = new PreCECDAO();
-        return preCECDAO.getDataSaidaUlt();
-    }
-
     public List getMotoMecList() {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         return motoMecDAO.getMotoMecList();
@@ -158,11 +147,6 @@ public class MotoMecCTR {
 
     public MotoMecBean getMotoMecBean() {
         return motoMecBean;
-    }
-
-    public int qtdeCarreta(){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        return carretaDAO.getQtdeCarreta();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -361,23 +345,5 @@ public class MotoMecCTR {
 
     ////////////////////////////////////////////////////////////////////////////////////
 
-    /////////////////////////////////////// CARRETA /////////////////////////////////////////////
-
-    public void delCarreta(){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        carretaDAO.delCarreta();
-    }
-
-    public int verCarr(Long nroCarreta){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        return carretaDAO.verCarr(nroCarreta);
-    }
-
-    public void insCarreta(Long nroCarreta){
-        CarretaDAO carretaDAO = new CarretaDAO();
-        carretaDAO.insCarreta(nroCarreta);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -12,11 +12,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.control.MotoMecCTR;
-import br.com.usinasantafe.ecm.model.bean.estaticas.FuncBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.ApontMMBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.BoletimMMBean;
-import br.com.usinasantafe.ecm.model.pst.EspecificaPesquisa;
+import br.com.usinasantafe.pcomp.control.MotoMecCTR;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.ApontMMBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.BoletimMMBean;
+import br.com.usinasantafe.pcomp.model.pst.EspecificaPesquisa;
+import br.com.usinasantafe.pcomp.util.Tempo;
 
 public class BoletimMMDAO {
 

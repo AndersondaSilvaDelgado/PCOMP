@@ -15,16 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
-import br.com.usinasantafe.pcomp.model.dao.ManipDadosReceb;
-import br.com.usinasantafe.pcomp.model.dao.ManipDadosVerif;
-import br.com.usinasantafe.pcomp.pst.EspecificaPesquisa;
-import br.com.usinasantafe.pcomp.to.tb.estaticas.EquipTO;
-import br.com.usinasantafe.pcomp.to.tb.estaticas.OperMotoMecTO;
-import br.com.usinasantafe.pcomp.to.tb.estaticas.MotoristaTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfigTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaCompTO;
-import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaProdTO;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
 
 public class MenuMotoMecActivity extends ActivityGeneric {
 
@@ -47,14 +38,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         Button buttonRetMotoMec = (Button) findViewById(R.id.buttonRetMotoMec);
         textViewMotorista = (TextView) findViewById(R.id.textViewMotorista);
 
-        MotoristaTO motoristaTO = new MotoristaTO();
-        List lMotorista = motoristaTO.get("idMotorista", pcompContext.getTurnoVarTO().getMatriculaMotoristaTurno());
-        motoristaTO = (MotoristaTO) lMotorista.get(0);
-
-        Long codMotorista = motoristaTO.getMatricMotorista();
-        String nomeMotorista = motoristaTO.getNomeMotorista();
-
-        textViewMotorista.setText(codMotorista + " - " + nomeMotorista);
+        FuncBean funcBean = pcompContext.getMotoMecCTR().getMatricNomeFunc();
+        textViewMotorista.setText(funcBean.getMatricFunc() + " - " + funcBean.getNomeFunc());
 
         listarMenuAtividade();
 

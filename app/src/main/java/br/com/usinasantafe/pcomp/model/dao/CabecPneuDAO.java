@@ -2,9 +2,9 @@ package br.com.usinasantafe.pcomp.model.dao;
 
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.REquipPneuBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecPneuBean;
-import br.com.usinasantafe.ecm.util.Tempo;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.REquipPneuBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.CabecPneuBean;
+import br.com.usinasantafe.pcomp.util.Tempo;
 
 public class CabecPneuDAO {
 

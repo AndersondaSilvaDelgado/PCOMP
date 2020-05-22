@@ -7,12 +7,12 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.ecm.model.bean.estaticas.ItemCheckListBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.CabecCLBean;
-import br.com.usinasantafe.ecm.model.bean.variaveis.RespItemCLBean;
-import br.com.usinasantafe.ecm.model.dao.CabecCheckListDAO;
-import br.com.usinasantafe.ecm.model.dao.ItemCheckListDAO;
-import br.com.usinasantafe.ecm.model.dao.RespCheckListDAO;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.ItemCheckListBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.CabecCLBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.RespItemCLBean;
+import br.com.usinasantafe.pcomp.model.dao.CabecCheckListDAO;
+import br.com.usinasantafe.pcomp.model.dao.ItemCheckListDAO;
+import br.com.usinasantafe.pcomp.model.dao.RespCheckListDAO;
 
 public class CheckListCTR {
 
