@@ -182,4 +182,6 @@
     <string name="texto_cod_equip">323</string>
     <string name="texto_descr_equip">CAMINHÃO</string>
     <string name="texto_retornar">RETORNAR</string>
+    <string name="texto_hodometro">HODOMETRO:</string>
+    <string name="texto_atualizar">ATUALIZAR</string>
 </resources>

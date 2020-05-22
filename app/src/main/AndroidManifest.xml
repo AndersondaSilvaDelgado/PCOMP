@@ -21,14 +21,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaAtividadeActivity"></activity>
+        <activity android:name=".PergAtualCheckListActivity"></activity>
+        <activity android:name=".ListaAtividadeActivity" />
+        <activity android:name=".HodometroActivity" />
         <activity android:name=".MsgDataHoraActivity" />
         <activity android:name=".ListaPosPneuActivity" />
         <activity android:name=".ItemCheckListActivity" />
         <activity android:name=".EquipActivity" />
-        <activity
-            android:name=".TipoAplicActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".SenhaActivity"
             android:screenOrientation="portrait" />
