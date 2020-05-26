@@ -16,9 +16,13 @@ public class OSBean extends Entidade {
     @DatabaseField(id=true)
     private Long idAtivOS;
     @DatabaseField
+    private Long idOS;
+    @DatabaseField
     private Long nroOS;
     @DatabaseField
     private Long idAtiv;
+    @DatabaseField
+    private Long tipoOS;
 
     public OSBean() {
     }
@@ -45,5 +49,21 @@ public class OSBean extends Entidade {
 
     public void setIdAtiv(Long idAtiv) {
         this.idAtiv = idAtiv;
+    }
+
+    public Long getTipoOS() {
+        return tipoOS;
+    }
+
+    public void setTipoOS(Long tipoOS) {
+        this.tipoOS = tipoOS;
+    }
+
+    public Long getIdOS() {
+        return idOS;
+    }
+
+    public void setIdOS(Long idOS) {
+        this.idOS = idOS;
     }
 }

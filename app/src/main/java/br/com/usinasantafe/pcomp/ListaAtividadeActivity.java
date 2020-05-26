@@ -124,9 +124,18 @@ public class ListaAtividadeActivity extends ActivityGeneric {
                     pcompContext.getMotoMecCTR().setAtivApont(atividadeBean.getIdAtiv());
                     pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
 
-                    Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
-                    startActivity(it);
-                    finish();
+                    pcompContext.getConfigCTR().setStatusApontConfig(1L);
+
+                    if (pcompContext.getConfigCTR().getOS().getTipoOS() == 1L) {
+                        Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                    else{
+                        Intent it = new Intent(ListaAtividadeActivity.this, EsperaInfActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
 
                 }
                 else{

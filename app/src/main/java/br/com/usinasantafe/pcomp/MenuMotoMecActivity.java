@@ -16,20 +16,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraCompostoBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraProdutoBean;
+import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class MenuMotoMecActivity extends ActivityGeneric {
 
-    private ListView lista;
+    private ListView motoMecListView;
     private PCOMPContext pcompContext;
     private ProgressDialog progressBar;
-    private List listaAtivMotoMec;
     private TextView textViewMotorista;
-    private int pos;
+    private int posicao;
+    private List motoMecList;
+    private OSBean osBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_atividade);
+        setContentView(R.layout.activity_menu_moto_mec);
 
         pcompContext = (PCOMPContext) getApplication();
         pcompContext.setVerTelaLeira(false);
@@ -71,68 +77,140 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
     private void listarMenuAtividade() {
 
-        ArrayList listaPesq = new ArrayList();
-        OperMotoMecTO operMotoMecTO = new OperMotoMecTO();
-
         verLeiraComp();
 
-        EspecificaPesquisa pesquisa = new EspecificaPesquisa();
-        pesquisa.setCampo("aplicOperMotoMec");
-        pesquisa.setValor(pcompContext.getTipoAplic());
-        listaPesq.add(pesquisa);
+        osBean = pcompContext.getConfigCTR().getOS();
 
-        EspecificaPesquisa pesquisa2 = new EspecificaPesquisa();
-        pesquisa2.setCampo("tipoOperMotoMec");
-        pesquisa2.setValor(1L);
-        listaPesq.add(pesquisa2);
-
-        ArrayList<String> itens = new ArrayList<String>();
-        listaAtivMotoMec = operMotoMecTO.getAndOrderBy(listaPesq, "posOperMotoMec", true);
-
-        for (int i = 0; i < listaAtivMotoMec.size(); i++) {
-            operMotoMecTO = (OperMotoMecTO) listaAtivMotoMec.get(i);
-            itens.add(operMotoMecTO.getDescrOperMotoMec());
+        ArrayList<String> motoMecArrayList = new ArrayList<String>();
+        motoMecList = pcompContext.getMotoMecCTR().getMotoMecList();
+        for (int i = 0; i < motoMecList.size(); i++) {
+            MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(i);
+            motoMecArrayList.add(motoMecBean.getDescrOperMotoMec());
         }
 
-        AdapterList adapterList = new AdapterList(this, itens);
-        lista = (ListView) findViewById(R.id.listViewMenuAtividade);
-        lista.setAdapter(adapterList);
+        AdapterList adapterList = new AdapterList(this, motoMecArrayList);
+        motoMecListView = (ListView) findViewById(R.id.motoMecListView);
+        motoMecListView.setAdapter(adapterList);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        motoMecListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
                 // TODO Auto-generated method stub
 
-                OperMotoMecTO motoMecBD = (OperMotoMecTO) listaAtivMotoMec.get(position);
-                pcompContext.getApontMotoMecTO().setOpcor(motoMecBD.getCodOperMotoMec());
+                MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(position);
+                pcompContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
-                pos = position;
+                Log.i("ECM", "CodFuncaoOperMotoMec = " + motoMecBean.getCodFuncaoOperMotoMec());
 
-                if (motoMecBD.getCodFuncaoOperMotoMec() == 1) {  // ATIVIDADES NORMAIS
+                posicao = position;
+
+                if (motoMecBean.getCodFuncaoOperMotoMec() == 1) {  // ATIVIDADES NORMAIS
 
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
                     alerta.setTitle("ATENÇÃO");
-
-                    alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBD.getDescrOperMotoMec());
-                    ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
+                    alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBean.getDescrOperMotoMec());
 
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            lista.setSelection(pos + 1);
+
+                            Long statusCon;
+                            ConexaoWeb conexaoWeb = new ConexaoWeb();
+                            if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                                statusCon = 1L;
+                            }
+                            else{
+                                statusCon = 0L;
+                            }
+
+                            pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                            motoMecListView.setSelection(posicao + 1);
+
                         }
                     });
 
                     alerta.show();
 
-                } else if (motoMecBD.getCodFuncaoOperMotoMec() == 5) {
+                }
+                else if (motoMecBean.getCodFuncaoOperMotoMec() == 2) {
 
-                    PesqBalancaProdTO pesqBalancaProdTO = new PesqBalancaProdTO();
-                    PesqBalancaCompTO pesqBalancaCompTO = new PesqBalancaCompTO();
+                    if (pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 0) {
 
-                    if ((pesqBalancaProdTO.count() > 0) || (pesqBalancaCompTO.count() > 0)) {
+                        pcompContext.setVerPosTela(2);
+                        Intent it = new Intent(MenuMotoMecActivity.this, OSActivity.class);
+                        startActivity(it);
+                        finish();
+
+                    } else {
+
+                        String msg = "";
+
+                        if(pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 1) {
+                            msg = "POR FAVOR, CARREGUE O EQUIPAMENTO E DEPOIS PASSE NA BALANÇA PARA FAZER A PESAGEM CARREGADO!";
+                        }
+                        else if(pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 2) {
+                            msg = "POR FAVOR, PASSE NA BALANÇA PARA FAZER A PESAGEM DO EQUIPAMENTO CARREGADO!";
+                        }
+
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage(msg);
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                motoMecListView.setSelection(posicao + 1);
+                            }
+                        });
+
+                        alerta.show();
+
+                    }
+
+                }
+                else if (motoMecBean.getCodFuncaoOperMotoMec() == 3) {
+
+                    if (pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 1) {
+
+                        if (osBean.getTipoOS() == 1L) {
+                            Intent it = new Intent(MenuMotoMecActivity.this, ProdutoActivity.class);
+                            startActivity(it);
+                            finish();
+                        }
+                        else{
+
+                        }
+
+                    } else {
+
+                        String msg = "";
+
+                        if(pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 0) {
+                            msg = "POR FAVOR, TIRE A PESAGEM TARA DO EQUIPAMENTO!";
+                        }
+                        else if(pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 2) {
+                            msg = "POR FAVOR, PASSE NA BALANÇA PARA FAZER A PESAGEM DO EQUIPAMENTO CARREGADO!";
+                        }
+
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage(msg);
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                motoMecListView.setSelection(posicao + 1);
+                            }
+                        });
+
+                        alerta.show();
+
+                    }
+
+                }
+                else if (motoMecBean.getCodFuncaoOperMotoMec() == 5) {
+
+                    if (pcompContext.getLeiraCTR().pesqLeiraExibir()) {
 
                         pcompContext.setVerTelaLeira(true);
                         Intent it = new Intent(MenuMotoMecActivity.this, LeiraActivity.class);
@@ -150,12 +228,19 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                             alerta.setMessage("NÃO CONTÉM NENHUMA LEIRA PARA CARREGAMENTO.");
                         }
 
-                        ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
-
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                lista.setSelection(pos + 1);
+                                Long statusCon;
+                                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                                if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                                    statusCon = 1L;
+                                }
+                                else{
+                                    statusCon = 0L;
+                                }
+                                pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                                motoMecListView.setSelection(posicao + 1);
                             }
                         });
 
@@ -163,89 +248,18 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     }
 
-                } else {
+                }
+                else {
 
-                    if (pcompContext.getTipoAplic() == 1) {
+                    if (osBean.getTipoOS() == 1L) {
 
-                        ConfigTO configTO = new ConfigTO();
-                        List pesqEquip = configTO.all();
-                        configTO = (ConfigTO) pesqEquip.get(0);
+                        if (motoMecBean.getCodFuncaoOperMotoMec() == 3) {
 
-                        if (motoMecBD.getCodFuncaoOperMotoMec() == 2) {
 
-                            if (configTO.getStatusApontConfig() == 0) {
 
-                                ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
+                        } else if (motoMecBean.getCodFuncaoOperMotoMec() == 4) {
 
-                                progressBar = new ProgressDialog(v.getContext());
-                                progressBar.setCancelable(true);
-                                progressBar.setMessage("Atualizando OSs...");
-                                progressBar.show();
-
-                                ManipDadosReceb.getInstance().atualizarTabela(progressBar, "OSBean", MenuMotoMecActivity.this, OSActivity.class);
-
-                            } else {
-
-                                String msg = "";
-
-                                if(configTO.getStatusApontConfig() == 1) {
-                                    msg = "POR FAVOR, FAÇA O CARREGAMENTO DO PRODUTO E DEPOIS PASSE NA BALANÇA PARA FAZER A PESAGEM CARREGADO!";
-                                }
-                                else if(configTO.getStatusApontConfig() == 2) {
-                                    msg = "POR FAVOR, PASSE NA BALANÇA PARA FAZER A PESAGEM CARREGADO!";
-                                }
-
-                                AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
-                                alerta.setTitle("ATENÇÃO");
-                                alerta.setMessage(msg);
-                                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
-                                    }
-                                });
-
-                                alerta.show();
-
-                            }
-
-                        } else if (motoMecBD.getCodFuncaoOperMotoMec() == 3) {
-
-                            if (configTO.getStatusApontConfig() == 1) {
-
-                                ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
-                                Intent it = new Intent(MenuMotoMecActivity.this, ProdutoActivity.class);
-                                startActivity(it);
-                                finish();
-
-                            } else {
-
-                                String msg = "";
-
-                                if(configTO.getStatusApontConfig() == 0) {
-                                    msg = "POR FAVOR, TIRE A PESAGEM TARA DO EQUIPAMENTO!";
-                                }
-                                else if(configTO.getStatusApontConfig() == 2) {
-                                    msg = "POR FAVOR, PASSE NA BALANÇA PARA FAZER A PESAGEM CARREGADO!";
-                                }
-
-                                AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
-                                alerta.setTitle("ATENÇÃO");
-                                alerta.setMessage(msg);
-                                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
-                                    }
-                                });
-
-                                alerta.show();
-
-                            }
-
-                        } else if (motoMecBD.getCodFuncaoOperMotoMec() == 4) {
-
-                            if (configTO.getStatusApontConfig() == 2) {
+                            if (pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 2) {
 
                                 configTO.setStatusApontConfig(0L);
                                 configTO.update();
@@ -259,11 +273,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 List pesq = equipTO.get("idEquipamento", configTO.getEquipConfig());
                                 equipTO = (EquipTO) pesq.get(0);
 
-//                                if (equipTO.getTipoEquip() == 1) {
-//                                    pcompContext.getApontMotoMecTO().setOpcor(175L);
-//                                } else {
-//                                    pcompContext.getApontMotoMecTO().setOpcor(282L);
-//                                }
 
                                 pcompContext.setVerTelaLeira(false);
                                 Log.i("PCOMP", "VALOR ENVIADO:  " + String.valueOf(configTO.getEquipConfig()));
@@ -287,7 +296,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
+                                        motoMecListView.setSelection(posicao + 1);
                                     }
                                 });
 
@@ -297,8 +306,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                         }
 
-
-                    } else if (pcompContext.getTipoAplic() == 2) {
+                    } else if (osBean.getTipoOS() == 2) {
 
                         ConfigTO configTO = new ConfigTO();
                         List pesqEquip = configTO.all();
@@ -334,7 +342,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
+                                        motoMecListView.setSelection(posicao + 1);
                                     }
                                 });
 
@@ -358,7 +366,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
+                                        motoMecListView.setSelection(posicao + 1);
                                     }
                                 });
 
@@ -381,7 +389,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
+                                        motoMecListView.setSelection(posicao + 1);
                                     }
                                 });
 
@@ -404,7 +412,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
+                                        motoMecListView.setSelection(posicao + 1);
                                     }
                                 });
 
@@ -427,7 +435,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        lista.setSelection(pos + 1);
+                                        motoMecListView.setSelection(posicao + 1);
                                     }
                                 });
 

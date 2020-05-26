@@ -4,6 +4,7 @@ import android.app.Application;
 
 import br.com.usinasantafe.pcomp.control.CheckListCTR;
 import br.com.usinasantafe.pcomp.control.ConfigCTR;
+import br.com.usinasantafe.pcomp.control.LeiraCTR;
 import br.com.usinasantafe.pcomp.control.MotoMecCTR;
 import br.com.usinasantafe.pcomp.control.PneuCTR;
 
@@ -16,6 +17,7 @@ public class PCOMPContext extends Application {
     private CheckListCTR checkListCTR;
     private PneuCTR pneuCTR;
     private ConfigCTR configCTR;
+    private LeiraCTR leiraCTR;
     private boolean verOS;
     private boolean verTelaLeira;
     private boolean verTimer;
@@ -28,6 +30,7 @@ public class PCOMPContext extends Application {
 
     private int verPosTela;
     // 1 - Inicio do Aplicativo;
+    // 2 - Pesagem Tara;
 
     private int contDataHora;
 
@@ -58,6 +61,12 @@ public class PCOMPContext extends Application {
         if (configCTR == null)
             configCTR = new ConfigCTR();
         return configCTR;
+    }
+
+    public LeiraCTR getLeiraCTR(){
+        if (leiraCTR == null)
+            leiraCTR = new LeiraCTR();
+        return leiraCTR;
     }
 
     public boolean isVerOS() {

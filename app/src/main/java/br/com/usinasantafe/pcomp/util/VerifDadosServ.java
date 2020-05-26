@@ -24,7 +24,8 @@ import br.com.usinasantafe.pcomp.control.MotoMecCTR;
 import br.com.usinasantafe.pcomp.model.bean.AtualAplicBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqBalancaProdBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraProdutoBean;
+import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
 import br.com.usinasantafe.pcomp.model.pst.GenericRecordable;
 import br.com.usinasantafe.pcomp.util.connHttp.PostVerGenerico;
 import br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp;
@@ -63,13 +64,17 @@ public class VerifDadosServ {
         if (!result.equals("")) {
 
             if (this.tipo.equals("Equip")) {
-                recDadosEquip(result);
+                EquipDAO equipDAO = new EquipDAO();
+                equipDAO.recDadosEquip(result);
             }
-            if (tipo.equals("PesqBalancaProdBean")) {
-                retornoPesqBalanca(result, tipo);
-            } else {
-                retornoVerifNormal(result, tipo);
+            else if(this.tipo.equals("LeiraComposto")){
+
             }
+//            if (tipo.equals("PesqBalancaProdBean")) {
+//                retornoPesqBalanca(result, tipo);
+//            } else {
+//                retornoVerifNormal(result, tipo);
+//            }
 
         }
 
@@ -134,6 +139,16 @@ public class VerifDadosServ {
         this.telaAtual = telaAtual;
         this.telaProx = telaProx;
         this.variavel = variavel;
+        this.dado = dado;
+        this.tipo = tipo;
+
+        envioDados();
+
+    }
+
+    public void verDados(String dado, String tipo) {
+
+        urlsConexaoHttp = new UrlsConexaoHttp();
         this.dado = dado;
         this.tipo = tipo;
 
@@ -210,7 +225,7 @@ public class VerifDadosServ {
 
             JSONObject objeto = jsonArray.getJSONObject(0);
             Gson gson = new Gson();
-            PesqBalancaProdBean pesqBalancaProdTO = gson.fromJson(objeto.toString(), PesqBalancaProdBean.class);
+            PesqLeiraProdutoBean pesqBalancaProdTO = gson.fromJson(objeto.toString(), PesqLeiraProdutoBean.class);
             pesqBalancaProdTO.insert();
 
             this.progressDialog.dismiss();
@@ -355,6 +370,13 @@ public class VerifDadosServ {
         if(!verTerm){
             this.progressDialog.dismiss();
             this.verTerm = true;
+            Intent it = new Intent(telaAtual, telaProx);
+            telaAtual.startActivity(it);
+        }
+    }
+
+    public void pulaTela(Class telaProx){
+        if(!verTerm){
             Intent it = new Intent(telaAtual, telaProx);
             telaAtual.startActivity(it);
         }

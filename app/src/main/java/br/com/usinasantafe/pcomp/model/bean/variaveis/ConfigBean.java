@@ -39,6 +39,8 @@ public class ConfigBean extends Entidade {
     private Long verInforConfig; //0 - Verificar Dados; 1- Dados Recebidos; 2 - Dados Visualizados
     @DatabaseField
     private Long statusConConfig;  //0 - Offline; 1 - Online
+    @DatabaseField
+    private Long statusApontConfig; //0 - Pesagem Tara; 1 - Carregamento; 2 - Pesagem Carregado
 
     public ConfigBean() {
         // TODO Auto-generated constructor stub
@@ -146,5 +148,13 @@ public class ConfigBean extends Entidade {
 
     public void setIdConfig(Long idConfig) {
         this.idConfig = idConfig;
+    }
+
+    public Long getStatusApontConfig() {
+        return statusApontConfig;
+    }
+
+    public void setStatusApontConfig(Long statusApontConfig) {
+        this.statusApontConfig = statusApontConfig;
     }
 }

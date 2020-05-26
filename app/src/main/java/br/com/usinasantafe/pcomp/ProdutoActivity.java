@@ -11,11 +11,12 @@ import java.util.List;
 import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
 import br.com.usinasantafe.pcomp.to.tb.estaticas.ProdutoTO;
 import br.com.usinasantafe.pcomp.to.tb.variaveis.ConfigTO;
+import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class ProdutoActivity extends ActivityGeneric {
 
     public static final int REQUEST_CODE = 0;
-    private TextView txResult;
+    private TextView txtResult;
     private ProdutoTO produtoTO;
     private PCOMPContext pcompContext;
 
@@ -27,7 +28,7 @@ public class ProdutoActivity extends ActivityGeneric {
         pcompContext = (PCOMPContext) getApplication();
         produtoTO = new ProdutoTO();
 
-        txResult = (TextView) findViewById(R.id.txResult);
+        txtResult = (TextView) findViewById(R.id.txResult);
 
         Button buttonOkOS = (Button) findViewById(R.id.buttonOkProd);
         Button buttonCancOS = (Button) findViewById(R.id.buttonCancProd);
@@ -38,7 +39,7 @@ public class ProdutoActivity extends ActivityGeneric {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                if(!txResult.getText().equals("PRODUTO:")) {
+                if(!txtResult.getText().equals("PRODUTO:")) {
 
                     pcompContext.getCarregTO().setTipoCarreg(1L);
                     pcompContext.getCarregTO().setProdCarreg(produtoTO.getIdProduto());
@@ -49,6 +50,18 @@ public class ProdutoActivity extends ActivityGeneric {
                     configTO = (ConfigTO) listConfig.get(0);
                     configTO.setStatusApontConfig(2L);
                     configTO.update();
+
+                    Long statusCon;
+                    ConexaoWeb conexaoWeb = new ConexaoWeb();
+                    if (conexaoWeb.verificaConexao(ProdutoActivity.this)) {
+                        statusCon = 1L;
+                    }
+                    else{
+                        statusCon = 0L;
+                    }
+
+                    pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                    pcompContext.getConfigCTR().setStatusApontConfig(2L);
 
                     Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
@@ -89,7 +102,7 @@ public class ProdutoActivity extends ActivityGeneric {
 
             if (listProduto.size() > 0) {
                 produtoTO = (ProdutoTO) listProduto.get(0);
-                txResult.setText("PRODUTO: " + produtoTO.getCodProduto() + "\n" + produtoTO.getDescProduto());
+                txtResult.setText("PRODUTO: " + produtoTO.getCodProduto() + "\n" + produtoTO.getDescProduto());
             }
 
         }

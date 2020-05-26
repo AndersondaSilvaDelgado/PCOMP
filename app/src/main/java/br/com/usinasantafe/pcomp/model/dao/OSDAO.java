@@ -21,6 +21,13 @@ public class OSDAO {
     public OSDAO() {
     }
 
+    public OSBean getOS(){
+        OSBean osBean = new OSBean();
+        List osList = osBean.all();
+        osBean = (OSBean) osList.get(0);
+        return osBean;
+    }
+
     public OSBean getOSAtiv(Long idAtivOS, Long nroOS){
         List ativOSList = ativOSList(idAtivOS, nroOS);
         OSBean osBean = (OSBean) ativOSList.get(0);

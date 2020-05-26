@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.dao.ConfigDAO;
 import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
+import br.com.usinasantafe.pcomp.model.dao.OSDAO;
 import br.com.usinasantafe.pcomp.util.AtualDadosServ;
 
 public class ConfigCTR {
@@ -48,6 +50,11 @@ public class ConfigCTR {
     public Long getVerInforConfig(){
         ConfigDAO configDAO = new ConfigDAO();
         return configDAO.getVerInforConfig();
+    }
+
+    public OSBean getOS(){
+        OSDAO osDAO = new OSDAO();
+        return osDAO.getOS();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,6 +109,11 @@ public class ConfigCTR {
     public void setDtServConfig(String dtServConfig){
         ConfigDAO configDAO = new ConfigDAO();
         configDAO.setDtServConfig(dtServConfig);
+    }
+
+    public void setStatusApontConfig(Long statusApont){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.setStatusApontConfig(statusApont);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

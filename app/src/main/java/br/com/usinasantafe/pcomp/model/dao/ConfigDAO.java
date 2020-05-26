@@ -128,4 +128,10 @@ public class ConfigDAO {
         configBean.update();
     }
 
+    public void setStatusApontConfig(Long statusApont){
+        ConfigBean configBean = getConfig();
+        configBean.setStatusApontConfig(statusApont);
+        configBean.update();
+    }
+
 }

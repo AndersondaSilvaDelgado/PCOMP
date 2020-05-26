@@ -10,7 +10,7 @@ import br.com.usinasantafe.pcomp.model.pst.Entidade;
  * Created by anderson on 18/01/2017.
  */
 @DatabaseTable(tableName="tbpesqbalcompvar")
-public class PesqBalancaCompBean extends Entidade {
+public class PesqLeiraCompostoBean extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class PesqBalancaCompBean extends Entidade {
     @DatabaseField
     private String cdLeira;
 
-    public PesqBalancaCompBean() {
+    public PesqLeiraCompostoBean() {
     }
 
     public Long getId() {
