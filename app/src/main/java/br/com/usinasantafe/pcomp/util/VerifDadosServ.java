@@ -26,6 +26,7 @@ import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraProdutoBean;
 import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
+import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
 import br.com.usinasantafe.pcomp.model.pst.GenericRecordable;
 import br.com.usinasantafe.pcomp.util.connHttp.PostVerGenerico;
 import br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp;
@@ -68,7 +69,8 @@ public class VerifDadosServ {
                 equipDAO.recDadosEquip(result);
             }
             else if(this.tipo.equals("LeiraComposto")){
-
+                LeiraDAO leiraDAO = new LeiraDAO();
+                leiraDAO.recLeiraComposto(result);
             }
 //            if (tipo.equals("PesqBalancaProdBean")) {
 //                retornoPesqBalanca(result, tipo);
@@ -146,11 +148,12 @@ public class VerifDadosServ {
 
     }
 
-    public void verDados(String dado, String tipo) {
+    public void verDados(String dado, String tipo, Context telaAtual) {
 
         urlsConexaoHttp = new UrlsConexaoHttp();
         this.dado = dado;
         this.tipo = tipo;
+        this.telaAtual = telaAtual;
 
         envioDados();
 

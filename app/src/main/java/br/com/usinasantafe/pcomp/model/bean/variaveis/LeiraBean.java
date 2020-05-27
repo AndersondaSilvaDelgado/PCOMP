@@ -17,6 +17,8 @@ public class LeiraBean extends Entidade {
     @DatabaseField
     private Long idOS;
     @DatabaseField
+    private Long idLeira;
+    @DatabaseField
     private String codLeira;
 
     public LeiraBean() {
@@ -44,6 +46,14 @@ public class LeiraBean extends Entidade {
 
     public void setIdOS(Long idOS) {
         this.idOS = idOS;
+    }
+
+    public Long getIdLeira() {
+        return idLeira;
+    }
+
+    public void setIdLeira(Long idLeira) {
+        this.idLeira = idLeira;
     }
 
     public String getCodLeira() {

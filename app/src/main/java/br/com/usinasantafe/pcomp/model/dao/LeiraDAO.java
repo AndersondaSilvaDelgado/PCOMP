@@ -1,5 +1,7 @@
 package br.com.usinasantafe.pcomp.model.dao;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -8,13 +10,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.com.usinasantafe.pcomp.LeiraActivity;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.LeiraBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraCompostoBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraProdutoBean;
+import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
+import br.com.usinasantafe.pcomp.util.Tempo;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 import br.com.usinasantafe.pcomp.util.connHttp.PostVerGenerico;
 
@@ -35,7 +41,7 @@ public class LeiraDAO {
         }
     }
 
-    public void pesqLeiraComposto(ConfigBean configBean){
+    public void pesqLeiraComposto(ConfigBean configBean, Context telaAtual){
 
         VerifDadosServ.getInstance().setVerTerm(false);
         JsonArray jsonArray = new JsonArray();
@@ -46,11 +52,11 @@ public class LeiraDAO {
         JsonObject json = new JsonObject();
         json.add("dados", jsonArray);
 
-        VerifDadosServ.getInstance().verDados(json.toString(), "LeiraComposto");
+        VerifDadosServ.getInstance().verDados(json.toString(), "LeiraComposto", telaAtual);
 
     }
 
-    private void recLeiraComposto(String result) {
+    public void recLeiraComposto(String result) {
 
         try {
 

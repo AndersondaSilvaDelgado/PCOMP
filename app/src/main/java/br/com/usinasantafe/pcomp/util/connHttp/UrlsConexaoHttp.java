@@ -26,12 +26,28 @@ public class UrlsConexaoHttp {
 		return urlPrincEnvio + "inserirmotomec.php" + put;
 	}
 
-	public String getsInserirCarreg() {
+	public String getsInsertCarreg() {
 		return urlPrincEnvio + "inserircarreg.php" + put;
 	}
 
 	public String getsPesqLeiraProd() {
 		return urlPrincipal + "pesqleiracomp.php" + put;
+	}
+
+	public String getsInsertChecklist() {
+		return urlPrincEnvio + "inserirchecklist.php" + put;
+	}
+
+	public String getsInsertApontaMM() {
+		return urlPrincEnvio + "inserirapontmm.php" + put;
+	}
+
+	public String getsInsertBolAbertoMM() {
+		return urlPrincEnvio + "inserirbolabertomm.php" + put;
+	}
+
+	public String getsInsertBolFechadoMM() {
+		return urlPrincEnvio + "inserirbolfechadomm.php" + put;
 	}
 
 	public String urlVerifica(String classe){

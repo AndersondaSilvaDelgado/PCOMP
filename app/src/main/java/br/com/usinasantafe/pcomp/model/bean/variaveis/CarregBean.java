@@ -3,7 +3,8 @@ package br.com.usinasantafe.pcomp.model.bean.variaveis;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import br.com.usinasantafe.pcomp.pst.Entidade;
+import br.com.usinasantafe.pcomp.model.pst.Entidade;
+
 
 /**
  * Created by anderson on 16/11/2016.
@@ -29,6 +30,8 @@ public class CarregBean extends Entidade {
     private Long osCarreg;
     @DatabaseField
     private Long leiraCarreg;
+    @DatabaseField
+    private Long statusCarreg; //1 - Aberto; 2 - Fechado; 3 - Enviado
 
     public CarregBean() {
     }
@@ -97,4 +100,11 @@ public class CarregBean extends Entidade {
         this.leiraCarreg = leiraCarreg;
     }
 
+    public Long getStatusCarreg() {
+        return statusCarreg;
+    }
+
+    public void setStatusCarreg(Long statusCarreg) {
+        this.statusCarreg = statusCarreg;
+    }
 }

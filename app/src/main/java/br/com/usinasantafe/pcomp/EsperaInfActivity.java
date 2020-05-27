@@ -19,7 +19,7 @@ public class EsperaInfActivity extends AppCompatActivity {
 
         if(pcompContext.getVerPosTela() == 2){
             textEspInfo.setText("PESQUISANDO LEIRA...");
-
+            pcompContext.getCompostoCTR().pesqLeiraComposto(this);
         }
 
     }

@@ -18,8 +18,6 @@ import java.util.List;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraCompostoBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.PesqLeiraProdutoBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class MenuMotoMecActivity extends ActivityGeneric {
@@ -174,11 +172,38 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     if (pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 1) {
 
                         if (osBean.getTipoOS() == 1L) {
+
                             Intent it = new Intent(MenuMotoMecActivity.this, ProdutoActivity.class);
                             startActivity(it);
                             finish();
+
                         }
                         else{
+
+                            Long statusCon;
+                            ConexaoWeb conexaoWeb = new ConexaoWeb();
+                            if (conexaoWeb.verificaConexao(MenuMotoMecActivity.this)) {
+                                statusCon = 1L;
+                            }
+                            else{
+                                statusCon = 0L;
+                            }
+
+                            pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                            pcompContext.getCompostoCTR().apontCarregComposto(MenuMotoMecActivity.this);
+
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
+                            alerta.setTitle("ATENÇÃO");
+                            alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBean.getDescrOperMotoMec());
+
+                            alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    motoMecListView.setSelection(posicao + 1);
+                                }
+                            });
+
+                            alerta.show();
 
                         }
 
@@ -210,7 +235,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                 }
                 else if (motoMecBean.getCodFuncaoOperMotoMec() == 5) {
 
-                    if (pcompContext.getLeiraCTR().pesqLeiraExibir()) {
+                    if (pcompContext.getCompostoCTR().pesqLeiraExibir()) {
 
                         pcompContext.setVerTelaLeira(true);
                         Intent it = new Intent(MenuMotoMecActivity.this, LeiraActivity.class);
