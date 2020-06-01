@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.model.bean.estaticas.OperMotoMecBean;
-
 public class MotoMecPST {
 
 	private static final long serialVersionUID = 1L;

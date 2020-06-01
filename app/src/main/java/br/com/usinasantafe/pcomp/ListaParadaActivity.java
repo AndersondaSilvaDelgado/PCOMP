@@ -12,121 +12,88 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
-import br.com.usinasantafe.pcomp.pst.EspecificaPesquisa;
-import br.com.usinasantafe.pcomp.pst.MotoMecPST;
-import br.com.usinasantafe.pcomp.to.tb.estaticas.OperMotoMecTO;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class ListaParadaActivity extends ActivityGeneric {
 
-    private ListView lista;
+    private ListView paradaListView;
     private PCOMPContext pcompContext;
-    private List listaMM;
-    private OperMotoMecTO operMotoMecTO;
-    private int pos;
+    private List paradaList;
+    private int posicao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motivo_parada);
 
-        Button buttonRetMenuParada = (Button) findViewById(R.id.buttonRetMenuParada);
-
         pcompContext = (PCOMPContext) getApplication();
 
-        listarMotivoParada();
-
-        buttonRetMenuParada.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                for(int i = 0; i < listaMM.size(); i++){
-                    operMotoMecTO = (OperMotoMecTO) listaMM.get(i);
-                    if(operMotoMecTO.getDescrOperMotoMec().equals("VOLTAR AO TRABALHO")) {
-                        pcompContext.getApontMotoMecTO().setOpcor(operMotoMecTO.getCodOperMotoMec());
-                    }
-                }
-
-                ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
-
-                Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
-                startActivity(it);
-                finish();
-
-            }
-
-        });
-
-    }
-
-    public void listarMotivoParada(){
-
-        ArrayList listaPesq = new ArrayList();
-
-        operMotoMecTO = new OperMotoMecTO();
-
-        EspecificaPesquisa pesquisa = new EspecificaPesquisa();
-        pesquisa.setCampo("cargoMotoMec");
-        if(pcompContext.getTipoAplic() == 1) {
-            pesquisa.setValor(282L);
-        }
-        else{
-            pesquisa.setValor(175L);
-        }
-        listaPesq.add(pesquisa);
-
-        EspecificaPesquisa pesquisa2 = new EspecificaPesquisa();
-        pesquisa2.setCampo("tipoMotoMec");
-        pesquisa2.setValor((long) 2);
-        listaPesq.add(pesquisa2);
-
-        MotoMecPST motoMecPST = new MotoMecPST();
-        listaMM  = motoMecPST.get(listaPesq);
+        Button buttonRetMenuParada = (Button) findViewById(R.id.buttonRetMenuParada);
 
         ArrayList<String> itens = new ArrayList<String>();
-
-        for(int i = 0; i < listaMM.size(); i++){
-            operMotoMecTO = (OperMotoMecTO) listaMM.get(i);
-            if(!operMotoMecTO.getDescrOperMotoMec().equals("VOLTAR AO TRABALHO")) {
-                itens.add(operMotoMecTO.getDescrOperMotoMec());
-            }
-            else if(operMotoMecTO.getDescrOperMotoMec().equals("VOLTAR AO TRABALHO")) {
-                pcompContext.getApontMotoMecTO().setOpcor(operMotoMecTO.getCodOperMotoMec());
-            }
+        paradaList = pcompContext.getMotoMecCTR().getParadaList();
+        for(int i = 0; i < paradaList.size(); i++){
+            MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(i);
+            itens.add(motoMecBean.getDescrOperMotoMec());
         }
 
         AdapterList adapterList = new AdapterList(this, itens);
-        lista = (ListView) findViewById(R.id.listViewMotParada);
-        lista.setAdapter(adapterList);
+        paradaListView = (ListView) findViewById(R.id.listViewMotParada);
+        paradaListView.setAdapter(adapterList);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        paradaListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
 
-                pos = position;
+                posicao = position;
+                MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(posicao);
+                pcompContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
-                operMotoMecTO = (OperMotoMecTO) listaMM.get(pos);
                 AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);
                 alerta.setTitle("ATENÇÃO");
-                alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + operMotoMecTO.getDescrOperMotoMec());
-
-                pcompContext.getApontMotoMecTO().setOpcor(operMotoMecTO.getCodOperMotoMec());
-                ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
+                alerta.setMessage("FOI DADO ENTRADA NA ATIVIDADE: " + motoMecBean.getDescrOperMotoMec());
 
                 alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        lista.setSelection(pos + 1);
+                        Long statusCon;
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
+                            statusCon = 1L;
+                        }
+                        else{
+                            statusCon = 0L;
+                        }
+                        pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                        paradaListView.setSelection(posicao + 1);
                     }
                 });
 
                 alerta.show();
 
+            }
+
+        });
+
+        buttonRetMenuParada.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Long statusCon;
+                ConexaoWeb conexaoWeb = new ConexaoWeb();
+                if (conexaoWeb.verificaConexao(ListaParadaActivity.this)) {
+                    statusCon = 1L;
+                }
+                else{
+                    statusCon = 0L;
+                }
+                pcompContext.getMotoMecCTR().insVoltaTrab(getLongitude(), getLatitude(), statusCon);
+                Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
+                startActivity(it);
+                finish();
             }
 
         });

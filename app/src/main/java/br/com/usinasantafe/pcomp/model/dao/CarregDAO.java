@@ -25,7 +25,7 @@ public class CarregDAO {
         return retorno;
     }
 
-    public void apontCarregComposto(Long idOSAgric, Long matricFunc, Context context){
+    public void apontCarreg(Long idOSAgric, Long matricFunc, Long idEquip, Context context){
 
         LeiraBean leiraBean = new LeiraBean();
         List leiraList = leiraBean.all();
@@ -33,11 +33,26 @@ public class CarregDAO {
 
         CarregBean carregBean = new CarregBean();
         carregBean.setDataCarreg(Tempo.getInstance().dataComHora().getDataHora());
-        carregBean.setEquipCarreg(leiraBean.getIdEquip());
-        carregBean.setLeiraCarreg(leiraBean.getIdLeira());
+        carregBean.setEquipCarreg(idEquip);
+        carregBean.setIdLeiraCarreg(leiraBean.getIdLeira());
         carregBean.setMotoCarreg(matricFunc);
         carregBean.setOsCarreg(idOSAgric);
         carregBean.setTipoCarreg(2L);
+        carregBean.insert();
+
+        EnvioDadosServ.getInstance().envioDados(context);
+
+    }
+
+    public void apontCarreg(Long idOSAgric, Long matricFunc, Long idEquip, Long idProd, Context context){
+
+        CarregBean carregBean = new CarregBean();
+        carregBean.setDataCarreg(Tempo.getInstance().dataComHora().getDataHora());
+        carregBean.setEquipCarreg(idEquip);
+        carregBean.setProdCarreg(idProd);
+        carregBean.setMotoCarreg(matricFunc);
+        carregBean.setOsCarreg(idOSAgric);
+        carregBean.setTipoCarreg(1L);
         carregBean.insert();
 
         EnvioDadosServ.getInstance().envioDados(context);

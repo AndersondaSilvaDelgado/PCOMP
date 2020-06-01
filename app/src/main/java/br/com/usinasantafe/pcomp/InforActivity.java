@@ -12,14 +12,14 @@ import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
 import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaCompTO;
 import br.com.usinasantafe.pcomp.to.tb.variaveis.PesqBalancaProdTO;
 
-public class LeiraActivity extends ActivityGeneric {
+public class InforActivity extends ActivityGeneric {
 
     private PCOMPContext pcompContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leira);
+        setContentView(R.layout.activity_infor);
 
         pcompContext = (PCOMPContext) getApplication();
 
@@ -57,7 +57,7 @@ public class LeiraActivity extends ActivityGeneric {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent it = new Intent(LeiraActivity.this, MenuMotoMecActivity.class);
+                Intent it = new Intent(InforActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();
 

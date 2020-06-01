@@ -51,7 +51,7 @@
             android:name=".ListaTurnoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LeiraActivity"
+            android:name=".InforActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ConfigActivity"

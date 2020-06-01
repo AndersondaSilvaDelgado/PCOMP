@@ -29,7 +29,17 @@ public class CarregBean extends Entidade {
     @DatabaseField
     private Long osCarreg;
     @DatabaseField
-    private Long leiraCarreg;
+    private Long idLeiraCarreg;
+    @DatabaseField
+    private Long codLeiraCarreg;
+    @DatabaseField
+    private Long idOrdCarreg;
+    @DatabaseField
+    private Double pesoEntradaCarreg;
+    @DatabaseField
+    private Double pesoSaidaCarreg;
+    @DatabaseField
+    private Double pesoLiquidoCarreg;
     @DatabaseField
     private Long statusCarreg; //1 - Aberto; 2 - Fechado; 3 - Enviado
 
@@ -92,12 +102,12 @@ public class CarregBean extends Entidade {
         this.osCarreg = osCarreg;
     }
 
-    public Long getLeiraCarreg() {
-        return leiraCarreg;
+    public Long getIdLeiraCarreg() {
+        return idLeiraCarreg;
     }
 
-    public void setLeiraCarreg(Long leiraCarreg) {
-        this.leiraCarreg = leiraCarreg;
+    public void setIdLeiraCarreg(Long idLeiraCarreg) {
+        this.idLeiraCarreg = idLeiraCarreg;
     }
 
     public Long getStatusCarreg() {
@@ -106,5 +116,45 @@ public class CarregBean extends Entidade {
 
     public void setStatusCarreg(Long statusCarreg) {
         this.statusCarreg = statusCarreg;
+    }
+
+    public Long getCodLeiraCarreg() {
+        return codLeiraCarreg;
+    }
+
+    public void setCodLeiraCarreg(Long codLeiraCarreg) {
+        this.codLeiraCarreg = codLeiraCarreg;
+    }
+
+    public Long getIdOrdCarreg() {
+        return idOrdCarreg;
+    }
+
+    public void setIdOrdCarreg(Long idOrdCarreg) {
+        this.idOrdCarreg = idOrdCarreg;
+    }
+
+    public Double getPesoEntradaCarreg() {
+        return pesoEntradaCarreg;
+    }
+
+    public void setPesoEntradaCarreg(Double pesoEntradaCarreg) {
+        this.pesoEntradaCarreg = pesoEntradaCarreg;
+    }
+
+    public Double getPesoSaidaCarreg() {
+        return pesoSaidaCarreg;
+    }
+
+    public void setPesoSaidaCarreg(Double pesoSaidaCarreg) {
+        this.pesoSaidaCarreg = pesoSaidaCarreg;
+    }
+
+    public Double getPesoLiquidoCarreg() {
+        return pesoLiquidoCarreg;
+    }
+
+    public void setPesoLiquidoCarreg(Double pesoLiquidoCarreg) {
+        this.pesoLiquidoCarreg = pesoLiquidoCarreg;
     }
 }

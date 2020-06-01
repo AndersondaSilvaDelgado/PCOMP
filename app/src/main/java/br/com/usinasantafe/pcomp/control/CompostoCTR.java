@@ -2,9 +2,11 @@ package br.com.usinasantafe.pcomp.control;
 
 import android.content.Context;
 
+import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
 import br.com.usinasantafe.pcomp.model.dao.OSDAO;
+import br.com.usinasantafe.pcomp.model.dao.ProdutoDAO;
 
 public class CompostoCTR {
 
@@ -22,13 +24,20 @@ public class CompostoCTR {
         leiraDAO.pesqLeiraComposto(configCTR.getConfig(), telaAtual);
     }
 
-    public void apontCarregComposto(Context context){
+    public void apontCarreg(Context context){
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        Long matricFunc = motoMecCTR.getFunc();
         OSDAO osDAO = new OSDAO();
-        Long idOSAgric = osDAO.getOS().getIdOSAgric();
+        ConfigCTR configCTR = new ConfigCTR();
         CarregDAO carregDAO = new CarregDAO();
-        carregDAO.apontCarregComposto(idOSAgric, matricFunc, context);
+        carregDAO.apontCarreg(osDAO.getOS().getIdOS(), motoMecCTR.getFunc(), configCTR.getEquip().getIdEquip(), context);
+    }
+
+    public void apontCarreg(Context context, ProdutoBean produtoBean){
+        MotoMecCTR motoMecCTR = new MotoMecCTR();
+        OSDAO osDAO = new OSDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        CarregDAO carregDAO = new CarregDAO();
+        carregDAO.apontCarreg(osDAO.getOS().getIdOS(), motoMecCTR.getFunc(), configCTR.getEquip().getIdEquip(), produtoBean.getIdProduto(), context);
     }
 
     public boolean verCarreg(){
@@ -39,6 +48,20 @@ public class CompostoCTR {
     public String dadosEnvioCarreg(){
         CarregDAO carregDAO = new CarregDAO();
         return carregDAO.dadosEnvioCarreg();
+    }
+
+    public boolean verProduto(String codProduto){
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        return produtoDAO.verProduto(codProduto);
+    }
+
+    public ProdutoBean getProduto(String codProduto){
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        return produtoDAO.getProduto(codProduto);
+    }
+
+    public void pesqOrdCarreg(){
+        
     }
 
 }
