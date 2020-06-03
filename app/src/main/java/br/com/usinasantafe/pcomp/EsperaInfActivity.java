@@ -1,10 +1,9 @@
 package br.com.usinasantafe.pcomp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class EsperaInfActivity extends AppCompatActivity {
+public class EsperaInfActivity extends ActivityGeneric {
 
     private PCOMPContext pcompContext;
 
@@ -23,11 +22,11 @@ public class EsperaInfActivity extends AppCompatActivity {
         }
         else if(pcompContext.getVerPosTela() == 3){
             textEspInfo.setText("BUSCANDO LEIRA/CARREGAMENTO...");
-            pcompContext.getCompostoCTR().pesqLeiraComposto(this);
+
         }
         else if(pcompContext.getVerPosTela() == 4){
             textEspInfo.setText("PESQUISANDO CARREGAMENTO...");
-            pcompContext.getCompostoCTR().pesqLeiraComposto(this);
+            pcompContext.getCompostoCTR().pesqCarregComposto(this);
         }
 
     }

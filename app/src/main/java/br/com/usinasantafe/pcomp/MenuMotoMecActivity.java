@@ -1,7 +1,6 @@
 package br.com.usinasantafe.pcomp;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
@@ -41,8 +40,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         Button buttonRetMotoMec = (Button) findViewById(R.id.buttonRetMotoMec);
         textViewMotorista = (TextView) findViewById(R.id.textViewMotorista);
 
-        FuncBean funcBean = pcompContext.getMotoMecCTR().getMatricNomeFunc();
-        textViewMotorista.setText(funcBean.getMatricFunc() + " - " + funcBean.getNomeFunc());
+        FuncionarioBean funcionarioBean = pcompContext.getMotoMecCTR().getMatricNomeFunc();
+        textViewMotorista.setText(funcionarioBean.getMatricFunc() + " - " + funcionarioBean.getNomeFunc());
 
         listarMenuAtividade();
 
@@ -77,7 +76,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         osBean = pcompContext.getConfigCTR().getOS();
 
         ArrayList<String> motoMecArrayList = new ArrayList<String>();
-        motoMecList = pcompContext.getMotoMecCTR().getMotoMecList();
+        motoMecList = pcompContext.getMotoMecCTR().getMotoMecList(osBean.getTipoOS() + 2);
         for (int i = 0; i < motoMecList.size(); i++) {
             MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(i);
             motoMecArrayList.add(motoMecBean.getDescrOperMotoMec());
@@ -274,7 +273,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                     if (pcompContext.getCompostoCTR().pesqLeiraExibir()) {
 
                         pcompContext.setVerTelaLeira(true);
-                        Intent it = new Intent(MenuMotoMecActivity.this, InforActivity.class);
+                        Intent it = new Intent(MenuMotoMecActivity.this, InformacaoActivity.class);
                         startActivity(it);
                         finish();
 

@@ -9,7 +9,10 @@ import com.google.gson.JsonObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.com.usinasantafe.pcomp.InforActivity;
+import java.util.List;
+
+import br.com.usinasantafe.pcomp.InformacaoActivity;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.LeiraBean;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
@@ -21,23 +24,27 @@ public class LeiraDAO {
 
     public boolean pesqLeiraExibir(){
 
-        PesqLeiraProdutoBean pesqBalancaProdTO = new PesqLeiraProdutoBean();
-        PesqLeiraCompostoBean pesqBalancaCompTO = new PesqLeiraCompostoBean();
-        if ((pesqBalancaProdTO.count() > 0) || (pesqBalancaCompTO.count() > 0)) {
+//        PesqLeiraProdutoBean pesqBalancaProdTO = new PesqLeiraProdutoBean();
+//        PesqLeiraCompostoBean pesqBalancaCompTO = new PesqLeiraCompostoBean();
+//        if ((pesqBalancaProdTO.count() > 0) || (pesqBalancaCompTO.count() > 0)) {
             return true;
-        }
-        else {
-            return false;
-        }
+//        }
+//        else {
+//            return false;
+//        }
     }
 
-    public void pesqLeiraComposto(ConfigBean configBean, Context telaAtual){
+    public void pesqLeiraComposto(ConfigBean configBean, OSBean osBean, Context telaAtual){
 
         VerifDadosServ.getInstance().setVerTerm(false);
         JsonArray jsonArray = new JsonArray();
 
+        LeiraBean leiraBean = new LeiraBean();
+        leiraBean.setIdEquip(configBean.getEquipConfig());
+        leiraBean.setIdOS(osBean.getIdOS());
+
         Gson gson = new Gson();
-        jsonArray.add(gson.toJsonTree(configBean, configBean.getClass()));
+        jsonArray.add(gson.toJsonTree(leiraBean, leiraBean.getClass()));
 
         JsonObject json = new JsonObject();
         json.add("dados", jsonArray);
@@ -68,7 +75,7 @@ public class LeiraDAO {
                         leiraBean.insert();
 
                     }
-                     VerifDadosServ.getInstance().pulaTela(InforActivity.class);
+                     VerifDadosServ.getInstance().pulaTela(InformacaoActivity.class);
                 }
 
             } else {
@@ -79,6 +86,14 @@ public class LeiraDAO {
             VerifDadosServ.getInstance().envioDados();
         }
 
+    }
+
+    public LeiraBean getLeira(){
+        LeiraBean leiraBean = new LeiraBean();
+        List leiraList = leiraBean.all();
+        leiraBean = (LeiraBean) leiraList.get(0);
+        leiraList.clear();
+        return leiraBean;
     }
 
 }

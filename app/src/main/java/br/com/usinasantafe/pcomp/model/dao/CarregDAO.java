@@ -6,12 +6,18 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import br.com.usinasantafe.pcomp.InformacaoActivity;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.LeiraBean;
 import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
 import br.com.usinasantafe.pcomp.util.Tempo;
+import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
 public class CarregDAO {
 
@@ -84,6 +90,45 @@ public class CarregDAO {
         preCECJsonObj.add("carreg", preCECJsonArray);
 
         return preCECJsonObj.toString();
+
+    }
+
+    public void pesqCarregComposto(ConfigBean configBean, Context telaAtual){
+        VerifDadosServ.getInstance().verDados(String.valueOf(configBean.getEquipConfig()), "CarregComposto", telaAtual);
+    }
+
+    public void recCarregComposto(String result) {
+
+        try {
+
+            if (!result.contains("exceeded")) {
+
+                JSONObject jObj = new JSONObject(result);
+                JSONArray jsonArray = jObj.getJSONArray("dados");
+
+                if (jsonArray.length() > 0) {
+
+                    LeiraBean leiraBean = new LeiraBean();
+                    leiraBean.deleteAll();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject objeto = jsonArray.getJSONObject(i);
+                        Gson gson = new Gson();
+                        leiraBean = gson.fromJson(objeto.toString(), LeiraBean.class);
+                        leiraBean.insert();
+
+                    }
+                    VerifDadosServ.getInstance().pulaTela(InformacaoActivity.class);
+                }
+
+            } else {
+                VerifDadosServ.getInstance().envioDados();
+            }
+
+        } catch (Exception e) {
+            VerifDadosServ.getInstance().envioDados();
+        }
 
     }
 

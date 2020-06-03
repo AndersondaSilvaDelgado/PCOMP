@@ -24,8 +24,10 @@ import br.com.usinasantafe.pcomp.control.MotoMecCTR;
 import br.com.usinasantafe.pcomp.model.bean.AtualAplicBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
 import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
+import br.com.usinasantafe.pcomp.model.dao.OSDAO;
 import br.com.usinasantafe.pcomp.model.pst.GenericRecordable;
 import br.com.usinasantafe.pcomp.util.connHttp.PostVerGenerico;
 import br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp;
@@ -71,11 +73,26 @@ public class VerifDadosServ {
                 LeiraDAO leiraDAO = new LeiraDAO();
                 leiraDAO.recLeiraComposto(result);
             }
-            else if(tipo.equals("OrdCarregProd")) {
-                retornoPesqBalanca(result, tipo);
+            else if (this.tipo.equals("Atualiza")) {
+                String verAtual = result.trim();
+                if (verAtual.equals("S")) {
+                    AtualizarAplicativo atualizarAplicativo = new AtualizarAplicativo();
+                    atualizarAplicativo.setContext(this.menuInicialActivity);
+                    atualizarAplicativo.execute();
+                } else {
+                    this.menuInicialActivity.startTimer(verAtual);
+                }
             }
-            else if(tipo.equals("OrdCarregComp")) {
-                retornoVerifNormal(result, tipo);
+            else if(tipo.equals("LeiraCarregInsumo")) {
+//                retornoPesqBalanca(result, tipo);
+            }
+            else if(tipo.equals("CarregComposto")) {
+                CarregDAO carregDAO = new CarregDAO();
+                carregDAO.recCarregComposto(result);
+            }
+            else if (this.tipo.equals("OS")) {
+                OSDAO osDAO = new OSDAO();
+                osDAO.recDadosOS(result);
             }
 
         }
@@ -135,19 +152,6 @@ public class VerifDadosServ {
 
     }
 
-    public void verDados(String dado, String tipo, Context telaAtual, Class telaProx, String variavel) {
-
-        urlsConexaoHttp = new UrlsConexaoHttp();
-        this.telaAtual = telaAtual;
-        this.telaProx = telaProx;
-        this.variavel = variavel;
-        this.dado = dado;
-        this.tipo = tipo;
-
-        envioDados();
-
-    }
-
     public void verDados(String dado, String tipo, Context telaAtual) {
 
         urlsConexaoHttp = new UrlsConexaoHttp();
@@ -165,147 +169,13 @@ public class VerifDadosServ {
         Map<String, Object> parametrosPost = new HashMap<String, Object>();
         parametrosPost.put("dado", String.valueOf(dado));
 
+        Log.i("PCOMP", "PESQUISA = " + dado);
+
         PostVerGenerico postVerGenerico = new PostVerGenerico();
         postVerGenerico.setParametrosPost(parametrosPost);
         postVerGenerico.setTipo(tipo);
         postVerGenerico.execute(url);
 
-    }
-
-    public void retornoVerifNormal(String result, String tipo) {
-
-        try {
-
-            JSONObject jObj = new JSONObject(result);
-            JSONArray jsonArray = jObj.getJSONArray("dados");
-            Class classe = Class.forName(manipLocalClasse(tipo));
-
-            qtde = jsonArray.length();
-
-            if (qtde > 0) {
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-
-                    JSONObject objeto = jsonArray.getJSONObject(i);
-                    Gson gson = new Gson();
-                    genericRecordable = new GenericRecordable();
-                    genericRecordable.insert(gson.fromJson(objeto.toString(), classe), classe);
-
-                }
-
-                Intent it = new Intent(telaAtual, telaProx);
-                telaAtual.startActivity(it);
-
-            } else {
-
-                AlertDialog.Builder alerta = new AlertDialog.Builder(telaAtual);
-                alerta.setTitle("ATENÇÃO");
-                alerta.setMessage(variavel + " INEXISTENTE NA BASE DE DADOS.");
-
-                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
-                    }
-                });
-                alerta.show();
-
-            }
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            Log.i("ERRO", "Erro Manip1 = " + e);
-        }
-
-    }
-
-    public void retornoPesqBalanca(String result, String tipo) {
-
-        try {
-
-            JSONObject jObj = new JSONObject(result);
-            JSONArray jsonArray = jObj.getJSONArray("dados");
-
-            JSONObject objeto = jsonArray.getJSONObject(0);
-            Gson gson = new Gson();
-            PesqLeiraProdutoBean pesqBalancaProdTO = gson.fromJson(objeto.toString(), PesqLeiraProdutoBean.class);
-            pesqBalancaProdTO.insert();
-
-            this.progressDialog.dismiss();
-            Intent it = new Intent(telaAtual, telaProx);
-            telaAtual.startActivity(it);
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            Log.i("ERRO", "Erro Manip2 = " + e);
-        }
-
-    }
-
-    public void recDadosEquip(String result) {
-
-        try {
-
-            JSONObject jObj = new JSONObject(result);
-            JSONArray jsonArray = jObj.getJSONArray("dados");
-
-            if (jsonArray.length() > 0) {
-
-                EquipBean equipTO = new EquipBean();
-                equipTO.deleteAll();
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-
-                    JSONObject objeto = jsonArray.getJSONObject(i);
-                    Gson gson = new Gson();
-                    equipTO = gson.fromJson(objeto.toString(), EquipBean.class);
-                    equipTO.insert();
-
-                }
-
-                ConfigBean configTO = new ConfigBean();
-                configTO.deleteAll();
-                configTO.setEquipConfig(equipTO.getIdEquip());
-                configTO.setOsConfig(0L);
-                configTO.insert();
-                configTO.commit();
-
-                this.progressDialog.dismiss();
-
-                Intent it = new Intent(telaAtual, telaProx);
-                telaAtual.startActivity(it);
-
-            } else {
-
-                this.progressDialog.dismiss();
-
-                AlertDialog.Builder alerta = new AlertDialog.Builder(telaAtual);
-                alerta.setTitle("ATENÇÃO");
-                alerta.setMessage("EQUIPAMENTO INEXISTENTE NA BASE DE DADOS! FAVOR VERIFICA A NUMERAÇÃO.");
-
-                alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
-                    }
-                });
-                alerta.show();
-
-            }
-
-        } catch (Exception e) {
-            Log.i("PMM", "Erro Manip Atualizar = " + e);
-        }
-
-    }
-
-    public void verDadosInfor() {
-
-        verTerm = true;
-        urlsConexaoHttp = new UrlsConexaoHttp();
-        this.tipo = "Informativo";
-        MotoMecCTR motoMecCTR = new MotoMecCTR();
-//        this.dado = String.valueOf(motoMecCTR.getMatricNomeFunc());
     }
 
     public void pulaTelaSemTerm(){

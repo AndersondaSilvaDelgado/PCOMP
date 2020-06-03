@@ -11,8 +11,8 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 
-import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
-import br.com.usinasantafe.pcomp.model.dao.Tempo;
+import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
+import br.com.usinasantafe.pcomp.util.Tempo;
 
 public class PostCadGenerico extends AsyncTask<String, Void, String> {
 
@@ -24,9 +24,9 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 		// TODO Auto-generated constructor stub
 	}
 
-    public static br.com.usinasantafe.pcomp.conWEB.PostCadGenerico getInstance() {
+    public static PostCadGenerico getInstance() {
         if (instance == null)
-        instance = new br.com.usinasantafe.pcomp.conWEB.PostCadGenerico();
+        instance = new PostCadGenerico();
         return instance;
     }
 
@@ -100,19 +100,12 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 
 		try {
 			Log.i("PCOMP", "VALOR RECEBIDO --> " + result);
-			if(result.trim().equals("GRAVOU-MOTOMEC")){
-				ManipDadosEnvio.getInstance().delApontMotoMec();
-			}
-			else if(result.trim().equals("GRAVOU-CARREG")){
-				ManipDadosEnvio.getInstance().delApontaCarreg();
-			}
-			else{
-				if(result.contains("exceeded")){
-					ManipDadosEnvio.getInstance().envioComp();
-				}
-				else{
-					ManipDadosEnvio.getInstance().salvarDadosPesqBalancaComp(result.trim());
-				}
+			try {
+				Log.i("ECM", "VALOR RECEBIDO --> " + result);
+				EnvioDadosServ.getInstance().recDados(result);
+			} catch (Exception e) {
+				EnvioDadosServ.getInstance().setStatusEnvio(2);
+				Log.i("ERRO", "Erro2 = " + e);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

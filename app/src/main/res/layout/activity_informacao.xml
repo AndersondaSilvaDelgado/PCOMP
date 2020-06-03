@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.usinasantafe.pcomp.InforActivity">
+    tools:context="br.com.usinasantafe.pcomp.InformacaoActivity">
 
     <TextView
         android:id="@+id/textViewPrincipal"
@@ -23,15 +23,14 @@
     <LinearLayout
         android:id="@+id/rightRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
         >
 
         <TextView
-            android:id="@+id/textViewDescrLeira"
+            android:id="@+id/textViewLeira"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,7 +41,7 @@
             />
 
         <TextView
-            android:id="@+id/textViewLeira"
+            android:id="@+id/textViewCodLeira"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -53,6 +52,15 @@
             />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewDescr"
+        style="@style/TextViewTituloLista"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text=""
+        android:paddingBottom="5dp"
+        />
 
     <Button
         android:id="@+id/buttonRetMenuPesq"

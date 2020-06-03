@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcomp.control;
 import android.content.Context;
 
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.LeiraBean;
 import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
 import br.com.usinasantafe.pcomp.model.dao.OSDAO;
@@ -21,7 +22,7 @@ public class CompostoCTR {
     public void pesqLeiraComposto(Context telaAtual){
         LeiraDAO leiraDAO = new LeiraDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        leiraDAO.pesqLeiraComposto(configCTR.getConfig(), telaAtual);
+        leiraDAO.pesqLeiraComposto(configCTR.getConfig(), configCTR.getOS(), telaAtual);
     }
 
     public void apontCarreg(Context context){
@@ -60,8 +61,17 @@ public class CompostoCTR {
         return produtoDAO.getProduto(codProduto);
     }
 
-    public void pesqOrdCarreg(){
-        
+    public LeiraBean getLeira(){
+        LeiraDAO leiraDAO = new LeiraDAO();
+        return leiraDAO.getLeira();
     }
+
+    public void pesqCarregComposto(Context telaAtual){
+        CarregDAO carregDAO = new CarregDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        carregDAO.pesqCarregComposto(configCTR.getConfig(), telaAtual);
+    }
+
+
 
 }

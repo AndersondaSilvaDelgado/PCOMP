@@ -153,9 +153,15 @@ public class OSActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
-        Intent it = new Intent(OSActivity.this, ListaTurnoActivity.class);
-        startActivity(it);
-        finish();
+        if(pcompContext.getVerPosTela() == 1){
+            Intent it = new Intent(OSActivity.this, ListaTurnoActivity.class);
+            startActivity(it);
+            finish();
+        } else {
+            Intent it = new Intent(OSActivity.this, MenuMotoMecActivity.class);
+            startActivity(it);
+            finish();
+        }
     }
 
     private Runnable updateTimerThread = new Runnable() {

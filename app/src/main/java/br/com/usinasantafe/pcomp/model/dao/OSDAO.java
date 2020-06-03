@@ -13,6 +13,7 @@ import java.util.List;
 
 import br.com.usinasantafe.pcomp.control.ConfigCTR;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.ROSAtivBean;
 import br.com.usinasantafe.pcomp.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
@@ -25,20 +26,6 @@ public class OSDAO {
         OSBean osBean = new OSBean();
         List osList = osBean.all();
         osBean = (OSBean) osList.get(0);
-        return osBean;
-    }
-
-    public OSBean getOSAtiv(Long idAtivOS, Long nroOS){
-        List ativOSList = ativOSList(idAtivOS, nroOS);
-        OSBean osBean = (OSBean) ativOSList.get(0);
-        ativOSList.clear();
-        return osBean;
-    }
-
-    public OSBean getOSLib(Long idLibOS, Long nroOS){
-        List libOSList = libOSList(idLibOS, nroOS);
-        OSBean osBean = (OSBean) libOSList.get(0);
-        libOSList.clear();
         return osBean;
     }
 
@@ -109,12 +96,17 @@ public class OSDAO {
 
             if (!result.contains("exceeded")) {
 
-                JSONObject jObj = new JSONObject(result.trim());
+                int posicao = result.indexOf("#") + 1;
+                String objPrinc = result.substring(0, result.indexOf("#"));
+                String objSeg = result.substring(posicao);
+
+                JSONObject jObj = new JSONObject(objPrinc);
                 JSONArray jsonArray = jObj.getJSONArray("dados");
 
                 if (jsonArray.length() > 0) {
 
                     OSBean osTO = new OSBean();
+                    osTO.deleteAll();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -122,6 +114,21 @@ public class OSDAO {
                         Gson gson = new Gson();
                         osTO = gson.fromJson(objeto.toString(), OSBean.class);
                         osTO.insert();
+
+                    }
+
+                    jObj = new JSONObject(objSeg);
+                    jsonArray = jObj.getJSONArray("dados");
+
+                    ROSAtivBean rosAtivBean = new ROSAtivBean();
+                    rosAtivBean.deleteAll();
+
+                    for (int j = 0; j < jsonArray.length(); j++) {
+
+                        JSONObject objeto = jsonArray.getJSONObject(j);
+                        Gson gson = new Gson();
+                        rosAtivBean = gson.fromJson(objeto.toString(), ROSAtivBean.class);
+                        rosAtivBean.insert();
 
                     }
 

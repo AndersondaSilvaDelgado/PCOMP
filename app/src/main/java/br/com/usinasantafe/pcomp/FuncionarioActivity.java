@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class FuncionarioActivity extends ActivityGeneric {
@@ -95,8 +95,8 @@ public class FuncionarioActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    FuncBean funcBean = new FuncBean();
-                    List funcList = funcBean.get("matricFunc", Long.parseLong(editTextPadrao.getText().toString()));
+                    FuncionarioBean funcionarioBean = new FuncionarioBean();
+                    List funcList = funcionarioBean.get("matricFunc", Long.parseLong(editTextPadrao.getText().toString()));
 
                     if (funcList.size() > 0) {
 

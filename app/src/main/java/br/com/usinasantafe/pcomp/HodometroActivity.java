@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import br.com.usinasantafe.pcomp.control.CheckListCTR;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class HodometroActivity extends ActivityGeneric {
 
     private PCOMPContext pcompContext;
     private Double horimetroNum;
+    private OSBean osBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class HodometroActivity extends ActivityGeneric {
 
         Button buttonOkHorimetro = (Button) findViewById(R.id.buttonOkPadrao);
         Button buttonCancHorimetro = (Button) findViewById(R.id.buttonCancPadrao);
+
+        osBean = pcompContext.getConfigCTR().getOS();
 
         TextView textViewHorimetro = (TextView) findViewById(R.id.textViewPadrao);
         if (pcompContext.getVerPosTela() == 1) {
@@ -120,7 +124,7 @@ public class HodometroActivity extends ActivityGeneric {
             else{
                 statusCon = 0L;
             }
-            pcompContext.getMotoMecCTR().insParadaCheckList(getLongitude(), getLatitude(), statusCon);
+            pcompContext.getMotoMecCTR().insParadaCheckList(getLongitude(), getLatitude(), statusCon, osBean.getTipoOS() + 2);
             pcompContext.setPosCheckList(1);
             checkListCTR.createCabecAberto(pcompContext.getMotoMecCTR());
             if (pcompContext.getVerAtualCL().equals("N_AC")) {

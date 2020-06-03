@@ -13,7 +13,7 @@ public class ConfigBean extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
-    @DatabaseField(id=true)
+    @DatabaseField(generatedId=true)
     private Long idConfig;
     @DatabaseField
     private Long equipConfig;

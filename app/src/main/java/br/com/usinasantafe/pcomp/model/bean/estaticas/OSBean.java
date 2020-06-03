@@ -14,25 +14,13 @@ public class OSBean extends Entidade {
     private static final long serialVersionUID = 1L;
 
     @DatabaseField(id=true)
-    private Long idAtivOS;
-    @DatabaseField
-    private Long idOS;
-    @DatabaseField
     private Long nroOS;
     @DatabaseField
-    private Long idAtiv;
+    private Long idOS;
     @DatabaseField
     private Long tipoOS;
 
     public OSBean() {
-    }
-
-    public Long getIdAtivOS() {
-        return idAtivOS;
-    }
-
-    public void setIdAtivOS(Long idAtivOS) {
-        this.idAtivOS = idAtivOS;
     }
 
     public Long getNroOS() {
@@ -41,14 +29,6 @@ public class OSBean extends Entidade {
 
     public void setNroOS(Long nroOS) {
         this.nroOS = nroOS;
-    }
-
-    public Long getIdAtiv() {
-        return idAtiv;
-    }
-
-    public void setIdAtiv(Long idAtiv) {
-        this.idAtiv = idAtiv;
     }
 
     public Long getTipoOS() {

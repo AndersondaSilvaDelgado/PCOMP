@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class ListaParadaActivity extends ActivityGeneric {
@@ -21,6 +22,7 @@ public class ListaParadaActivity extends ActivityGeneric {
     private PCOMPContext pcompContext;
     private List paradaList;
     private int posicao;
+    private OSBean osBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,10 @@ public class ListaParadaActivity extends ActivityGeneric {
 
         Button buttonRetMenuParada = (Button) findViewById(R.id.buttonRetMenuParada);
 
+        osBean = pcompContext.getConfigCTR().getOS();
+
         ArrayList<String> itens = new ArrayList<String>();
-        paradaList = pcompContext.getMotoMecCTR().getParadaList();
+        paradaList = pcompContext.getMotoMecCTR().getParadaList(osBean.getTipoOS() + 2);
         for(int i = 0; i < paradaList.size(); i++){
             MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(i);
             itens.add(motoMecBean.getDescrOperMotoMec());
@@ -90,7 +94,7 @@ public class ListaParadaActivity extends ActivityGeneric {
                 else{
                     statusCon = 0L;
                 }
-                pcompContext.getMotoMecCTR().insVoltaTrab(getLongitude(), getLatitude(), statusCon);
+                pcompContext.getMotoMecCTR().insVoltaTrab(getLongitude(), getLatitude(), statusCon, osBean.getTipoOS() + 2);
                 Intent it = new Intent(ListaParadaActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);
                 finish();

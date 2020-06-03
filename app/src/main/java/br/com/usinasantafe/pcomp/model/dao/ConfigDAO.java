@@ -1,5 +1,7 @@
 package br.com.usinasantafe.pcomp.model.dao;
 
+import android.util.Log;
+
 import java.util.List;
 
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
@@ -35,7 +37,8 @@ public class ConfigDAO {
         configBean.setDifDthrConfig(0L);
         configBean.setVerInforConfig(0L);
         configBean.setSenhaConfig(senha);
-        configBean.setSenhaConfig(senha);
+        configBean.setEquipConfig(0L);
+        configBean.setStatusApontConfig(0L);
         configBean.insert();
         configBean.commit();
     }

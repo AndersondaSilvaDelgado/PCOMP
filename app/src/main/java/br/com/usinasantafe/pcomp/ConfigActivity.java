@@ -33,6 +33,8 @@ public class ConfigActivity extends ActivityGeneric {
         editTextCamConfig = (EditText)  findViewById(R.id.editTextCamConfig );
         editTextSenhaConfig = (EditText)  findViewById(R.id.editTextSenhaConfig);
 
+        pcompContext = (PCOMPContext) getApplication();
+
         if(pcompContext.getConfigCTR().hasElements()){
 
             editTextCamConfig.setText(String.valueOf(pcompContext.getConfigCTR().getEquip().getNroEquip()));
@@ -54,7 +56,7 @@ public class ConfigActivity extends ActivityGeneric {
                     progressBar.show();
 
                     pcompContext.getConfigCTR().salvarConfig(editTextSenhaConfig.getText().toString().trim());
-                    pcompContext.getConfigCTR().verEquipConfig(editTextCamConfig.getText().toString().trim(), ConfigActivity.this ,MenuInicialActivity.class, progressBar);
+                    pcompContext.getConfigCTR().verEquipConfig(editTextCamConfig.getText().toString().trim(), ConfigActivity.this, MenuInicialActivity.class, progressBar);
 
                 }
 

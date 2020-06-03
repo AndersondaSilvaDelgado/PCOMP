@@ -15,6 +15,7 @@ import java.util.Objects;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.AtividadeBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.REquipAtivBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.ROSAtivBean;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
 public class AtividadeDAO {
@@ -114,16 +115,16 @@ public class AtividadeDAO {
         AtividadeBean atividadeBean = new AtividadeBean();
         List atividadeList = atividadeBean.in("idAtiv", rEquipAtivArrayList);
 
-        OSBean osBean = new OSBean();
-        List rOSAtivList = osBean.get("nroOS", nroOS);
+        ROSAtivBean rOSAtivBean = new ROSAtivBean();
+        List rOSAtivList = rOSAtivBean.get("nroOS", nroOS);
 
         if (rOSAtivList.size() > 0) {
 
             for (int i = 0; i < atividadeList.size(); i++) {
                 atividadeBean = (AtividadeBean) atividadeList.get(i);
                 for (int j = 0; j < rOSAtivList.size(); j++) {
-                    osBean = (OSBean) rOSAtivList.get(j);
-                    if (Objects.equals(atividadeBean.getIdAtiv(), osBean.getIdAtiv())) {
+                    rOSAtivBean = (ROSAtivBean) rOSAtivList.get(j);
+                    if (Objects.equals(atividadeBean.getIdAtiv(), rOSAtivBean.getIdAtiv())) {
                         atividadeArrayList.add(atividadeBean);
                     }
                 }

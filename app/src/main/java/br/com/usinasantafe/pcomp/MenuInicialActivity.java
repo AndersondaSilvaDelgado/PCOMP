@@ -20,9 +20,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.usinasantafe.pcomp.control.CheckListCTR;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
@@ -45,6 +48,8 @@ public class MenuInicialActivity extends ActivityGeneric {
         pcompContext = (PCOMPContext) getApplication();
 
         textViewProcesso = (TextView) findViewById(R.id.textViewProcesso);
+
+        verif();
 
         if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -108,8 +113,8 @@ public class MenuInicialActivity extends ActivityGeneric {
                 // TODO Auto-generated method stub
                 if (position == 0) {
 
-                    FuncBean funcBean = new FuncBean();
-                    if(funcBean.hasElements() && pcompContext.getConfigCTR().hasElements()){
+                    FuncionarioBean funcionarioBean = new FuncionarioBean();
+                    if(funcionarioBean.hasElements() && pcompContext.getConfigCTR().hasElements()){
                         pcompContext.setVerPosTela(1);
                         customHandler.removeCallbacks(updateTimerThread);
                         Intent it = new Intent(MenuInicialActivity.this, FuncionarioActivity.class);
@@ -225,5 +230,34 @@ public class MenuInicialActivity extends ActivityGeneric {
             customHandler.postDelayed(this, 10000);
         }
     };
+
+    public void verif(){
+
+        ConfigBean configBean = new ConfigBean();
+        List configList = configBean.all();
+
+        Log.i("PMM", "Config");
+
+        for (int i = 0; i < configList.size(); i++) {
+
+            configBean = (ConfigBean) configList.get(i);
+            Log.i("PCOMP", "idEquip = " + configBean.getEquipConfig());
+            Log.i("PCOMP", "senha = " + configBean.getSenhaConfig());
+
+        }
+
+        EquipBean equipBean = new EquipBean();
+        List equipList = equipBean.all();
+
+        Log.i("PMM", "Equip");
+
+        for (int i = 0; i < equipList.size(); i++) {
+
+            equipBean = (EquipBean) equipList.get(i);
+            Log.i("PCOMP", "idEquip = " + equipBean.getIdEquip());
+
+        }
+
+    }
 
 }

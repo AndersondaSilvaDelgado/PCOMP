@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import br.com.usinasantafe.pcomp.model.dao.ManipDadosEnvio;
-import br.com.usinasantafe.pcomp.model.dao.Tempo;
-import br.com.usinasantafe.pcomp.pst.DatabaseHelper;
+import br.com.usinasantafe.pcomp.model.pst.DatabaseHelper;
+import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
+import br.com.usinasantafe.pcomp.util.Tempo;
 
 /**
  * BroadcastReceiver para receber o alarme depois do tempo especificado
@@ -17,7 +17,7 @@ import br.com.usinasantafe.pcomp.pst.DatabaseHelper;
  */
 public class ReceberAlarme extends BroadcastReceiver {
 
-	private DatabaseHelper databaseHelper = null;
+//	private DatabaseHelper databaseHelper = null;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -26,14 +26,10 @@ public class ReceberAlarme extends BroadcastReceiver {
 			new DatabaseHelper(context);
 		}
 
-		if(Tempo.getInstance().getDatahora() != null) {
-			Tempo.getInstance().getDatahora().setTime(Tempo.getInstance().getDatahora().getTime() + 60000L);
-		}
-
-		Log.i("PIA", "DATA HORA = " + Tempo.getInstance().data());
-		if(ManipDadosEnvio.getInstance().verifDadosEnvio()){
-			Log.i("PIA", "ENVIANDO");
-			ManipDadosEnvio.getInstance().envioDados(context);
+		Log.i("ECM", "DATA HORA = " + Tempo.getInstance().dataComHora().getDataHora());
+		if(EnvioDadosServ.getInstance().verifDadosEnvio()){
+			Log.i("ECM", "ENVIANDO");
+			EnvioDadosServ.getInstance().envioDados(context);
 		}
 	}
 }
