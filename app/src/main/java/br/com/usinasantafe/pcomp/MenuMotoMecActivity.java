@@ -80,6 +80,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         for (int i = 0; i < motoMecList.size(); i++) {
             MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(i);
             motoMecArrayList.add(motoMecBean.getDescrOperMotoMec());
+            Log.i("PCOMP", "CHEGOU AKI = " + motoMecBean.getDescrOperMotoMec());
         }
 
         AdapterList adapterList = new AdapterList(this, motoMecArrayList);
@@ -100,7 +101,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                 posicao = position;
 
-                if (motoMecBean.getCodFuncaoOperMotoMec() == 1) {  // ATIVIDADES NORMAIS
+                if ((motoMecBean.getCodFuncaoOperMotoMec() == 1)
+                   || (motoMecBean.getCodFuncaoOperMotoMec() == 6)
+                   || (motoMecBean.getCodFuncaoOperMotoMec() == 7)) {  // ATIVIDADES NORMAIS
 
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MenuMotoMecActivity.this);
                     alerta.setTitle("ATENÇÃO");

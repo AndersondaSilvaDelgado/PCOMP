@@ -23,6 +23,7 @@ import br.com.usinasantafe.pcomp.control.ConfigCTR;
 import br.com.usinasantafe.pcomp.control.MotoMecCTR;
 import br.com.usinasantafe.pcomp.model.bean.AtualAplicBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
@@ -70,8 +71,8 @@ public class VerifDadosServ {
                 equipDAO.recDadosEquip(result);
             }
             else if(this.tipo.equals("LeiraComposto")){
-                LeiraDAO leiraDAO = new LeiraDAO();
-                leiraDAO.recLeiraComposto(result);
+                CarregDAO carregDAO = new CarregDAO();
+                carregDAO.recLeiraComposto(result);
             }
             else if (this.tipo.equals("Atualiza")) {
                 String verAtual = result.trim();

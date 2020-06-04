@@ -99,9 +99,8 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 	protected void onPostExecute(String result) {
 
 		try {
-			Log.i("PCOMP", "VALOR RECEBIDO --> " + result);
 			try {
-				Log.i("ECM", "VALOR RECEBIDO --> " + result);
+				Log.i("PCOMP", "VALOR RECEBIDO --> " + result);
 				EnvioDadosServ.getInstance().recDados(result);
 			} catch (Exception e) {
 				EnvioDadosServ.getInstance().setStatusEnvio(2);

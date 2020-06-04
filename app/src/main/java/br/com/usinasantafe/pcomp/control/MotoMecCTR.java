@@ -39,7 +39,6 @@ public class MotoMecCTR {
         apontMMDAO.updApont(apontMMBean);
     }
 
-
     //////////////////////////// SETAR CAMPOS ///////////////////////////////////////////////
 
     public void setFuncBol(Long matric){
@@ -101,9 +100,9 @@ public class MotoMecCTR {
     }
 
     public Long getFunc(){
-        return boletimMMBean.getMatricFuncBolMM();
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        return boletimMMDAO.getMatricNomeFunc().getMatricFunc();
     }
-
 
     public FuncionarioBean getMatricNomeFunc(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();

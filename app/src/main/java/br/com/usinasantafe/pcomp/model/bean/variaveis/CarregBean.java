@@ -14,7 +14,7 @@ public class CarregBean extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
-    @DatabaseField(id=true)
+    @DatabaseField(generatedId=true)
     private Long idCarreg;
     @DatabaseField
     private Long equipCarreg;
@@ -31,7 +31,7 @@ public class CarregBean extends Entidade {
     @DatabaseField
     private Long idLeiraCarreg;
     @DatabaseField
-    private Long codLeiraCarreg;
+    private String codLeiraCarreg;
     @DatabaseField
     private Long idOrdCarreg;
     @DatabaseField
@@ -118,14 +118,6 @@ public class CarregBean extends Entidade {
         this.statusCarreg = statusCarreg;
     }
 
-    public Long getCodLeiraCarreg() {
-        return codLeiraCarreg;
-    }
-
-    public void setCodLeiraCarreg(Long codLeiraCarreg) {
-        this.codLeiraCarreg = codLeiraCarreg;
-    }
-
     public Long getIdOrdCarreg() {
         return idOrdCarreg;
     }
@@ -156,5 +148,13 @@ public class CarregBean extends Entidade {
 
     public void setPesoLiquidoCarreg(Double pesoLiquidoCarreg) {
         this.pesoLiquidoCarreg = pesoLiquidoCarreg;
+    }
+
+    public String getCodLeiraCarreg() {
+        return codLeiraCarreg;
+    }
+
+    public void setCodLeiraCarreg(String codLeiraCarreg) {
+        this.codLeiraCarreg = codLeiraCarreg;
     }
 }

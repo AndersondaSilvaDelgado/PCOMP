@@ -51,6 +51,9 @@ public class EnvioDadosServ {
         } else if (result.trim().startsWith("APONTMM")) {
             MotoMecCTR motoMecCTR = new MotoMecCTR();
             motoMecCTR.updateApontMM(result);
+        } else if (result.trim().startsWith("GRAVOU-CARREG")) {
+            CompostoCTR compostoCTR = new CompostoCTR();
+            compostoCTR.updateCarreg(result);
         } else{
             Tempo.getInstance().setEnvioDado(true);
         }

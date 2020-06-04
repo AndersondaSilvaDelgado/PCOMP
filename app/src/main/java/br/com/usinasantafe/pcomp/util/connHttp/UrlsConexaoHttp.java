@@ -14,6 +14,7 @@ public class UrlsConexaoHttp {
 
 	public static String AtividadeBean = urlPrincipal + "atividade.php" + put;
 	public static String FuncionarioBean = urlPrincipal + "funcionario.php" + put;
+	public static String LeiraBean = urlPrincipal + "leira.php" + put;
 	public static String MotoMecBean = urlPrincipal + "motomec.php" + put;
 	public static String ProdutoBean = urlPrincipal + "produto.php" + put;
 	public static String TurnoBean = urlPrincipal + "turno.php" + put;

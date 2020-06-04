@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import br.com.usinasantafe.pcomp.model.bean.estaticas.LeiraBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
+
 public class InformacaoActivity extends ActivityGeneric {
 
     private PCOMPContext pcompContext;
@@ -17,35 +20,28 @@ public class InformacaoActivity extends ActivityGeneric {
 
         pcompContext = (PCOMPContext) getApplication();
 
-        TextView textViewCodLeira = (TextView) findViewById(R.id.textViewCodLeira);
+        TextView textViewDescrInfor = (TextView) findViewById(R.id.textViewDescrInfor);
         Button buttonRetMenuPesq = (Button) findViewById(R.id.buttonRetMenuPesq);
 
         if(pcompContext.getVerPosTela() == 2){
-            textViewCodLeira.setText(pcompContext.getCompostoCTR().getLeira().getCodLeira());
+            textViewDescrInfor.setText("LEIRA PARA DESCARREGAMENTO = " + pcompContext.getCompostoCTR().getCarregAberto().getCodLeiraCarreg());
         }
-
-//        if(pcompContext.getTipoAplic() == 1){
-//
-//            if(!pcompContext.isVerTelaLeira()){
-//                ManipDadosEnvio.getInstance().salvaMotoMec(pcompContext.getTurnoVarTO(), pcompContext.getApontMotoMecTO());
-//            }
-//
-//            PesqBalancaProdTO pesqBalancaProdTO = new PesqBalancaProdTO();
-//            List infPesq = pesqBalancaProdTO.all();
-//            pesqBalancaProdTO = (PesqBalancaProdTO) infPesq.get(0);
-//
-//            textViewLeira.setText(pesqBalancaProdTO.getLeira());
-//
-//        }
-//        else if(pcompContext.getTipoAplic() == 2){
-//
-//            PesqBalancaCompTO pesqBalancaCompTO = new PesqBalancaCompTO();
-//            List infPesq = pesqBalancaCompTO.all();
-//            pesqBalancaCompTO = (PesqBalancaCompTO) infPesq.get(0);
-//
-//            textViewLeira.setText(String.valueOf(pesqBalancaCompTO.getCdLeira()));
-//
-//        }
+        else if(pcompContext.getVerPosTela() == 3){
+            CarregBean carregBean = pcompContext.getCompostoCTR().getCarregFechado();
+            LeiraBean leiraBean = pcompContext.getCompostoCTR().getLeira(carregBean.getIdLeiraCarreg());
+            textViewDescrInfor.setText("LEIRA = " + leiraBean.getCodLeira() + "\n\n\n" +
+                    "CODIGO ORD. CARREG = " + carregBean.getIdOrdCarreg() + "\n" +
+                    "PESO ENTRADA = " + carregBean.getPesoEntradaCarreg() + "\n" +
+                    "PESO SAÍDA = " + carregBean.getPesoSaidaCarreg() + "\n" +
+                    "PESO LÍQUIDO = " + carregBean.getPesoLiquidoCarreg() + "\n");
+        }
+        else if(pcompContext.getVerPosTela() == 4){
+            CarregBean carregBean = pcompContext.getCompostoCTR().getCarregFechado();
+            textViewDescrInfor.setText("CODIGO ORD. CARREG = " + carregBean.getIdOrdCarreg() + "\n" +
+                                        "PESO ENTRADA = " + carregBean.getPesoEntradaCarreg() + "\n" +
+                                        "PESO SAÍDA = " + carregBean.getPesoSaidaCarreg() + "\n" +
+                                        "PESO LÍQUIDO = " + carregBean.getPesoLiquidoCarreg() + "\n");
+        }
 
         pcompContext.setVerTelaLeira(false);
 

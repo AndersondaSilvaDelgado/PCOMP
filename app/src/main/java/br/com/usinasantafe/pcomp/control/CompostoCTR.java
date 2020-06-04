@@ -2,8 +2,9 @@ package br.com.usinasantafe.pcomp.control;
 
 import android.content.Context;
 
+import br.com.usinasantafe.pcomp.model.bean.estaticas.LeiraBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.LeiraBean;
+import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
 import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
 import br.com.usinasantafe.pcomp.model.dao.OSDAO;
@@ -20,17 +21,15 @@ public class CompostoCTR {
     }
 
     public void pesqLeiraComposto(Context telaAtual){
-        LeiraDAO leiraDAO = new LeiraDAO();
+        CarregDAO carregDAO = new CarregDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        leiraDAO.pesqLeiraComposto(configCTR.getConfig(), configCTR.getOS(), telaAtual);
+        carregDAO.pesqLeiraComposto(configCTR.getConfig(), configCTR.getOS(), telaAtual);
     }
 
     public void apontCarreg(Context context){
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        OSDAO osDAO = new OSDAO();
-        ConfigCTR configCTR = new ConfigCTR();
         CarregDAO carregDAO = new CarregDAO();
-        carregDAO.apontCarreg(osDAO.getOS().getIdOS(), motoMecCTR.getFunc(), configCTR.getEquip().getIdEquip(), context);
+        carregDAO.apontCarreg(motoMecCTR.getFunc(), context);
     }
 
     public void apontCarreg(Context context, ProdutoBean produtoBean){
@@ -61,9 +60,14 @@ public class CompostoCTR {
         return produtoDAO.getProduto(codProduto);
     }
 
-    public LeiraBean getLeira(){
+    public CarregBean getCarregAberto(){
+        CarregDAO carregDAO = new CarregDAO();
+        return carregDAO.getCarregAberto();
+    }
+
+    public LeiraBean getLeira(Long idLeira){
         LeiraDAO leiraDAO = new LeiraDAO();
-        return leiraDAO.getLeira();
+        return leiraDAO.getLeira(idLeira);
     }
 
     public void pesqCarregComposto(Context telaAtual){
@@ -72,6 +76,19 @@ public class CompostoCTR {
         carregDAO.pesqCarregComposto(configCTR.getConfig(), telaAtual);
     }
 
+    public void recCarregComposto(String result) {
+        CarregDAO carregDAO = new CarregDAO();
+        carregDAO.recCarregComposto(result);
+    }
 
+    public CarregBean getCarregFechado(){
+        CarregDAO carregDAO = new CarregDAO();
+        return carregDAO.getCarregFechado();
+    }
+
+    public void updateCarreg(String retorno) {
+        CarregDAO carregDAO = new CarregDAO();
+        carregDAO.updateCarreg(retorno);
+    }
 
 }

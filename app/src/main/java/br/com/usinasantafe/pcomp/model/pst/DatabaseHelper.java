@@ -13,6 +13,7 @@ import br.com.usinasantafe.pcomp.model.bean.estaticas.DataBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ItemCheckListBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.LeiraBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.PneuBean;
@@ -30,7 +31,6 @@ import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.InfColheitaBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.InfPlantioBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ItemPneuBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.LeiraBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.RespItemCLBean;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -73,6 +73,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, EquipBean.class);
 			TableUtils.createTable(cs, FuncionarioBean.class);
 			TableUtils.createTable(cs, ItemCheckListBean.class);
+			TableUtils.createTable(cs, LeiraBean.class);
 			TableUtils.createTable(cs, MotoMecBean.class);
 			TableUtils.createTable(cs, OSBean.class);
 			TableUtils.createTable(cs, PneuBean.class);
@@ -91,7 +92,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, InfColheitaBean.class);
 			TableUtils.createTable(cs, InfPlantioBean.class);
 			TableUtils.createTable(cs, ItemPneuBean.class);
-			TableUtils.createTable(cs, LeiraBean.class);
+			TableUtils.createTable(cs, LeiraCompBean.class);
 			TableUtils.createTable(cs, RespItemCLBean.class);
 
 		}
