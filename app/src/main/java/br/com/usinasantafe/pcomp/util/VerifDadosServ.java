@@ -84,12 +84,9 @@ public class VerifDadosServ {
                     this.menuInicialActivity.startTimer(verAtual);
                 }
             }
-            else if(tipo.equals("LeiraCarregInsumo")) {
-//                retornoPesqBalanca(result, tipo);
-            }
-            else if(tipo.equals("CarregComposto")) {
+            else if(tipo.equals("Carreg")) {
                 CarregDAO carregDAO = new CarregDAO();
-                carregDAO.recCarregComposto(result);
+                carregDAO.recCarreg(result);
             }
             else if (this.tipo.equals("OS")) {
                 OSDAO osDAO = new OSDAO();

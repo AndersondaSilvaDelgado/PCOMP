@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcomp.model.dao;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -25,29 +26,80 @@ public class CarregDAO {
     public CarregDAO() {
     }
 
-    public CarregBean getCarregAberto(){
-        List carregList = getCarregAbertList();
+    private List getBuscaLeiraCompList(){
+        CarregBean carregBean = new CarregBean();
+        List carregList = carregBean.get("statusCarreg", 1L);
+        return carregList;
+    }
+
+    private List getRecebLeiraCompList(){
+        CarregBean carregBean = new CarregBean();
+        List carregList = carregBean.get("statusCarreg", 2L);
+        return carregList;
+    }
+
+    private List getEnviaCarregList(){
+        CarregBean carregBean = new CarregBean();
+        List carregList = carregBean.get("statusCarreg", 3L);
+        return carregList;
+    }
+
+    private List getRetCarregList(){
+        CarregBean carregBean = new CarregBean();
+        List carregList = carregBean.get("statusCarreg", 4L);
+        return carregList;
+    }
+
+    private List getOrdCarregList(){
+        CarregBean carregBean = new CarregBean();
+        List carregList = carregBean.getAndOrderBy("statusCarreg", 5L, "idCarreg", false);
+        return carregList;
+    }
+
+    private CarregBean getBuscaLeiraComp(){
+        List carregList = getBuscaLeiraCompList();
         CarregBean carregBean = (CarregBean) carregList.get(0);
         carregList.clear();
         return carregBean;
     }
 
-    public CarregBean getCarregFechado(){
-        List carregList = getCarregFechadoList();
+    public CarregBean getRecebLeiraComp(){
+        List carregList = getRecebLeiraCompList();
         CarregBean carregBean = (CarregBean) carregList.get(0);
         carregList.clear();
         return carregBean;
     }
 
-    public boolean verCarreg(){
-        List carregList = getCarregList();
-        boolean retorno = carregList.size() > 0;
+    private CarregBean getEnviaCarreg(){
+        List carregList = getEnviaCarregList();
+        CarregBean carregBean = (CarregBean) carregList.get(0);
         carregList.clear();
-        return retorno;
+        return carregBean;
+    }
+
+    private CarregBean getRetCarreg(){
+        List carregList = getRetCarregList();
+        CarregBean carregBean = (CarregBean) carregList.get(0);
+        carregList.clear();
+        return carregBean;
+    }
+
+    public CarregBean getOrdCarreg(){
+        List carregList = getOrdCarregList();
+        CarregBean carregBean = (CarregBean) carregList.get(0);
+        carregList.clear();
+        return carregBean;
+    }
+
+    public boolean verEnviaCarreg(){
+        List carregList = getEnviaCarregList();
+        boolean ret = carregList.size() > 0;
+        carregList.clear();
+        return ret;
     }
 
     public void delAbertoCarreg(){
-        List carregList = getCarregAbertList();
+        List carregList = getRecebLeiraCompList();
         for (int i = 0; i < carregList.size(); i++) {
             CarregBean carregBean = (CarregBean) carregList.get(i);
             carregBean.delete();
@@ -57,104 +109,75 @@ public class CarregDAO {
 
     public void apontCarreg(Long matricFunc, Context context){
 
-        CarregBean carregBean = getCarregAberto();
+        CarregBean carregBean = getRecebLeiraComp();
         carregBean.setDataCarreg(Tempo.getInstance().dataComHora().getDataHora());
         carregBean.setMotoCarreg(matricFunc);
         carregBean.setTipoCarreg(2L);
+        carregBean.setStatusCarreg(3L);
         carregBean.update();
 
         EnvioDadosServ.getInstance().envioDados(context);
 
     }
 
-    public void apontCarreg(Long idOSAgric, Long matricFunc, Long idEquip, Long idProd, Context context){
+    public void apontCarreg(Long matricFunc, Long idEquip, Long idProd, Context context){
 
         CarregBean carregBean = new CarregBean();
         carregBean.setDataCarreg(Tempo.getInstance().dataComHora().getDataHora());
         carregBean.setEquipCarreg(idEquip);
         carregBean.setProdCarreg(idProd);
         carregBean.setMotoCarreg(matricFunc);
-        carregBean.setOsCarreg(idOSAgric);
-        carregBean.setTipoCarreg(1L);
+        carregBean.setStatusCarreg(3L);
         carregBean.insert();
 
         EnvioDadosServ.getInstance().envioDados(context);
 
     }
 
-    private List getCarregAbertList(){
-        CarregBean carregBean = new CarregBean();
-        List carregList = carregBean.get("statusCarreg", 1L);
-        return carregList;
+    public void pesqCarreg(ConfigBean configBean, Context telaAtual){
+        VerifDadosServ.getInstance().verDados(String.valueOf(configBean.getEquipConfig()), "Carreg", telaAtual);
     }
 
-    private List getCarregFechadoList(){
-        CarregBean carregBean = new CarregBean();
-        List carregList = carregBean.get("statusCarreg", 2L);
-        return carregList;
-    }
-
-    private List getCarregList(){
-        CarregBean carregBean = new CarregBean();
-        List carregList = carregBean.all();
-        return carregList;
-    }
-
-    public String dadosEnvioCarreg(){
-
-        List carregList = getCarregList();
-        JsonArray preCECJsonArray = new JsonArray();
-
-        for (int i = 0; i < carregList.size(); i++) {
-
-            CarregBean carregBean = (CarregBean) carregList.get(i);
-            Gson gson = new Gson();
-            preCECJsonArray.add(gson.toJsonTree(carregBean, carregBean.getClass()));
-
-        }
-
-        carregList.clear();
-
-        JsonObject preCECJsonObj = new JsonObject();
-        preCECJsonObj.add("carreg", preCECJsonArray);
-
-        return preCECJsonObj.toString();
-
-    }
-
-    public void pesqCarregComposto(ConfigBean configBean, Context telaAtual){
-        VerifDadosServ.getInstance().verDados(String.valueOf(configBean.getEquipConfig()), "CarregComposto", telaAtual);
-    }
-
-    public void recCarregComposto(String result) {
+    public void recCarreg(String result) {
 
         try {
 
+            Log.i("PCOMP", "CHEGOU AKI 1");
+
             if (!result.contains("exceeded")) {
 
+                Log.i("PCOMP", "CHEGOU AKI 2");
                 JSONObject jObj = new JSONObject(result);
                 JSONArray jsonArray = jObj.getJSONArray("dados");
 
+                Log.i("PCOMP", "CHEGOU AKI 3");
                 if (jsonArray.length() > 0) {
 
-                    CarregBean carregBean = new CarregBean();
+                    Log.i("PCOMP", "CHEGOU AKI 4");
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
+                        Log.i("PCOMP", "CHEGOU AKI 5");
+
                         JSONObject objeto = jsonArray.getJSONObject(i);
                         Gson gson = new Gson();
-                        carregBean = gson.fromJson(objeto.toString(), CarregBean.class);
+                        CarregBean carregBean = gson.fromJson(objeto.toString(), CarregBean.class);
                         List carregList = carregBean.get("dataCarreg", carregBean.getDataCarreg());
                         if(carregList.size() > 0){
+                            Log.i("PCOMP", "CHEGOU AKI 6");
                             CarregBean carregBeanBD = (CarregBean) carregList.get(0);
                             carregBeanBD.setIdLeiraCarreg(carregBean.getIdLeiraCarreg());
+                            carregBeanBD.setCodLeiraCarreg(carregBean.getCodLeiraCarreg());
                             carregBeanBD.setIdOrdCarreg(carregBean.getIdOrdCarreg());
                             carregBeanBD.setPesoEntradaCarreg(carregBean.getPesoEntradaCarreg());
                             carregBeanBD.setPesoSaidaCarreg(carregBean.getPesoSaidaCarreg());
                             carregBeanBD.setPesoLiquidoCarreg(carregBean.getPesoLiquidoCarreg());
+                            carregBeanBD.setStatusCarreg(5L);
                             carregBeanBD.update();
                         }
                         else{
+                            Log.i("PCOMP", "CHEGOU AKI 7");
+                            carregBean.setStatusCarreg(5L);
                             carregBean.insert();
                         }
 
@@ -168,6 +191,7 @@ public class CarregDAO {
             }
 
         } catch (Exception e) {
+            Log.i("PCOMP", "ERRO = " + e);
             VerifDadosServ.getInstance().envioDados();
         }
 
@@ -211,9 +235,10 @@ public class CarregDAO {
                     Gson gson = new Gson();
                     CarregBean carregBean = gson.fromJson(objeto.toString(), CarregBean.class);
 
-                    CarregBean carregBeanBD = getCarregAberto();
+                    CarregBean carregBeanBD = getBuscaLeiraComp();
                     carregBeanBD.setIdLeiraCarreg(carregBean.getIdLeiraCarreg());
                     carregBeanBD.setCodLeiraCarreg(carregBean.getCodLeiraCarreg());
+                    carregBeanBD.setStatusCarreg(2L);
                     carregBeanBD.update();
 
                     VerifDadosServ.getInstance().pulaTela(InformacaoActivity.class);
@@ -229,41 +254,40 @@ public class CarregDAO {
 
     }
 
+    public String dadosEnvioCarreg(){
+
+        JsonArray carregJsonArray = new JsonArray();
+
+        CarregBean carregBean = getEnviaCarreg();
+        Gson gson = new Gson();
+        carregJsonArray.add(gson.toJsonTree(carregBean, carregBean.getClass()));
+
+        JsonObject carregJsonObj = new JsonObject();
+        carregJsonObj.add("carreg", carregJsonArray);
+
+        return carregJsonObj.toString();
+
+    }
+
     public void updateCarreg(String retorno) {
 
         try{
 
-            JSONObject jObjCarreg = new JSONObject(retorno);
+            int pos1 = retorno.indexOf("_") + 1;
+
+            String obj = retorno.substring(pos1);
+
+            JSONObject jObjCarreg = new JSONObject(obj);
             JSONArray jsonArrayCarreg = jObjCarreg.getJSONArray("carreg");
 
-            if (jsonArrayCarreg.length() > 0) {
+            JSONObject objCarreg = jsonArrayCarreg.getJSONObject(0);
+            Gson gsonCarreg = new Gson();
+            CarregBean carregBean = gsonCarreg.fromJson(objCarreg.toString(), CarregBean.class);
 
-                ArrayList<Long> rList = new ArrayList<Long>();
-                CarregBean carregBean = new CarregBean();
-
-                for (int i = 0; i < jsonArrayCarreg.length(); i++) {
-
-                    JSONObject objCarreg = jsonArrayCarreg.getJSONObject(i);
-                    Gson gsonCarreg = new Gson();
-                    carregBean = gsonCarreg.fromJson(objCarreg.toString(), CarregBean.class);
-
-                    rList.add(carregBean.getIdCarreg());
-
-                }
-
-                List apontMMList = carregBean.in("idCarreg", rList);
-
-                for (int i = 0; i < apontMMList.size(); i++) {
-
-                    carregBean = (CarregBean) apontMMList.get(i);
-                    carregBean.setStatusCarreg(2L);
-                    carregBean.update();
-
-                }
-
-                rList.clear();
-
-            }
+            List carregList = carregBean.get("idCarreg", carregBean.getIdCarreg());
+            CarregBean carregBeanBD = (CarregBean) carregList.get(0);
+            carregBeanBD.setStatusCarreg(4L);
+            carregBeanBD.update();
 
         }
         catch(Exception e){

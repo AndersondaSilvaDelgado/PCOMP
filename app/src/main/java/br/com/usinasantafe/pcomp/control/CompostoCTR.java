@@ -34,15 +34,9 @@ public class CompostoCTR {
 
     public void apontCarreg(Context context, ProdutoBean produtoBean){
         MotoMecCTR motoMecCTR = new MotoMecCTR();
-        OSDAO osDAO = new OSDAO();
         ConfigCTR configCTR = new ConfigCTR();
         CarregDAO carregDAO = new CarregDAO();
-        carregDAO.apontCarreg(osDAO.getOS().getIdOS(), motoMecCTR.getFunc(), configCTR.getEquip().getIdEquip(), produtoBean.getIdProduto(), context);
-    }
-
-    public boolean verCarreg(){
-        CarregDAO carregDAO = new CarregDAO();
-        return carregDAO.verCarreg();
+        carregDAO.apontCarreg(motoMecCTR.getFunc(), configCTR.getEquip().getIdEquip(), produtoBean.getIdProduto(), context);
     }
 
     public String dadosEnvioCarreg(){
@@ -60,9 +54,14 @@ public class CompostoCTR {
         return produtoDAO.getProduto(codProduto);
     }
 
-    public CarregBean getCarregAberto(){
+    public CarregBean getRecebLeiraComp(){
         CarregDAO carregDAO = new CarregDAO();
-        return carregDAO.getCarregAberto();
+        return carregDAO.getRecebLeiraComp();
+    }
+
+    public CarregBean getOrdCarreg(){
+        CarregDAO carregDAO = new CarregDAO();
+        return carregDAO.getOrdCarreg();
     }
 
     public LeiraBean getLeira(Long idLeira){
@@ -70,25 +69,20 @@ public class CompostoCTR {
         return leiraDAO.getLeira(idLeira);
     }
 
-    public void pesqCarregComposto(Context telaAtual){
+    public void pesqCarreg(Context telaAtual){
         CarregDAO carregDAO = new CarregDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        carregDAO.pesqCarregComposto(configCTR.getConfig(), telaAtual);
-    }
-
-    public void recCarregComposto(String result) {
-        CarregDAO carregDAO = new CarregDAO();
-        carregDAO.recCarregComposto(result);
-    }
-
-    public CarregBean getCarregFechado(){
-        CarregDAO carregDAO = new CarregDAO();
-        return carregDAO.getCarregFechado();
+        carregDAO.pesqCarreg(configCTR.getConfig(), telaAtual);
     }
 
     public void updateCarreg(String retorno) {
         CarregDAO carregDAO = new CarregDAO();
         carregDAO.updateCarreg(retorno);
+    }
+
+    public boolean verEnviaCarreg(){
+        CarregDAO carregDAO = new CarregDAO();
+        return carregDAO.verEnviaCarreg();
     }
 
 }

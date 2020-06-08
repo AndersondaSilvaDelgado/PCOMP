@@ -30,13 +30,12 @@
         />
 
     <Button
-        android:id="@+id/btnCapturaEPI"
+        android:id="@+id/btnCapturaBarra"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="60dp"
-        android:text="@string/texto_pega_barra"
-        android:onClick="callZXing" />
+        android:text="@string/texto_pega_barra" />
 
     <LinearLayout
         android:id="@+id/rightRelativeLayout2"

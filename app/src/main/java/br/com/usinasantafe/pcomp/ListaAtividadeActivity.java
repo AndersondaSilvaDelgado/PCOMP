@@ -126,13 +126,12 @@ public class ListaAtividadeActivity extends ActivityGeneric {
 
                     pcompContext.getConfigCTR().setStatusApontConfig(1L);
 
-                    if (pcompContext.getConfigCTR().getOS().getTipoOS() == 1L) {
-                        Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
+                    if (pcompContext.getConfigCTR().getOS().getTipoOS() == 0L) {
+                        Intent it = new Intent(ListaAtividadeActivity.this, EsperaInfActivity.class);
                         startActivity(it);
                         finish();
-                    }
-                    else{
-                        Intent it = new Intent(ListaAtividadeActivity.this, EsperaInfActivity.class);
+                    } else if (pcompContext.getConfigCTR().getOS().getTipoOS() == 1L) {
+                        Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
                         startActivity(it);
                         finish();
                     }

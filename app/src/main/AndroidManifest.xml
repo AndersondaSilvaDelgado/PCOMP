@@ -101,6 +101,9 @@
         </activity>
         <receiver android:name=".ReceberAlarme">
         </receiver>
+        <activity
+            android:name=".zxing.CaptureActivity" >
+        </activity>
     </application>
 
 </manifest>

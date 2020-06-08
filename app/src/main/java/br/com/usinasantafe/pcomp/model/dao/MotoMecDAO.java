@@ -77,6 +77,12 @@ public class MotoMecDAO {
     }
 
     private EspecificaPesquisa getPesqBeanAplic(Long aplic){
+        if(aplic == 1L){
+            aplic = 2L;
+        }
+        else if(aplic == 0L){
+            aplic = 3L;
+        }
         EspecificaPesquisa especificaPesquisa = new EspecificaPesquisa();
         especificaPesquisa.setCampo("aplicOperMotoMec");
         especificaPesquisa.setValor(aplic);

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
+import br.com.usinasantafe.pcomp.zxing.CaptureActivity;
 
 public class ProdutoActivity extends ActivityGeneric {
 
@@ -18,64 +19,73 @@ public class ProdutoActivity extends ActivityGeneric {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_produto);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_produto);
 
-        pcompContext = (PCOMPContext) getApplication();
-        txtResult = (TextView) findViewById(R.id.txResult);
+            pcompContext = (PCOMPContext) getApplication();
+            txtResult = (TextView) findViewById(R.id.txResult);
 
-        Button buttonOkOS = (Button) findViewById(R.id.buttonOkProd);
-        Button buttonCancOS = (Button) findViewById(R.id.buttonCancProd);
+            Button buttonOkOS = (Button) findViewById(R.id.buttonOkProd);
+            Button buttonCancOS = (Button) findViewById(R.id.buttonCancProd);
+            Button btnCapturaBarra = (Button) findViewById(R.id.btnCapturaBarra);
 
-        buttonOkOS.setOnClickListener(new View.OnClickListener() {
+            buttonOkOS.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
 
-                if(!txtResult.getText().equals("PRODUTO:")) {
+                    if(!txtResult.getText().equals("PRODUTO:")) {
 
-                    Long statusCon;
-                    ConexaoWeb conexaoWeb = new ConexaoWeb();
-                    if (conexaoWeb.verificaConexao(ProdutoActivity.this)) {
-                        statusCon = 1L;
+                        Long statusCon;
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        if (conexaoWeb.verificaConexao(ProdutoActivity.this)) {
+                            statusCon = 1L;
+                        }
+                        else{
+                            statusCon = 0L;
+                        }
+
+                        pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                        pcompContext.getConfigCTR().setStatusApontConfig(2L);
+                        pcompContext.getCompostoCTR().apontCarreg(ProdutoActivity.this, produtoBean);
+
+                        Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
+                        startActivity(it);
+                        finish();
+
                     }
-                    else{
-                        statusCon = 0L;
-                    }
 
-                    pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
-                    pcompContext.getConfigCTR().setStatusApontConfig(2L);
-                    pcompContext.getCompostoCTR().apontCarreg(ProdutoActivity.this, produtoBean);
+                }
+            });
+
+            buttonCancOS.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
 
                     Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
                     finish();
 
                 }
+            });
 
-            }
-        });
-
-        buttonCancOS.setOnClickListener(new View.OnClickListener() {
+        btnCapturaBarra.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
-                startActivity(it);
-                finish();
+                Intent it = new Intent(ProdutoActivity.this, CaptureActivity.class);
+                startActivityForResult(it, REQUEST_CODE);
 
             }
         });
 
     }
 
-    public void callZXing(View view){
-        Intent it = new Intent(ProdutoActivity.this, br.com.usinasantafe.pcomp.zxing.CaptureActivity.class);
-        startActivityForResult(it, REQUEST_CODE);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){

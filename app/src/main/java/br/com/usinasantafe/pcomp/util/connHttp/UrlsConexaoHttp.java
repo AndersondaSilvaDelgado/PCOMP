@@ -49,7 +49,7 @@ public class UrlsConexaoHttp {
 			retorno = urlPrincipal + "pesqleiracomp.php" + put;
 		} else if(classe.equals("LeiraCarregProd")){
 			retorno = urlPrincipal + "retleiracarregprod.php" + put;
-		} else if(classe.equals("CarregComp")){
+		} else if(classe.equals("CarregComposto")){
 			retorno = urlPrincipal + "retcarregcomp.php" + put;
 		} else if(classe.equals("Equip")){
 			retorno = urlPrincipal + "equip.php" + put;

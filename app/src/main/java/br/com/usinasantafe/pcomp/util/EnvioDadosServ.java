@@ -163,9 +163,9 @@ public class EnvioDadosServ {
         return checkListCTR.verEnvioDados();
     }
 
-    public boolean verifCarreg() {
+    public boolean verifEnviaCarreg() {
         CompostoCTR compostoCTR = new CompostoCTR();
-        return compostoCTR.verCarreg();
+        return compostoCTR.verEnviaCarreg();
     }
 
     public Boolean verifBolFechadoMM() {
@@ -219,7 +219,7 @@ public class EnvioDadosServ {
             if (verifCheckList()) {
                 enviarChecklist();
             } else {
-                if (verifCarreg()) {
+                if (verifEnviaCarreg()) {
                     envioCarreg();
                 } else {
                     if (verifBolFechadoMM()) {
@@ -240,7 +240,7 @@ public class EnvioDadosServ {
 
     public boolean verifDadosEnvio() {
         if ( (!verifCheckList())
-                && (!verifCarreg())
+                && (!verifEnviaCarreg())
                 && (!verifBolFechadoMM())
                 && (!verifBolAbertoSemEnvioMM())
                 && (!verifApontMM())){

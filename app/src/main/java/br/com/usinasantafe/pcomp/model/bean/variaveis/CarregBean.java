@@ -41,7 +41,7 @@ public class CarregBean extends Entidade {
     @DatabaseField
     private Double pesoLiquidoCarreg;
     @DatabaseField
-    private Long statusCarreg; //1 - Aberto; 2 - Fechado; 3 - Enviado
+    private Long statusCarreg; //1 - Busca Leira Composto; 2 - Recebido Leira;  3 - Envio Carreg; 4 - Recebe Envio; 5 - Recebe Ord Carregamento
 
     public CarregBean() {
     }

@@ -76,11 +76,10 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         osBean = pcompContext.getConfigCTR().getOS();
 
         ArrayList<String> motoMecArrayList = new ArrayList<String>();
-        motoMecList = pcompContext.getMotoMecCTR().getMotoMecList(osBean.getTipoOS() + 2);
+        motoMecList = pcompContext.getMotoMecCTR().getMotoMecList(osBean.getTipoOS());
         for (int i = 0; i < motoMecList.size(); i++) {
             MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(i);
             motoMecArrayList.add(motoMecBean.getDescrOperMotoMec());
-            Log.i("PCOMP", "CHEGOU AKI = " + motoMecBean.getDescrOperMotoMec());
         }
 
         AdapterList adapterList = new AdapterList(this, motoMecArrayList);
@@ -170,13 +169,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     if (pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 1) {
 
-                        if (osBean.getTipoOS() == 1L) {
-
-                            Intent it = new Intent(MenuMotoMecActivity.this, ProdutoActivity.class);
-                            startActivity(it);
-                            finish();
-
-                        } else{
+                        if (osBean.getTipoOS() == 0L) {
 
                             Long statusCon;
                             ConexaoWeb conexaoWeb = new ConexaoWeb();
@@ -187,6 +180,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                 statusCon = 0L;
                             }
 
+                            pcompContext.getConfigCTR().setStatusApontConfig(2L);
                             pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
                             pcompContext.getCompostoCTR().apontCarreg(MenuMotoMecActivity.this);
 
@@ -202,6 +196,12 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                             });
 
                             alerta.show();
+
+                        } else if (osBean.getTipoOS() == 1L) {
+
+                            Intent it = new Intent(MenuMotoMecActivity.this, ProdutoActivity.class);
+                            startActivity(it);
+                            finish();
 
                         }
 
@@ -235,12 +235,13 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
                     if (pcompContext.getConfigCTR().getConfig().getStatusApontConfig() == 2) {
 
-                        if (osBean.getTipoOS() == 1L) {
-                            pcompContext.setVerPosTela(3);
-                        } else {
+                        if (osBean.getTipoOS() == 0L) {
                             pcompContext.setVerPosTela(4);
+                        } else if (osBean.getTipoOS() == 1L) {
+                            pcompContext.setVerPosTela(3);
                         }
 
+                        pcompContext.getConfigCTR().setStatusApontConfig(0L);
                         Intent it = new Intent(MenuMotoMecActivity.this, EsperaInfActivity.class);
                         startActivity(it);
                         finish();

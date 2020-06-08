@@ -92,7 +92,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, InfColheitaBean.class);
 			TableUtils.createTable(cs, InfPlantioBean.class);
 			TableUtils.createTable(cs, ItemPneuBean.class);
-			TableUtils.createTable(cs, LeiraCompBean.class);
 			TableUtils.createTable(cs, RespItemCLBean.class);
 
 		}
