@@ -24,11 +24,6 @@ public class ApontMMDAO {
     public ApontMMDAO() {
     }
 
-    public Long getIdApontAberto() {
-        ApontMMBean apontMMBean = getApontMMAberto();
-        return apontMMBean.getIdApontMM();
-    }
-
     public ApontMMBean getApontMMAberto(){
         ApontMMBean apontMMBean = new ApontMMBean();
         List apontaMMList = apontMMBean.get("statusApontMM", 0L);

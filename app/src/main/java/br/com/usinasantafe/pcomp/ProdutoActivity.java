@@ -78,8 +78,10 @@ public class ProdutoActivity extends ActivityGeneric {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent it = new Intent(ProdutoActivity.this, CaptureActivity.class);
-                startActivityForResult(it, REQUEST_CODE);
+                produtoBean = pcompContext.getCompostoCTR().getProduto("A500055");
+                txtResult.setText("PRODUTO: " + produtoBean.getCodProduto() + "\n" + produtoBean.getDescProduto());
+//                Intent it = new Intent(ProdutoActivity.this, CaptureActivity.class);
+//                startActivityForResult(it, REQUEST_CODE);
 
             }
         });

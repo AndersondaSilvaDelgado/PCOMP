@@ -69,10 +69,16 @@ public class CompostoCTR {
         return leiraDAO.getLeira(idLeira);
     }
 
-    public void pesqCarreg(Context telaAtual){
+    public void pesqCarregComposto(Context telaAtual){
         CarregDAO carregDAO = new CarregDAO();
         ConfigCTR configCTR = new ConfigCTR();
-        carregDAO.pesqCarreg(configCTR.getConfig(), telaAtual);
+        carregDAO.pesqCarregComposto(configCTR.getConfig(), telaAtual);
+    }
+
+    public void pesqCarregProduto(Context telaAtual){
+        CarregDAO carregDAO = new CarregDAO();
+        ConfigCTR configCTR = new ConfigCTR();
+        carregDAO.pesqCarregProduto(configCTR.getConfig(), telaAtual);
     }
 
     public void updateCarreg(String retorno) {

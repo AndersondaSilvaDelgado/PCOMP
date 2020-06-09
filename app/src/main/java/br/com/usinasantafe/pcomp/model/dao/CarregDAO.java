@@ -127,6 +127,7 @@ public class CarregDAO {
         carregBean.setEquipCarreg(idEquip);
         carregBean.setProdCarreg(idProd);
         carregBean.setMotoCarreg(matricFunc);
+        carregBean.setTipoCarreg(1L);
         carregBean.setStatusCarreg(3L);
         carregBean.insert();
 
@@ -134,37 +135,32 @@ public class CarregDAO {
 
     }
 
-    public void pesqCarreg(ConfigBean configBean, Context telaAtual){
-        VerifDadosServ.getInstance().verDados(String.valueOf(configBean.getEquipConfig()), "Carreg", telaAtual);
+    public void pesqCarregProduto(ConfigBean configBean, Context telaAtual){
+        VerifDadosServ.getInstance().verDados(String.valueOf(configBean.getEquipConfig()), "CarregProduto", telaAtual);
+    }
+
+    public void pesqCarregComposto(ConfigBean configBean, Context telaAtual){
+        VerifDadosServ.getInstance().verDados(String.valueOf(configBean.getEquipConfig()), "CarregComposto", telaAtual);
     }
 
     public void recCarreg(String result) {
 
         try {
 
-            Log.i("PCOMP", "CHEGOU AKI 1");
-
             if (!result.contains("exceeded")) {
 
-                Log.i("PCOMP", "CHEGOU AKI 2");
                 JSONObject jObj = new JSONObject(result);
                 JSONArray jsonArray = jObj.getJSONArray("dados");
 
-                Log.i("PCOMP", "CHEGOU AKI 3");
                 if (jsonArray.length() > 0) {
 
-                    Log.i("PCOMP", "CHEGOU AKI 4");
-
                     for (int i = 0; i < jsonArray.length(); i++) {
-
-                        Log.i("PCOMP", "CHEGOU AKI 5");
 
                         JSONObject objeto = jsonArray.getJSONObject(i);
                         Gson gson = new Gson();
                         CarregBean carregBean = gson.fromJson(objeto.toString(), CarregBean.class);
                         List carregList = carregBean.get("dataCarreg", carregBean.getDataCarreg());
                         if(carregList.size() > 0){
-                            Log.i("PCOMP", "CHEGOU AKI 6");
                             CarregBean carregBeanBD = (CarregBean) carregList.get(0);
                             carregBeanBD.setIdLeiraCarreg(carregBean.getIdLeiraCarreg());
                             carregBeanBD.setCodLeiraCarreg(carregBean.getCodLeiraCarreg());
@@ -176,13 +172,13 @@ public class CarregDAO {
                             carregBeanBD.update();
                         }
                         else{
-                            Log.i("PCOMP", "CHEGOU AKI 7");
                             carregBean.setStatusCarreg(5L);
                             carregBean.insert();
                         }
 
 
                     }
+                    VerifDadosServ.getInstance().setVerTerm(false);
                     VerifDadosServ.getInstance().pulaTela(InformacaoActivity.class);
                 }
 

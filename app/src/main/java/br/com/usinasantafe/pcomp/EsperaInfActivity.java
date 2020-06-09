@@ -22,12 +22,11 @@ public class EsperaInfActivity extends ActivityGeneric {
         }
         else if(pcompContext.getVerPosTela() == 3){
             textEspInfo.setText("BUSCANDO LEIRA/CARREGAMENTO...");
-            pcompContext.getCompostoCTR().pesqCarreg(this);
-
+            pcompContext.getCompostoCTR().pesqCarregProduto(this);
         }
         else if(pcompContext.getVerPosTela() == 4){
             textEspInfo.setText("PESQUISANDO CARREGAMENTO...");
-            pcompContext.getCompostoCTR().pesqCarreg(this);
+            pcompContext.getCompostoCTR().pesqCarregComposto(this);
         }
 
     }

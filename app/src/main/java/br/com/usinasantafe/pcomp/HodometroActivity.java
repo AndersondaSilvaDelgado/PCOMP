@@ -37,12 +37,6 @@ public class HodometroActivity extends ActivityGeneric {
         else if (pcompContext.getVerPosTela() == 8) {
             textViewHorimetro.setText("HODOMETRO FINAL");
         }
-        else if (pcompContext.getVerPosTela() == 9) {
-            textViewHorimetro.setText("HODOMETRO FINAL");
-        }
-        else if (pcompContext.getVerPosTela() == 10) {
-            textViewHorimetro.setText("HODOMETRO INICIAL");
-        }
 
         buttonOkHorimetro.setOnClickListener(new View.OnClickListener() {
             @Override

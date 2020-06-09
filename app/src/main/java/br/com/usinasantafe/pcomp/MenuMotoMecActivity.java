@@ -62,7 +62,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent it = new Intent(MenuMotoMecActivity.this, MenuInicialActivity.class);
+                pcompContext.setVerPosTela(8);
+                Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
                 startActivity(it);
                 finish();
             }
@@ -93,12 +94,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
                                     long id) {
                 // TODO Auto-generated method stub
 
+                posicao = position;
                 MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(position);
                 pcompContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
-
-                Log.i("ECM", "CodFuncaoOperMotoMec = " + motoMecBean.getCodFuncaoOperMotoMec());
-
-                posicao = position;
 
                 if ((motoMecBean.getCodFuncaoOperMotoMec() == 1)
                    || (motoMecBean.getCodFuncaoOperMotoMec() == 6)

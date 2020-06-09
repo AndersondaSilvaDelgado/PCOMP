@@ -121,9 +121,7 @@ public class ListaAtividadeActivity extends ActivityGeneric {
                         statusCon = 0L;
                     }
 
-                    pcompContext.getMotoMecCTR().setAtivApont(atividadeBean.getIdAtiv());
                     pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
-
                     pcompContext.getConfigCTR().setStatusApontConfig(1L);
 
                     if (pcompContext.getConfigCTR().getOS().getTipoOS() == 0L) {

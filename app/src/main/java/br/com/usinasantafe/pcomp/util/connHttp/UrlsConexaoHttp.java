@@ -47,8 +47,8 @@ public class UrlsConexaoHttp {
 		String retorno = "";
 		if(classe.equals("LeiraComposto")){
 			retorno = urlPrincipal + "pesqleiracomp.php" + put;
-		} else if(classe.equals("LeiraCarregProd")){
-			retorno = urlPrincipal + "retleiracarregprod.php" + put;
+		} else if(classe.equals("CarregProduto")){
+			retorno = urlPrincipal + "retcarregprod.php" + put;
 		} else if(classe.equals("CarregComposto")){
 			retorno = urlPrincipal + "retcarregcomp.php" + put;
 		} else if(classe.equals("Equip")){

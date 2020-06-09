@@ -185,4 +185,5 @@
     <string name="texto_hodometro">HODOMETRO:</string>
     <string name="texto_atualizar">ATUALIZAR</string>
     <string name="texto_esp_info">TESTE</string>
+    <string name="texto_final_boletim">FINALIZAR BOLETIM</string>
 </resources>

@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcomp.control;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,18 +83,9 @@ public class MotoMecCTR {
         this.motoMecBean = motoMecBean;
     }
 
-    public void setAtivApont(Long ativ) {
-        this.motoMecBean.setIdOperMotoMec(ativ);
-        this.motoMecBean.setFuncaoOperMotoMec(1L);
-    }
-
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////// GET DE CAMPOS ///////////////////////////////////////////
-
-    public Long getAtiv(){
-        return boletimMMBean.getAtivPrincBolMM();
-    }
 
     public Long getTurno(){
         return boletimMMBean.getIdTurnoBolMM();
@@ -109,31 +101,6 @@ public class MotoMecCTR {
         return boletimMMDAO.getMatricNomeFunc();
     }
 
-    public Long getIdExtBol(){
-        return boletimMMBean.getIdExtBolMM();
-    }
-
-    public Long getStatusConBol(){
-        return boletimMMBean.getStatusConBolMM();
-    }
-
-    public Long getOS() {
-        return boletimMMBean.getOsBolMM();
-    }
-
-    public Long getIdBol(){
-        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
-        return boletimMMDAO.getIdBolAberto();
-    }
-
-    public Double getLongitude(){
-        return boletimMMBean.getLongitudeBolMM();
-    }
-
-    public Double getLatitude(){
-        return boletimMMBean.getLatitudeBolMM();
-    }
-
     public List getMotoMecList(Long aplic) {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         return motoMecDAO.getMotoMecList(aplic);
@@ -142,10 +109,6 @@ public class MotoMecCTR {
     public List getParadaList(Long aplic) {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         return motoMecDAO.getParadaList(aplic);
-    }
-
-    public MotoMecBean getMotoMecBean() {
-        return motoMecBean;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////

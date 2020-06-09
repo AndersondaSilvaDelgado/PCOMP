@@ -84,7 +84,11 @@ public class VerifDadosServ {
                     this.menuInicialActivity.startTimer(verAtual);
                 }
             }
-            else if(tipo.equals("Carreg")) {
+            else if(tipo.equals("CarregProduto")) {
+                CarregDAO carregDAO = new CarregDAO();
+                carregDAO.recCarreg(result);
+            }
+            else if(tipo.equals("CarregComposto")) {
                 CarregDAO carregDAO = new CarregDAO();
                 carregDAO.recCarreg(result);
             }
