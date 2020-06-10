@@ -17,6 +17,7 @@ import br.com.usinasantafe.pcomp.InformacaoActivity;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.pcomp.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
 import br.com.usinasantafe.pcomp.util.Tempo;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
@@ -128,6 +129,7 @@ public class CarregDAO {
         carregBean.setProdCarreg(idProd);
         carregBean.setMotoCarreg(matricFunc);
         carregBean.setTipoCarreg(1L);
+        carregBean.setIdLeiraCarreg(0L);
         carregBean.setStatusCarreg(3L);
         carregBean.insert();
 
@@ -203,6 +205,7 @@ public class CarregDAO {
         CarregBean carregBean = new CarregBean();
         carregBean.setEquipCarreg(configBean.getEquipConfig());
         carregBean.setOsCarreg(osBean.getIdOS());
+        carregBean.setIdLeiraCarreg(0L);
         carregBean.setStatusCarreg(1L);
         carregBean.insert();
 
@@ -290,6 +293,25 @@ public class CarregDAO {
             Tempo.getInstance().setEnvioDado(true);
         }
 
+    }
+
+    public boolean verLeiraExibir(){
+        List carregList = leiraExibir();
+        boolean ret = carregList.size() > 0;
+        carregList.clear();
+        return ret;
+    }
+
+    private List leiraExibir(){
+        CarregBean carregBean = new CarregBean();
+        return carregBean.dif("idLeiraCarreg", 0L);
+    }
+
+    public CarregBean carregLeiraExibir(){
+        List carregList = leiraExibir();
+        CarregBean carregBean = (CarregBean) carregList.get(0);
+        carregList.clear();
+        return carregBean;
     }
 
 }

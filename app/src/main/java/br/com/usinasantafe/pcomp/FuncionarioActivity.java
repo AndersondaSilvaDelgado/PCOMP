@@ -52,7 +52,7 @@ public class FuncionarioActivity extends ActivityGeneric {
                             progressBar.setMax(100);
                             progressBar.show();
 
-                            pcompContext.getMotoMecCTR().atualDadosMotorista(FuncionarioActivity.this, FuncionarioActivity.class, progressBar);
+                            pcompContext.getMotoMecCTR().atualDadosFunc(FuncionarioActivity.this, FuncionarioActivity.class, progressBar);
 
                         } else {
 

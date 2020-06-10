@@ -24,24 +24,28 @@ public class InformacaoActivity extends ActivityGeneric {
         Button buttonRetMenuPesq = (Button) findViewById(R.id.buttonRetMenuPesq);
 
         if(pcompContext.getVerPosTela() == 2){
-            textViewDescrInfor.setText("LEIRA PARA DESCARREGAMENTO = " + pcompContext.getCompostoCTR().getRecebLeiraComp().getCodLeiraCarreg());
+            textViewDescrInfor.setText("LEIRA PARA DESCARREG. = " + pcompContext.getCompostoCTR().getRecebLeiraComp().getCodLeiraCarreg());
         }
         else if(pcompContext.getVerPosTela() == 3){
             CarregBean carregBean = pcompContext.getCompostoCTR().getOrdCarreg();
-            LeiraBean leiraBean = pcompContext.getCompostoCTR().getLeira(carregBean.getIdLeiraCarreg());
-            textViewDescrInfor.setText("LEIRA = " + leiraBean.getCodLeira() + "\n\n\n" +
-                    "CODIGO ORD. CARREG = " + carregBean.getIdOrdCarreg() + "\n" +
+            textViewDescrInfor.setText("LEIRA PARA CARREG. = " + carregBean.getCodLeiraCarreg() + "\n\n\n" +
+                    "COD. ORD. CARREG. = " + carregBean.getIdOrdCarreg() + "\n" +
                     "PESO ENTRADA = " + carregBean.getPesoEntradaCarreg() + "\n" +
                     "PESO SAÍDA = " + carregBean.getPesoSaidaCarreg() + "\n" +
                     "PESO LÍQUIDO = " + carregBean.getPesoLiquidoCarreg() + "\n");
         }
         else if(pcompContext.getVerPosTela() == 4){
             CarregBean carregBean = pcompContext.getCompostoCTR().getOrdCarreg();
-            textViewDescrInfor.setText("CODIGO ORD. CARREG = " + carregBean.getIdOrdCarreg() + "\n" +
+            textViewDescrInfor.setText("COD. ORD. CARREG. = " + carregBean.getIdOrdCarreg() + "\n" +
                                         "PESO ENTRADA = " + carregBean.getPesoEntradaCarreg() + "\n" +
                                         "PESO SAÍDA = " + carregBean.getPesoSaidaCarreg() + "\n" +
                                         "PESO LÍQUIDO = " + carregBean.getPesoLiquidoCarreg() + "\n");
         }
+        else if(pcompContext.getVerPosTela() == 5){
+            CarregBean carregBean = pcompContext.getCompostoCTR().carregLeiraExibir();
+            textViewDescrInfor.setText("LEIRA PARA CARREG. OU DESCARREG. = " + carregBean.getCodLeiraCarreg());
+        }
+
 
         pcompContext.setVerTelaLeira(false);
 

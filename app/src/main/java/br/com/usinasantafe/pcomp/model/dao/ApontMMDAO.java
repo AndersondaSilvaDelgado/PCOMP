@@ -220,4 +220,36 @@ public class ApontMMDAO {
 
     }
 
+    public boolean verifBackupApont(MotoMecBean motoMecBean, ConfigBean configBean) {
+        ApontMMBean apontMMBean = new ApontMMBean();
+        apontMMBean.setOsApontMM(configBean.getOsConfig());
+        if(motoMecBean.getFuncaoOperMotoMec() == 1){
+            apontMMBean.setAtivApontMM(motoMecBean.getIdOperMotoMec());
+            apontMMBean.setParadaApontMM(0L);
+        }
+        else if(motoMecBean.getFuncaoOperMotoMec() == 2){
+            apontMMBean.setAtivApontMM(configBean.getAtivConfig());
+            apontMMBean.setParadaApontMM(motoMecBean.getIdOperMotoMec());
+        }
+        boolean v = false;
+        BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
+        ApontMMDAO apontMMDAO = new ApontMMDAO();
+        List apontMMList = apontMMDAO.getListAllApont(boletimMMDAO.getIdBolAberto());
+        if(apontMMList.size() > 0){
+            ApontMMBean apontMMBeanBD = (ApontMMBean) apontMMList.get(apontMMList.size() - 1);
+            if ((apontMMBean.getOsApontMM().equals(apontMMBeanBD.getOsApontMM()))
+                    && (apontMMBean.getAtivApontMM().equals(apontMMBeanBD.getAtivApontMM()))
+                    && (apontMMBean.getParadaApontMM().equals(apontMMBeanBD.getParadaApontMM()))) {
+                v = true;
+            }
+        }
+        apontMMList.clear();
+        return v;
+    }
+
+    public List getListAllApont(Long idBolMM){
+        ApontMMBean apontMMBean = new ApontMMBean();
+        return apontMMBean.getAndOrderBy("idBolApontMM", idBolMM, "idApontMM", true);
+    }
+
 }

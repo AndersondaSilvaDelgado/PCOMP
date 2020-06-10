@@ -211,5 +211,18 @@ public abstract class Entidade implements Serializable {
 		this.daoImpl().clearObjectCache();
 		dao = null;
 	}
+
+	public List dif(String campo, Object valor) {
+		try {
+			QueryBuilder<String, Object> queryBuilder =
+					this.daoImpl().queryBuilder();
+			Where<String, Object> where = queryBuilder.where();
+			where.ne(campo, valor);
+			PreparedQuery preparedQuery = queryBuilder.prepare();
+			return this.daoImpl().query(preparedQuery);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 }

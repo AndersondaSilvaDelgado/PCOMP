@@ -23,7 +23,7 @@ public class PCOMPContext extends Application {
     private boolean verTimer;
     private int tipoAplic; //1 - ECM; 2 - CARREGAMENTO DE INSUMO; 3 - CARREGAMENTO DE COMPOSTO;
 
-    public static String versaoAplic = "3.00";
+    public static String versaoAplic = "2.00";
     private String verAtualCL;
 
     private int posCheckList;
@@ -69,14 +69,6 @@ public class PCOMPContext extends Application {
         return compostoCTR;
     }
 
-    public boolean isVerOS() {
-        return verOS;
-    }
-
-    public void setVerOS(boolean verOS) {
-        this.verOS = verOS;
-    }
-
     public boolean isVerTelaLeira() {
         return verTelaLeira;
     }
@@ -93,13 +85,6 @@ public class PCOMPContext extends Application {
         this.verTimer = verTimer;
     }
 
-    public int getTipoAplic() {
-        return tipoAplic;
-    }
-
-    public void setTipoAplic(int tipoAplic) {
-        this.tipoAplic = tipoAplic;
-    }
 
     public int getPosCheckList() {
         return posCheckList;

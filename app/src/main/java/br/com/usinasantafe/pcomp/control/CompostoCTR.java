@@ -7,7 +7,6 @@ import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
 import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
-import br.com.usinasantafe.pcomp.model.dao.OSDAO;
 import br.com.usinasantafe.pcomp.model.dao.ProdutoDAO;
 
 public class CompostoCTR {
@@ -16,8 +15,13 @@ public class CompostoCTR {
     }
 
     public boolean pesqLeiraExibir(){
-        LeiraDAO leiraDAO = new LeiraDAO();
-        return leiraDAO.pesqLeiraExibir();
+        CarregDAO carregDAO = new CarregDAO();
+        return carregDAO.verLeiraExibir();
+    }
+
+    public CarregBean carregLeiraExibir(){
+        CarregDAO carregDAO = new CarregDAO();
+        return carregDAO.carregLeiraExibir();
     }
 
     public void pesqLeiraComposto(Context telaAtual){

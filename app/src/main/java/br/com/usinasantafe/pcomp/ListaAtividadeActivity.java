@@ -112,28 +112,44 @@ public class ListaAtividadeActivity extends ActivityGeneric {
 
                 if(pcompContext.getVerPosTela() == 2){
 
-                    Long statusCon;
-                    ConexaoWeb conexaoWeb = new ConexaoWeb();
-                    if (conexaoWeb.verificaConexao(ListaAtividadeActivity.this)) {
-                        statusCon = 1L;
-                    }
-                    else{
-                        statusCon = 0L;
-                    }
+                    if (pcompContext.getMotoMecCTR().verifBackupApont()) {
 
-                    pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
-                    pcompContext.getConfigCTR().setStatusApontConfig(1L);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(ListaAtividadeActivity.this);
+                        alerta.setTitle("ATENÇÃO");
+                        alerta.setMessage("OPERAÇÃO JÁ APONTADA PARA O EQUIPAMENTO!");
+                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
 
-                    if (pcompContext.getConfigCTR().getOS().getTipoOS() == 0L) {
-                        Intent it = new Intent(ListaAtividadeActivity.this, EsperaInfActivity.class);
-                        startActivity(it);
-                        finish();
-                    } else if (pcompContext.getConfigCTR().getOS().getTipoOS() == 1L) {
-                        Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
-                        startActivity(it);
-                        finish();
+                        alerta.show();
+
                     }
+                    else {
 
+                        Long statusCon;
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        if (conexaoWeb.verificaConexao(ListaAtividadeActivity.this)) {
+                            statusCon = 1L;
+                        } else {
+                            statusCon = 0L;
+                        }
+
+                        pcompContext.getMotoMecCTR().insApontMM(getLongitude(), getLatitude(), statusCon);
+                        pcompContext.getConfigCTR().setStatusApontConfig(1L);
+
+                        if (pcompContext.getConfigCTR().getOS().getTipoOS() == 0L) {
+                            Intent it = new Intent(ListaAtividadeActivity.this, EsperaInfActivity.class);
+                            startActivity(it);
+                            finish();
+                        } else if (pcompContext.getConfigCTR().getOS().getTipoOS() == 1L) {
+                            Intent it = new Intent(ListaAtividadeActivity.this, MenuMotoMecActivity.class);
+                            startActivity(it);
+                            finish();
+                        }
+
+                    }
                 }
                 else{
 

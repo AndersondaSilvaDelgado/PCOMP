@@ -197,7 +197,7 @@ public class MotoMecCTR {
 
     ////////////////////////////// ATUALIZAÇÃO DE DADOS POR CLASSE /////////////////////////////////////
 
-    public void atualDadosMotorista(Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+    public void atualDadosFunc(Context telaAtual, Class telaProx, ProgressDialog progressDialog){
         ArrayList operadorArrayList = new ArrayList();
         operadorArrayList.add("MotoristaBean");
         AtualDadosServ.getInstance().atualGenericoBD(telaAtual, telaProx, progressDialog, operadorArrayList);
@@ -256,6 +256,11 @@ public class MotoMecCTR {
 
     }
 
+    public boolean verifBackupApont() {
+        ConfigCTR configCTR = new ConfigCTR();
+        ApontMMDAO apontMMDAO = new ApontMMDAO();
+        return apontMMDAO.verifBackupApont(motoMecBean, configCTR.getConfig());
+    }
 
     public void insParadaCheckList(Double longitude, Double latitude, Long statusCon, Long aplic){
 

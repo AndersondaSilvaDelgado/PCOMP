@@ -31,7 +31,6 @@ import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
-import br.com.usinasantafe.pcomp.zxing.CaptureActivity;
 
 public class MenuInicialActivity extends ActivityGeneric {
 
