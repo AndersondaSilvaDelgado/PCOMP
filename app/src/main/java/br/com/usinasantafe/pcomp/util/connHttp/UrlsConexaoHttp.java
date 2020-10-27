@@ -4,8 +4,8 @@ import br.com.usinasantafe.pcomp.PCOMPContext;
 
 public class UrlsConexaoHttp {
 
-	public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmdev/view/";
-	public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmdev/view/";
+	public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmqa/view/";
+	public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmqa/view/";
 
 	public static String localPSTEstatica = "br.com.usinasantafe.pcomp.model.bean.estaticas.";
 	public static String localUrl = "br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp";

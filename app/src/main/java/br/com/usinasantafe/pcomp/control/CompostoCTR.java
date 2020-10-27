@@ -2,6 +2,8 @@ package br.com.usinasantafe.pcomp.control;
 
 import android.content.Context;
 
+import java.util.List;
+
 import br.com.usinasantafe.pcomp.model.bean.estaticas.LeiraBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
@@ -93,6 +95,11 @@ public class CompostoCTR {
     public boolean verEnviaCarreg(){
         CarregDAO carregDAO = new CarregDAO();
         return carregDAO.verEnviaCarreg();
+    }
+
+    public List<LeiraBean> leiraList(){
+        LeiraDAO leiraDAO = new LeiraDAO();
+        return leiraDAO.leiraList();
     }
 
 }

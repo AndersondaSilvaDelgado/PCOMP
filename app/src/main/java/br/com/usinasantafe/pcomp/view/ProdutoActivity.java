@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
-import br.com.usinasantafe.pcomp.zxing.CaptureActivity;
 
 public class ProdutoActivity extends ActivityGeneric {
 

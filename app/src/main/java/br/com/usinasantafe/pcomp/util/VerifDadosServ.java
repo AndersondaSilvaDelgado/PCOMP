@@ -12,24 +12,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.usinasantafe.pcomp.MenuInicialActivity;
+import br.com.usinasantafe.pcomp.view.MenuInicialActivity;
 import br.com.usinasantafe.pcomp.control.ConfigCTR;
-import br.com.usinasantafe.pcomp.control.MotoMecCTR;
 import br.com.usinasantafe.pcomp.model.bean.AtualAplicBean;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.dao.CarregDAO;
 import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
-import br.com.usinasantafe.pcomp.model.dao.LeiraDAO;
 import br.com.usinasantafe.pcomp.model.dao.OSDAO;
-import br.com.usinasantafe.pcomp.model.pst.GenericRecordable;
 import br.com.usinasantafe.pcomp.util.connHttp.PostVerGenerico;
 import br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp;
 
@@ -39,12 +30,9 @@ import br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp;
 public class VerifDadosServ {
 
     private static VerifDadosServ instance = null;
-    private GenericRecordable genericRecordable;
     private UrlsConexaoHttp urlsConexaoHttp;
     private Context telaAtual;
     private Class telaProx;
-    private String variavel;
-    private int qtde;
     private ProgressDialog progressDialog;
     private String dado;
     private String tipo;

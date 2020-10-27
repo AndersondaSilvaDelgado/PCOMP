@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.control.CheckListCTR;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;

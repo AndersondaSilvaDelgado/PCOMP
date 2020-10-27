@@ -1,15 +1,10 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,6 +13,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.TurnoBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 import br.com.usinasantafe.pcomp.util.Tempo;

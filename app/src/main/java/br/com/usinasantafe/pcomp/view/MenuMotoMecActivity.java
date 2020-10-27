@@ -1,10 +1,9 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,6 +14,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;

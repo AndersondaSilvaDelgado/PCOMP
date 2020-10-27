@@ -1,8 +1,7 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.List;
-
-import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
 public class ConfigActivity extends ActivityGeneric {

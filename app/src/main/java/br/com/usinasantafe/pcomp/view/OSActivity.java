@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import java.util.List;
 
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;

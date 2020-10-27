@@ -18,9 +18,6 @@ public class EnvioDadosServ {
 
     private static EnvioDadosServ instance = null;
     private UrlsConexaoHttp urlsConexaoHttp;
-    private Context telaAtual;
-    private Class telaProx;
-    private ProgressDialog progressDialog;
     private int statusEnvio; //1 - Enviando; 2 - Existe Dados para Enviar; 3 - Todos os Dados Enviados
     private boolean enviando = false;
 

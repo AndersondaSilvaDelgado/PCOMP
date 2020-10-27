@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -23,6 +23,8 @@ import com.google.android.gms.location.LocationServices;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 import java.util.ArrayList;
+
+import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.model.pst.DatabaseHelper;
 
 /**

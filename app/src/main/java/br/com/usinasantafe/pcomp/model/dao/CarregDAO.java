@@ -10,14 +10,12 @@ import com.google.gson.JsonObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.InformacaoActivity;
+import br.com.usinasantafe.pcomp.view.InformacaoActivity;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.CarregBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
-import br.com.usinasantafe.pcomp.model.pst.EspecificaPesquisa;
 import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
 import br.com.usinasantafe.pcomp.util.Tempo;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;

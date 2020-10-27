@@ -1,11 +1,10 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -18,12 +17,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
+import br.com.usinasantafe.pcomp.ReceberAlarme;
 import br.com.usinasantafe.pcomp.control.CheckListCTR;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;

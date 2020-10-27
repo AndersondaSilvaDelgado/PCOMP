@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_parada"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.usinasantafe.pcomp.view.ListaParadaActivity">
+    tools:context=".view.ListaLeiraActivity">
 
     <TextView
-        android:id="@+id/textViewMotivo"
+        android:id="@+id/textViewListaLeira"
         style="@style/TextViewTituloLista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/texto_motivo_parada" />
+        android:text="@string/texto_leira" />
 
     <ListView
-        android:id="@+id/listViewMotParada"
+        android:id="@+id/leiraListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/buttonRetMenuParada"
+        android:id="@+id/buttonRetListaLeira"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/texto_ret_trabalho" />
+        android:text="@string/texto_retornar" />
+
+    <Button
+        android:id="@+id/buttonAtualLeira"
+        style="@style/BotaoAvulso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_atualizar_bd" />
 
 </LinearLayout>

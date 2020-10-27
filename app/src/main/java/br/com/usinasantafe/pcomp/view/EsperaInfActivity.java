@@ -1,7 +1,10 @@
-package br.com.usinasantafe.pcomp;
+package br.com.usinasantafe.pcomp.view;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import br.com.usinasantafe.pcomp.PCOMPContext;
+import br.com.usinasantafe.pcomp.R;
 
 public class EsperaInfActivity extends ActivityGeneric {
 

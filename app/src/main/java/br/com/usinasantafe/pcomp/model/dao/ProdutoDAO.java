@@ -2,7 +2,6 @@ package br.com.usinasantafe.pcomp.model.dao;
 
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.ProdutoActivity;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ProdutoBean;
 
 public class ProdutoDAO {

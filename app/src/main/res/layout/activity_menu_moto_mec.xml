@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="3dp"
     android:orientation="vertical"
-    tools:context="br.com.usinasantafe.pcomp.MenuMotoMecActivity">
+    tools:context="br.com.usinasantafe.pcomp.view.MenuMotoMecActivity">
 
     <TextView
         android:id="@+id/textViewTituloMotorista"
