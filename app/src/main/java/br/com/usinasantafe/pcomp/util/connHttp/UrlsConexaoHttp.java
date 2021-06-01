@@ -4,8 +4,8 @@ import br.com.usinasantafe.pcomp.PCOMPContext;
 
 public class UrlsConexaoHttp {
 
-	public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmqa/view/";
-	public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmqa/view/";
+	public static String urlPrincipal = "http://www.usinasantafe.com.br/pmmdev/view/";
+	public static String urlPrincEnvio = "http://www.usinasantafe.com.br/pmmdev/view/";
 
 	public static String localPSTEstatica = "br.com.usinasantafe.pcomp.model.bean.estaticas.";
 	public static String localUrl = "br.com.usinasantafe.pcomp.util.connHttp.UrlsConexaoHttp";
@@ -13,14 +13,14 @@ public class UrlsConexaoHttp {
 	public static String put = "?versao=" + PCOMPContext.versaoAplic.replace(".", "_");
 
 	public static String AtividadeBean = urlPrincipal + "atividade.php" + put;
-	public static String FuncionarioBean = urlPrincipal + "funcionario.php" + put;
+	public static String FuncBean = urlPrincipal + "funcionario.php" + put;
 	public static String LeiraBean = urlPrincipal + "leira.php" + put;
 	public static String MotoMecBean = urlPrincipal + "motomec.php" + put;
 	public static String ProdutoBean = urlPrincipal + "produto.php" + put;
 	public static String TurnoBean = urlPrincipal + "turno.php" + put;
 	
 	public UrlsConexaoHttp() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public String getsInsertCarreg() {

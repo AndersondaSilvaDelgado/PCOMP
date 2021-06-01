@@ -21,7 +21,7 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 	private Map<String, Object> parametrosPost = null;
 
 	public PostCadGenerico() {
-		// TODO Auto-generated constructor stub
+
 	}
 
     public static PostCadGenerico getInstance() {
@@ -33,7 +33,6 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... arg) {
-		// TODO Auto-generated method stub
 		
 		BufferedReader bufferedReader = null;
 		String resultado = null;
@@ -107,7 +106,6 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 				Log.i("ERRO", "Erro2 = " + e);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.i("ERRO", "Erro2 = " + e);
 		}
 		

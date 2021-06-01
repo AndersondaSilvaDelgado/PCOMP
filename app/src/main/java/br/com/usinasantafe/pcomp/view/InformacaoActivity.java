@@ -25,11 +25,11 @@ public class InformacaoActivity extends ActivityGeneric {
         Button buttonRetMenuPesq = (Button) findViewById(R.id.buttonRetMenuPesq);
 
         if(pcompContext.getVerPosTela() == 2){
-            textViewDescrInfor.setText("LEIRA PARA DESCARREG. = " + pcompContext.getCompostoCTR().getRecebLeiraComp().getCodLeiraCarreg());
+            textViewDescrInfor.setText("LEIRA PARA CARREG. = " + pcompContext.getCompostoCTR().getRecebLeiraComp().getCodLeiraCarreg());
         }
         else if(pcompContext.getVerPosTela() == 3){
             CarregBean carregBean = pcompContext.getCompostoCTR().getOrdCarreg();
-            textViewDescrInfor.setText("LEIRA PARA CARREG. = " + carregBean.getCodLeiraCarreg() + "\n\n\n" +
+            textViewDescrInfor.setText("LEIRA PARA DESCARREG. = " + carregBean.getCodLeiraCarreg() + "\n\n\n" +
                     "COD. ORD. CARREG. = " + carregBean.getIdOrdCarreg() + "\n" +
                     "PESO ENTRADA = " + carregBean.getPesoEntradaCarreg() + "\n" +
                     "PESO SAÍDA = " + carregBean.getPesoSaidaCarreg() + "\n" +
@@ -47,14 +47,12 @@ public class InformacaoActivity extends ActivityGeneric {
             textViewDescrInfor.setText("LEIRA PARA CARREG. OU DESCARREG. = " + carregBean.getCodLeiraCarreg());
         }
 
-
         pcompContext.setVerTelaLeira(false);
 
         buttonRetMenuPesq.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 Intent it = new Intent(InformacaoActivity.this, MenuMotoMecActivity.class);
                 startActivity(it);

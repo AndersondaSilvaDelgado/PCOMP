@@ -16,7 +16,7 @@ import java.util.List;
 
 import br.com.usinasantafe.pcomp.PCOMPContext;
 import br.com.usinasantafe.pcomp.R;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
@@ -28,7 +28,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
     private PCOMPContext pcompContext;
     private TextView textViewMotorista;
     private int posicao;
-    private List motoMecList;
+    private List<MotoMecBean> motoMecList;
     private OSBean osBean;
 
     @Override
@@ -43,8 +43,8 @@ public class MenuMotoMecActivity extends ActivityGeneric {
         Button buttonRetMotoMec = (Button) findViewById(R.id.buttonRetMotoMec);
         textViewMotorista = (TextView) findViewById(R.id.textViewMotorista);
 
-        FuncionarioBean funcionarioBean = pcompContext.getMotoMecCTR().getMatricNomeFunc();
-        textViewMotorista.setText(funcionarioBean.getMatricFunc() + " - " + funcionarioBean.getNomeFunc());
+        FuncBean funcBean = pcompContext.getMotoMecCTR().getMatricNomeFunc();
+        textViewMotorista.setText(funcBean.getMatricFunc() + " - " + funcBean.getNomeFunc());
 
         listarMenuAtividade();
 
@@ -52,7 +52,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Intent it = new Intent(MenuMotoMecActivity.this, ListaParadaActivity.class);
                 startActivity(it);
                 finish();
@@ -64,7 +63,6 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 pcompContext.setVerPosTela(8);
                 Intent it = new Intent(MenuMotoMecActivity.this, HodometroActivity.class);
                 startActivity(it);
@@ -81,8 +79,7 @@ public class MenuMotoMecActivity extends ActivityGeneric {
 
         ArrayList<String> motoMecArrayList = new ArrayList<String>();
         motoMecList = pcompContext.getMotoMecCTR().getMotoMecList(osBean.getTipoOS());
-        for (int i = 0; i < motoMecList.size(); i++) {
-            MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(i);
+        for (MotoMecBean motoMecBean : motoMecList) {
             motoMecArrayList.add(motoMecBean.getDescrOperMotoMec());
         }
 
@@ -95,10 +92,9 @@ public class MenuMotoMecActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
 
                 posicao = position;
-                MotoMecBean motoMecBean = (MotoMecBean) motoMecList.get(position);
+                MotoMecBean motoMecBean = motoMecList.get(position);
                 pcompContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
                 if (pcompContext.getConfigCTR().getConfig().getDtUltApontConfig().equals(Tempo.getInstance().dataComHora())) {

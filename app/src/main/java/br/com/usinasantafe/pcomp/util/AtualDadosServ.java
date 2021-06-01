@@ -34,7 +34,6 @@ public class AtualDadosServ {
 	private UrlsConexaoHttp urlsConexaoHttp;
 	
 	public AtualDadosServ() {
-		// TODO Auto-generated constructor stub
 		genericRecordable = new GenericRecordable();
 	}
 	

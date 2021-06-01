@@ -23,7 +23,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
     private ListView turnoListView;
     private PCOMPContext pcompContext;
-    private List turnoList;
+    private List<TurnoBean> turnoList;
     private ProgressDialog progressBar;
 
     @Override
@@ -93,13 +93,11 @@ public class ListaTurnoActivity extends ActivityGeneric {
 
         });
 
-        TurnoBean turnoBean = new TurnoBean();
-        turnoList = turnoBean.get("codTurno", pcompContext.getConfigCTR().getEquip().getCodTurno());
+        turnoList = pcompContext.getMotoMecCTR().getTurnoList();
 
         ArrayList<String> itens = new ArrayList<String>();
 
-        for(int i = 0; i < turnoList.size(); i++){
-            turnoBean = (TurnoBean) turnoList.get(i);
+        for(TurnoBean turnoBean : turnoList){
             itens.add(turnoBean.getDescTurno());
         }
 
@@ -113,7 +111,7 @@ public class ListaTurnoActivity extends ActivityGeneric {
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
 
-                TurnoBean turnoBean = (TurnoBean) turnoList.get(position);
+                TurnoBean turnoBean = turnoList.get(position);
                 turnoList.clear();
 
                 pcompContext.getMotoMecCTR().setTurnoBol(turnoBean.getIdTurno());

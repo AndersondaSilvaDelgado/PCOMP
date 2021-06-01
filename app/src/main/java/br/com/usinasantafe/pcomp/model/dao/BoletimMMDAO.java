@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.pcomp.control.MotoMecCTR;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.BoletimMMBean;
 import br.com.usinasantafe.pcomp.model.pst.EspecificaPesquisa;
@@ -260,13 +260,13 @@ public class BoletimMMDAO {
         boletimMMBean.update();
     }
 
-    public FuncionarioBean getMatricNomeFunc(){
+    public FuncBean getMatricNomeFunc(){
         BoletimMMBean boletimMMBean = getBolMMAberto();
-        FuncionarioBean funcionarioBean = new FuncionarioBean();
-        List colabList = funcionarioBean.get("matricFunc", boletimMMBean.getMatricFuncBolMM());
-        funcionarioBean = (FuncionarioBean) colabList.get(0);
+        FuncBean funcBean = new FuncBean();
+        List colabList = funcBean.get("matricFunc", boletimMMBean.getMatricFuncBolMM());
+        funcBean = (FuncBean) colabList.get(0);
         colabList.clear();
-        return funcionarioBean;
+        return funcBean;
     }
 
 }

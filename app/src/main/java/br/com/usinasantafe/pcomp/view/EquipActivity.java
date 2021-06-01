@@ -29,7 +29,6 @@ public class EquipActivity extends Activity {
         textViewCodEquip.setText(String.valueOf(pcompContext.getConfigCTR().getEquip().getNroEquip()));
         textViewDescEquip.setText(String.valueOf(pcompContext.getConfigCTR().getEquip().getDescrClasseEquip()));
 
-
         buttonOkCaminhao.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -50,7 +49,7 @@ public class EquipActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(EquipActivity.this, FuncionarioActivity.class);
+                Intent it = new Intent(EquipActivity.this, FuncActivity.class);
                 startActivity(it);
                 finish();
 

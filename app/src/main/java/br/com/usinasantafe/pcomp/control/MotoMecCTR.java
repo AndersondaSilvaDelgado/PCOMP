@@ -2,20 +2,22 @@ package br.com.usinasantafe.pcomp.control;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.TurnoBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ApontMMBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.BoletimMMBean;
 import br.com.usinasantafe.pcomp.model.dao.ApontMMDAO;
 import br.com.usinasantafe.pcomp.model.dao.AtividadeDAO;
 import br.com.usinasantafe.pcomp.model.dao.BoletimMMDAO;
+import br.com.usinasantafe.pcomp.model.dao.FuncDAO;
 import br.com.usinasantafe.pcomp.model.dao.MotoMecDAO;
 import br.com.usinasantafe.pcomp.model.dao.OSDAO;
+import br.com.usinasantafe.pcomp.model.dao.TurnoDAO;
 import br.com.usinasantafe.pcomp.util.AtualDadosServ;
 import br.com.usinasantafe.pcomp.util.Tempo;
 
@@ -38,6 +40,16 @@ public class MotoMecCTR {
         ApontMMDAO apontMMDAO = new ApontMMDAO();
         ApontMMBean apontMMBean = apontMMDAO.getApontMMAberto();
         apontMMDAO.updApont(apontMMBean);
+    }
+
+    public boolean verFunc(Long matricFunc){
+        FuncDAO funcDAO = new FuncDAO();
+        return funcDAO.verFunc(matricFunc);
+    }
+
+    public boolean verOS(Long nroOS){
+        OSDAO osDAO = new OSDAO();
+        return osDAO.verOS(nroOS);
     }
 
     //////////////////////////// SETAR CAMPOS ///////////////////////////////////////////////
@@ -96,7 +108,7 @@ public class MotoMecCTR {
         return boletimMMDAO.getMatricNomeFunc().getMatricFunc();
     }
 
-    public FuncionarioBean getMatricNomeFunc(){
+    public FuncBean getMatricNomeFunc(){
         BoletimMMDAO boletimMMDAO = new BoletimMMDAO();
         return boletimMMDAO.getMatricNomeFunc();
     }
@@ -109,6 +121,12 @@ public class MotoMecCTR {
     public List getParadaList(Long aplic) {
         MotoMecDAO motoMecDAO = new MotoMecDAO();
         return motoMecDAO.getParadaList(aplic);
+    }
+
+    public List<TurnoBean> getTurnoList(){
+        ConfigCTR configCTR = new ConfigCTR();
+        TurnoDAO turnoDAO = new TurnoDAO();
+        return turnoDAO.funcList(configCTR.getEquip().getCodTurno());
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -207,6 +225,12 @@ public class MotoMecCTR {
         ArrayList turnoArrayList = new ArrayList();
         turnoArrayList.add("TurnoBean");
         AtualDadosServ.getInstance().atualGenericoBD(telaAtual, telaProx, progressDialog, turnoArrayList);
+    }
+
+    public void atualDadosLeira(Context telaAtual, Class telaProx, ProgressDialog progressDialog) {
+        ArrayList leiraArrayList = new ArrayList();
+        leiraArrayList.add("LeiraBean");
+        AtualDadosServ.getInstance().atualGenericoBD(telaAtual, telaProx, progressDialog, leiraArrayList);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -57,7 +57,7 @@ public class ListaLeiraActivity extends ActivityGeneric {
                             progressBar.setMax(100);
                             progressBar.show();
 
-//                            pcompContext.getMotoMecCTR().atualDadosTurno(ListaLeiraActivity.this, ListaLeiraActivity.class, progressBar);
+                            pcompContext.getMotoMecCTR().atualDadosLeira(ListaLeiraActivity.this, ListaLeiraActivity.class, progressBar);
 
                         } else {
 
@@ -67,7 +67,6 @@ public class ListaLeiraActivity extends ActivityGeneric {
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                 }
                             });
 

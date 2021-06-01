@@ -19,7 +19,6 @@ public class GetBDGenerico extends AsyncTask<String, Void, String> {
 	private UrlsConexaoHttp urlsConexaoHttp;
 
 	public GetBDGenerico() {
-		// TODO Auto-generated constructor stub
 	}
 
     public static GetBDGenerico getInstance() {
@@ -30,7 +29,6 @@ public class GetBDGenerico extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... arg) {
-		// TODO Auto-generated method stub
 		
 		String resultado = "";
 		BufferedReader bufferedReader = null;
@@ -100,7 +98,6 @@ public class GetBDGenerico extends AsyncTask<String, Void, String> {
 			AtualDadosServ.getInstance().manipularDadosHttp(tipo, result);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.i("ERRO", "Erro2 = " + e);
 		}
 

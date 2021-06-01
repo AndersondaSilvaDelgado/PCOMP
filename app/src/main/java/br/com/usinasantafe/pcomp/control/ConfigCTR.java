@@ -8,6 +8,7 @@ import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.model.dao.ConfigDAO;
 import br.com.usinasantafe.pcomp.model.dao.EquipDAO;
+import br.com.usinasantafe.pcomp.model.dao.FuncDAO;
 import br.com.usinasantafe.pcomp.model.dao.OSDAO;
 import br.com.usinasantafe.pcomp.util.AtualDadosServ;
 
@@ -119,6 +120,11 @@ public class ConfigCTR {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////// VER CAMPOS ////////////////////////////////////////////
+
+    public boolean hasElemFunc(){
+        FuncDAO funcDAO = new FuncDAO();
+        return funcDAO.hasElements();
+    }
 
     public void verEquipConfig(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
         EquipDAO equipDAO = new EquipDAO();

@@ -22,7 +22,7 @@ public class ListaParadaActivity extends ActivityGeneric {
 
     private ListView paradaListView;
     private PCOMPContext pcompContext;
-    private List paradaList;
+    private List<MotoMecBean> paradaList;
     private int posicao;
     private OSBean osBean;
 
@@ -39,8 +39,7 @@ public class ListaParadaActivity extends ActivityGeneric {
 
         ArrayList<String> itens = new ArrayList<String>();
         paradaList = pcompContext.getMotoMecCTR().getParadaList(osBean.getTipoOS() + 2);
-        for(int i = 0; i < paradaList.size(); i++){
-            MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(i);
+        for(MotoMecBean motoMecBean : paradaList){
             itens.add(motoMecBean.getDescrOperMotoMec());
         }
 
@@ -55,7 +54,7 @@ public class ListaParadaActivity extends ActivityGeneric {
                                     long id) {
 
                 posicao = position;
-                MotoMecBean motoMecBean = (MotoMecBean) paradaList.get(posicao);
+                MotoMecBean motoMecBean = paradaList.get(posicao);
                 pcompContext.getMotoMecCTR().setMotoMecBean(motoMecBean);
 
                 AlertDialog.Builder alerta = new AlertDialog.Builder(ListaParadaActivity.this);

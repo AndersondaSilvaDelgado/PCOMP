@@ -20,22 +20,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import br.com.usinasantafe.pcomp.PCOMPContext;
 import br.com.usinasantafe.pcomp.R;
 import br.com.usinasantafe.pcomp.ReceberAlarme;
-import br.com.usinasantafe.pcomp.control.CheckListCTR;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
-import br.com.usinasantafe.pcomp.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 import br.com.usinasantafe.pcomp.util.EnvioDadosServ;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
 public class MenuInicialActivity extends ActivityGeneric {
 
-    private ListView listaMenuInicial;
+    private ListView menuInicialListView;
     private PCOMPContext pcompContext;
     private ProgressDialog progressBar;
 
@@ -52,8 +47,6 @@ public class MenuInicialActivity extends ActivityGeneric {
 
         textViewProcesso = (TextView) findViewById(R.id.textViewProcesso);
 
-        verif();
-
         if (!checkPermission(Manifest.permission.CAMERA)) {
             String[] PERMISSIONS = {Manifest.permission.CAMERA};
             ActivityCompat.requestPermissions((Activity) this, PERMISSIONS, 112);
@@ -62,12 +55,11 @@ public class MenuInicialActivity extends ActivityGeneric {
         customHandler.postDelayed(updateTimerThread, 0);
 
         progressBar = new ProgressDialog(this);
-        CheckListCTR checkListCTR = new CheckListCTR();
 
         if(pcompContext.getMotoMecCTR().verBolAberto()){
-            if(checkListCTR.verCabecAberto()){
+            if(pcompContext.getCheckListCTR().verCabecAberto()){
                 startTimer("N_NAC");
-                checkListCTR.clearRespCabecAberto();
+                pcompContext.getCheckListCTR().clearRespCabecAberto();
                 pcompContext.setPosCheckList(1);
                 Intent it = new Intent(MenuInicialActivity.this, ItemCheckListActivity.class);
                 startActivity(it);
@@ -104,23 +96,21 @@ public class MenuInicialActivity extends ActivityGeneric {
         itens.add("SAIR");
 
         final AdapterList adapterList = new AdapterList(this, itens);
-        listaMenuInicial = (ListView) findViewById(R.id.listaMenuInicial);
-        listaMenuInicial.setAdapter(adapterList);
+        menuInicialListView = (ListView) findViewById(R.id.listaMenuInicial);
+        menuInicialListView.setAdapter(adapterList);
 
-
-        listaMenuInicial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        menuInicialListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
+
                 if (position == 0) {
 
-                    FuncionarioBean funcionarioBean = new FuncionarioBean();
-                    if(funcionarioBean.hasElements() && pcompContext.getConfigCTR().hasElements()){
+                    if(pcompContext.getConfigCTR().hasElemFunc() && pcompContext.getConfigCTR().hasElements()){
                         pcompContext.setVerPosTela(1);
                         customHandler.removeCallbacks(updateTimerThread);
-                        Intent it = new Intent(MenuInicialActivity.this, FuncionarioActivity.class);
+                        Intent it = new Intent(MenuInicialActivity.this, FuncActivity.class);
                         startActivity(it);
                         finish();
                     }
@@ -233,34 +223,5 @@ public class MenuInicialActivity extends ActivityGeneric {
             customHandler.postDelayed(this, 10000);
         }
     };
-
-    public void verif(){
-
-        ConfigBean configBean = new ConfigBean();
-        List configList = configBean.all();
-
-        Log.i("PMM", "Config");
-
-        for (int i = 0; i < configList.size(); i++) {
-
-            configBean = (ConfigBean) configList.get(i);
-            Log.i("PCOMP", "idEquip = " + configBean.getEquipConfig());
-            Log.i("PCOMP", "senha = " + configBean.getSenhaConfig());
-
-        }
-
-        EquipBean equipBean = new EquipBean();
-        List equipList = equipBean.all();
-
-        Log.i("PMM", "Equip");
-
-        for (int i = 0; i < equipList.size(); i++) {
-
-            equipBean = (EquipBean) equipList.get(i);
-            Log.i("PCOMP", "idEquip = " + equipBean.getIdEquip());
-
-        }
-
-    }
 
 }

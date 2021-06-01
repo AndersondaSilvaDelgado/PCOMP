@@ -30,7 +30,6 @@ public class SenhaActivity extends ActivityGeneric {
             @SuppressWarnings("unchecked")
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if (!pcompContext.getConfigCTR().hasElements()) {
 
@@ -41,16 +40,12 @@ public class SenhaActivity extends ActivityGeneric {
                 } else {
 
                     if (pcompContext.getConfigCTR().getConfigSenha(editTextSenha.getText().toString())) {
-
                         Intent it = new Intent(SenhaActivity.this, ConfigActivity.class);
                         startActivity(it);
                         finish();
-
                     }
 
                 }
-
-
 
             }
         });
@@ -59,7 +54,6 @@ public class SenhaActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Intent it = new Intent(SenhaActivity.this, MenuInicialActivity.class);
                 startActivity(it);
                 finish();

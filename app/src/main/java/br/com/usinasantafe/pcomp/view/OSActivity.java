@@ -9,11 +9,8 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import br.com.usinasantafe.pcomp.PCOMPContext;
 import br.com.usinasantafe.pcomp.R;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 import br.com.usinasantafe.pcomp.util.VerifDadosServ;
 
@@ -36,7 +33,7 @@ public class OSActivity extends ActivityGeneric {
         buttonOkOS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 if(!editTextPadrao.getText().toString().equals("")){
 
                     try{
@@ -46,53 +43,21 @@ public class OSActivity extends ActivityGeneric {
                         pcompContext.getConfigCTR().setOsConfig(nroOS);
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
-                        OSBean osBean = new OSBean();
 
-                        if (osBean.hasElements()) {
+                        if (pcompContext.getMotoMecCTR().verOS(nroOS)) {
 
-                            List osList = osBean.get("nroOS", nroOS);
-
-                            if (osList.size() > 0) {
-
-                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
-                                    pcompContext.getConfigCTR().setStatusConConfig(1L);
-                                }
-                                else{
-                                    pcompContext.getConfigCTR().setStatusConConfig(0L);
-                                }
-
-                                VerifDadosServ.getInstance().setVerTerm(true);
-
-                                Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
-                                startActivity(it);
-                                finish();
-
-                            } else {
-
-                                if (conexaoWeb.verificaConexao(OSActivity.this)) {
-
-                                    progressBar = new ProgressDialog(v.getContext());
-                                    progressBar.setCancelable(true);
-                                    progressBar.setMessage("PESQUISANDO OS...");
-                                    progressBar.show();
-
-                                    customHandler.postDelayed(updateTimerThread, 10000);
-
-                                    pcompContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
-                                            , OSActivity.this, ListaAtividadeActivity.class, progressBar);
-
-
-                                } else {
-
-                                    pcompContext.getConfigCTR().setStatusConConfig(0L);
-
-                                    Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
-                                    startActivity(it);
-                                    finish();
-
-                                }
-
+                            if (conexaoWeb.verificaConexao(OSActivity.this)) {
+                                pcompContext.getConfigCTR().setStatusConConfig(1L);
                             }
+                            else{
+                                pcompContext.getConfigCTR().setStatusConConfig(0L);
+                            }
+
+                            VerifDadosServ.getInstance().setVerTerm(true);
+
+                            Intent it = new Intent(OSActivity.this, ListaAtividadeActivity.class);
+                            startActivity(it);
+                            finish();
 
                         } else {
 
@@ -107,6 +72,7 @@ public class OSActivity extends ActivityGeneric {
 
                                 pcompContext.getMotoMecCTR().verOS(editTextPadrao.getText().toString()
                                         , OSActivity.this, ListaAtividadeActivity.class, progressBar);
+
 
                             } else {
 
@@ -145,7 +111,6 @@ public class OSActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if(editTextPadrao.getText().toString().length() > 0){
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }

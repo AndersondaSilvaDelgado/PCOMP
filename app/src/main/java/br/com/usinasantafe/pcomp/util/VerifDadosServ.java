@@ -182,7 +182,7 @@ public class VerifDadosServ {
         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
+
             }
         });
         alerta.show();
@@ -207,7 +207,7 @@ public class VerifDadosServ {
             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // TODO Auto-generated method stub
+
                 }
             });
             alerta.show();

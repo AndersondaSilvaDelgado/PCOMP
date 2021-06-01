@@ -71,7 +71,6 @@ public class ItemCheckListDAO {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             VerifDadosServ.getInstance().pulaTelaSemTerm();
         }
 

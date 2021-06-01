@@ -102,7 +102,6 @@ public class PostVerGenerico extends AsyncTask<String, Void, String> {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             Log.i("ERRO", "Erro2 = " + e);
         }
 

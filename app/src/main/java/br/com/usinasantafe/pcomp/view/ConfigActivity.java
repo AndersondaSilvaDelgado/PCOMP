@@ -34,16 +34,13 @@ public class ConfigActivity extends ActivityGeneric {
         pcompContext = (PCOMPContext) getApplication();
 
         if(pcompContext.getConfigCTR().hasElements()){
-
             editTextCamConfig.setText(String.valueOf(pcompContext.getConfigCTR().getEquip().getNroEquip()));
             editTextSenhaConfig.setText(pcompContext.getConfigCTR().getConfig().getSenhaConfig());
-
         }
 
         btOkConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if(!editTextCamConfig.getText().toString().equals("") &&
                         !editTextSenhaConfig.getText().toString().equals("")){
@@ -64,7 +61,6 @@ public class ConfigActivity extends ActivityGeneric {
         btCancConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 Intent it = new Intent(ConfigActivity.this, MenuInicialActivity.class);
                 startActivity(it);
@@ -77,7 +73,6 @@ public class ConfigActivity extends ActivityGeneric {
         btAtualBDConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 ConexaoWeb conexaoWeb = new ConexaoWeb();
 
@@ -99,7 +94,6 @@ public class ConfigActivity extends ActivityGeneric {
                     alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
                         }
                     });
 

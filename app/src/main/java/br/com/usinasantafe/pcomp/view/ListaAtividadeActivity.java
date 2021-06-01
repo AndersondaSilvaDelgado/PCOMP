@@ -23,7 +23,7 @@ public class ListaAtividadeActivity extends ActivityGeneric {
     private ListView ativListView;
     private PCOMPContext pcompContext;
     private ProgressDialog progressBar;
-    private ArrayList ativArrayList;
+    private ArrayList<AtividadeBean> ativArrayList;
     private Long nroOS = 0L;
 
     @Override
@@ -91,8 +91,7 @@ public class ListaAtividadeActivity extends ActivityGeneric {
         ativArrayList = pcompContext.getMotoMecCTR().getAtivArrayList(nroOS);
 
         ArrayList<String> itens = new ArrayList<String>();
-        for (int i = 0; i < ativArrayList.size(); i++) {
-            AtividadeBean atividadeBean = (AtividadeBean) ativArrayList.get(i);
+        for (AtividadeBean atividadeBean : ativArrayList) {
             itens.add(atividadeBean.getCodAtiv() + " - " + atividadeBean.getDescrAtiv());
         }
 
@@ -105,9 +104,8 @@ public class ListaAtividadeActivity extends ActivityGeneric {
             @Override
             public void onItemClick(AdapterView<?> l, View v, int position,
                                     long id) {
-                // TODO Auto-generated method stub
 
-                AtividadeBean atividadeBean = (AtividadeBean) ativArrayList.get(position);
+                AtividadeBean atividadeBean = ativArrayList.get(position);
                 ativArrayList.clear();
 
                 pcompContext.getConfigCTR().setAtivConfig(atividadeBean.getIdAtiv());

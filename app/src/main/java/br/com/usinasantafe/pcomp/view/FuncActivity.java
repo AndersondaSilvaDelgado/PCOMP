@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
 
 import br.com.usinasantafe.pcomp.PCOMPContext;
 import br.com.usinasantafe.pcomp.R;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
 import br.com.usinasantafe.pcomp.util.ConexaoWeb;
 
-public class FuncionarioActivity extends ActivityGeneric {
+public class FuncActivity extends ActivityGeneric {
 
     private PCOMPContext pcompContext;
     private ProgressDialog progressBar;
@@ -23,7 +21,7 @@ public class FuncionarioActivity extends ActivityGeneric {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_funcionario);
+        setContentView(R.layout.activity_func);
 
         pcompContext = (PCOMPContext) getApplication();
 
@@ -35,7 +33,7 @@ public class FuncionarioActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alerta = new AlertDialog.Builder( FuncionarioActivity.this);
+                AlertDialog.Builder alerta = new AlertDialog.Builder( FuncActivity.this);
                 alerta.setTitle("ATENÇÃO");
                 alerta.setMessage("DESEJA REALMENTE ATUALIZAR BASE DE DADOS?");
                 alerta.setNegativeButton("SIM", new DialogInterface.OnClickListener() {
@@ -44,9 +42,9 @@ public class FuncionarioActivity extends ActivityGeneric {
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
 
-                        if (conexaoWeb.verificaConexao(FuncionarioActivity.this)) {
+                        if (conexaoWeb.verificaConexao(FuncActivity.this)) {
 
-                            progressBar = new ProgressDialog(FuncionarioActivity.this);
+                            progressBar = new ProgressDialog(FuncActivity.this);
                             progressBar.setCancelable(true);
                             progressBar.setMessage("ATUALIZANDO ...");
                             progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -54,11 +52,11 @@ public class FuncionarioActivity extends ActivityGeneric {
                             progressBar.setMax(100);
                             progressBar.show();
 
-                            pcompContext.getMotoMecCTR().atualDadosFunc(FuncionarioActivity.this, FuncionarioActivity.class, progressBar);
+                            pcompContext.getMotoMecCTR().atualDadosFunc(FuncActivity.this, FuncActivity.class, progressBar);
 
                         } else {
 
-                            AlertDialog.Builder alerta = new AlertDialog.Builder( FuncionarioActivity.this);
+                            AlertDialog.Builder alerta = new AlertDialog.Builder( FuncActivity.this);
                             alerta.setTitle("ATENÇÃO");
                             alerta.setMessage("FALHA NA CONEXÃO DE DADOS. O CELULAR ESTA SEM SINAL. POR FAVOR, TENTE NOVAMENTE QUANDO O CELULAR ESTIVE COM SINAL.");
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -93,25 +91,21 @@ public class FuncionarioActivity extends ActivityGeneric {
             @SuppressWarnings("rawtypes")
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    FuncionarioBean funcionarioBean = new FuncionarioBean();
-                    List funcList = funcionarioBean.get("matricFunc", Long.parseLong(editTextPadrao.getText().toString()));
-
-                    if (funcList.size() > 0) {
+                    if (pcompContext.getMotoMecCTR().verFunc(Long.parseLong(editTextPadrao.getText().toString()))) {
 
                         pcompContext.getMotoMecCTR().setFuncBol(Long.parseLong(editTextPadrao.getText().toString()));
 
-                        Intent it = new Intent(FuncionarioActivity.this, EquipActivity.class);
+                        Intent it = new Intent(FuncActivity.this, EquipActivity.class);
                         startActivity(it);
                         finish();
 
                     }
                     else{
 
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(FuncionarioActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(FuncActivity.this);
                         alerta.setTitle("ATENÇÃO");
                         alerta.setMessage("MATRICULA INCORRETA! POR FAVOR, DIGITE NOVAMENTE SEU CRACHÁ.");
 
@@ -127,7 +121,7 @@ public class FuncionarioActivity extends ActivityGeneric {
                 }
                 else{
 
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(FuncionarioActivity.this);
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(FuncActivity.this);
                     alerta.setTitle("ATENÇÃO");
                     alerta.setMessage("POR FAVOR, DIGITE O SEU CRACHÁ.");
 
@@ -148,7 +142,6 @@ public class FuncionarioActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (editTextPadrao.getText().toString().length() > 0) {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }
@@ -158,7 +151,7 @@ public class FuncionarioActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
-        Intent it = new Intent(FuncionarioActivity.this, MenuInicialActivity.class);
+        Intent it = new Intent(FuncActivity.this, MenuInicialActivity.class);
         startActivity(it);
         finish();
     }

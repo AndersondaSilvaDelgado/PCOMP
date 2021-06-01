@@ -152,7 +152,7 @@ public class HodometroActivity extends ActivityGeneric {
             finish();
         } else if (pcompContext.getVerPosTela() == 9) {
             pcompContext.setVerPosTela(10);
-            Intent it = new Intent(HodometroActivity.this, FuncionarioActivity.class);
+            Intent it = new Intent(HodometroActivity.this, FuncActivity.class);
             startActivity(it);
             finish();
         }

@@ -43,7 +43,6 @@ public class ConfigBean extends Entidade {
     private Long statusApontConfig; //0 - Pesagem Tara; 1 - Carregamento; 2 - Pesagem Carregado
 
     public ConfigBean() {
-        // TODO Auto-generated constructor stub
     }
 
     public Long getEquipConfig() {

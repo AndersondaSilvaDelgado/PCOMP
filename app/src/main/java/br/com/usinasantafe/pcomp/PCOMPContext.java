@@ -18,16 +18,13 @@ public class PCOMPContext extends Application {
     private PneuCTR pneuCTR;
     private ConfigCTR configCTR;
     private CompostoCTR compostoCTR;
-    private boolean verOS;
     private boolean verTelaLeira;
     private boolean verTimer;
-    private int tipoAplic; //1 - ECM; 2 - CARREGAMENTO DE INSUMO; 3 - CARREGAMENTO DE COMPOSTO;
 
     public static String versaoAplic = "2.00";
     private String verAtualCL;
 
     private int posCheckList;
-
     private int verPosTela;
     // 1 - Inicio do Aplicativo;
     // 2 - Pesagem Tara;
@@ -35,7 +32,6 @@ public class PCOMPContext extends Application {
     private int contDataHora;
 
     public void onCreate() {
-        // TODO Auto-generated method stub
         super.onCreate();
     }
 
@@ -84,7 +80,6 @@ public class PCOMPContext extends Application {
     public void setVerTimer(boolean verTimer) {
         this.verTimer = verTimer;
     }
-
 
     public int getPosCheckList() {
         return posCheckList;

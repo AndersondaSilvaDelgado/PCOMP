@@ -17,8 +17,6 @@ import br.com.usinasantafe.pcomp.util.Tempo;
  */
 public class ReceberAlarme extends BroadcastReceiver {
 
-//	private DatabaseHelper databaseHelper = null;
-
 	@Override
 	public void onReceive(Context context, Intent intent) {
 

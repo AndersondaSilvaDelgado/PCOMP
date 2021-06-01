@@ -9,7 +9,7 @@ import br.com.usinasantafe.pcomp.model.pst.Entidade;
  * Created by anderson on 11/11/2016.
  */
 @DatabaseTable(tableName="tbfuncionarioest")
-public class FuncionarioBean extends Entidade {
+public class FuncBean extends Entidade {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class FuncionarioBean extends Entidade {
     @DatabaseField
     private String nomeFunc;
 
-    public FuncionarioBean() {
+    public FuncBean() {
     }
 
     public Long getMatricFunc() {

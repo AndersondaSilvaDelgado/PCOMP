@@ -11,7 +11,7 @@ import com.j256.ormlite.table.TableUtils;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.AtividadeBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.DataBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.EquipBean;
-import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncionarioBean;
+import br.com.usinasantafe.pcomp.model.bean.estaticas.FuncBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.ItemCheckListBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.LeiraBean;
 import br.com.usinasantafe.pcomp.model.bean.estaticas.MotoMecBean;
@@ -48,15 +48,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		
 		super(context, FORCA_DB_NAME,
 				null, FORCA_BD_VERSION);
-		
-		// TODO Auto-generated constructor stub
+
 		instance = this;
 		
 	}
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
+
 		super.close();
 		
 		instance = null;
@@ -65,13 +64,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource cs) {
-		// TODO Auto-generated method stub
 		
 		try{
 			TableUtils.createTable(cs, AtividadeBean.class);
 			TableUtils.createTable(cs, DataBean.class);
 			TableUtils.createTable(cs, EquipBean.class);
-			TableUtils.createTable(cs, FuncionarioBean.class);
+			TableUtils.createTable(cs, FuncBean.class);
 			TableUtils.createTable(cs, ItemCheckListBean.class);
 			TableUtils.createTable(cs, LeiraBean.class);
 			TableUtils.createTable(cs, MotoMecBean.class);

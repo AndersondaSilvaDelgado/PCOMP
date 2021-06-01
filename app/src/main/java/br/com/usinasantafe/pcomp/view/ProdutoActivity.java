@@ -34,7 +34,6 @@ public class ProdutoActivity extends ActivityGeneric {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
 
                     if(!txtResult.getText().equals("PRODUTO:")) {
 
@@ -64,7 +63,6 @@ public class ProdutoActivity extends ActivityGeneric {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
 
                     Intent it = new Intent(ProdutoActivity.this, MenuMotoMecActivity.class);
                     startActivity(it);
@@ -77,12 +75,9 @@ public class ProdutoActivity extends ActivityGeneric {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
                 produtoBean = pcompContext.getCompostoCTR().getProduto("A500055");
                 txtResult.setText("PRODUTO: " + produtoBean.getCodProduto() + "\n" + produtoBean.getDescProduto());
-//                Intent it = new Intent(ProdutoActivity.this, CaptureActivity.class);
-//                startActivityForResult(it, REQUEST_CODE);
 
             }
         });
@@ -102,6 +97,7 @@ public class ProdutoActivity extends ActivityGeneric {
             }
 
         }
+
     }
 
     public void onBackPressed()  {
